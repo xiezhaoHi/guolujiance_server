@@ -1,0 +1,1 @@
+INSERT INTO [dbo].[Boiler] ([Id], [Longitude], [Latitude], [Name], [Code], [AreaName]) VALUES (N'dfeff938-d00d-4ee8-aad3-39d21a637665', CAST(103.904960 AS Decimal(9, 6)), CAST(30.797857 AS Decimal(9, 6)), N'郫温路勃克啤酒厂', N'510124000', N'成都市-郫县')

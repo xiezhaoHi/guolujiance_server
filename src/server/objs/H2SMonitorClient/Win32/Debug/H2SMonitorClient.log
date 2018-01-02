@@ -1,0 +1,227 @@
+﻿  Moc'ing qpasswd_dlg.h...
+  Moc'ing qdevice_collect_dlg.h...
+  Moc'ing qexportwidget.h...
+  Moc'ing qquerywarnthread.h...
+  Moc'ing qallwarninfowidget.h...
+  Moc'ing allwarnmsgmodel.h...
+  Moc'ing qcheckdatamodel.h...
+  Moc'ing qdataexportthread.h...
+  Moc'ing qprocesswidget.h...
+  Moc'ing qconnectstate.h...
+  Moc'ing qextserialbase.h...
+  Moc'ing qextserialport.h...
+  Moc'ing win_qextserialport.h...
+  Moc'ing qcheckrecvloaddataqueuethread.h...
+  Moc'ing qquerydatathread.h...
+  Moc'ing qremovedatatobasethread.h...
+  Moc'ing qregistdlg.h...
+  Moc'ing form_device_data_curve.h...
+  Moc'ing form_device_data_curve_container.h...
+  Moc'ing form_device_data_table_view.h...
+  Moc'ing qmessagethread.h...
+  Moc'ing qcustombutton.h...
+  Moc'ing qstatebutton.h...
+  Moc'ing qinnerwidget.h...
+  Moc'ing qdialwidget.h...
+  Moc'ing qdatashowwidget.h...
+  Moc'ing qphotoshowwidget.h...
+  Moc'ing qwaitwidget.h...
+  Moc'ing qall_pannel_widget.h...
+  Moc'ing qparamsetwidget.h...
+  Moc'ing qshowwarndlg.h...
+  Moc'ing qshowwarnmodel.h...
+  Moc'ing qrunstateinfo_widget.h...
+  Moc'ing qcheckrecvsysqueuethread.h...
+  Moc'ing h2smonitorclient.h...
+  Moc'ing qcheckrecvdataqueuethread.h...
+  Moc'ing qioservicethread.h...
+  Moc'ing qallpaneltablewidget.h...
+  Moc'ing qwarning_widget.h...
+  Moc'ing qstateinfomodel.h...
+  Moc'ing form_login.h...
+  Rcc'ing Resources\h2smonitorclient.qrc...
+  Uic'ing h2smonitorclient.ui...
+  message_queue.cpp
+  qconnectstate.cpp
+  qmessagethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  settings.cpp
+  flow_layout.cpp
+  form_device_data_curve.cpp
+e:\gasmonitor\client\ui\form_device_data_curve.h(5): fatal error C1083: 无法打开包括文件: “qwt.h”: No such file or directory
+  form_device_data_curve_container.cpp
+e:\gasmonitor\client\ui\form_device_data_curve.h(5): fatal error C1083: 无法打开包括文件: “qwt.h”: No such file or directory
+  form_device_data_table_view.cpp
+  form_login.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  io_bytearray.cpp
+  message.cpp
+  message_body_factory.cpp
+  message_broadcast_device_online_status.cpp
+  message_broadcast_device_realtime_data.cpp
+  message_devices_list_item.cpp
+  message_device_data_item.cpp
+  message_device_id.cpp
+  message_device_item_info.cpp
+  message_device_realtime_batched_data.cpp
+  message_device_realtime_data.cpp
+  正在生成代码...
+  正在编译...
+  message_device_realtime_data_item.cpp
+  message_error_info.cpp
+  message_get_devices_info_rep.cpp
+  message_get_devices_info_req.cpp
+  message_get_device_data_count_rep.cpp
+  message_get_device_data_count_req.cpp
+  message_get_device_data_rep.cpp
+  message_get_device_data_req.cpp
+  message_get_device_list_rep.cpp
+  message_get_device_online_status.cpp
+  message_get_device_online_status_rep.cpp
+  message_get_device_online_status_rep_item.cpp
+  message_header.cpp
+  message_heartbeat.cpp
+  message_login.cpp
+  message_login_rep.cpp
+  message_server_time_beijing.cpp
+  message_set_device_param.cpp
+  message_unrecognized_body_type.cpp
+  global_util.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  正在生成代码...
+  正在编译...
+  allwarnmsgmodel.cpp
+allwarnmsgmodel.cpp(69): warning C4927: 转换非法；隐式应用了多个用户定义的转换
+  allwarnmsgmodel.cpp(69): note: 调用构造函数“QVariant::QVariant(int)”时
+  D:\qtmsvc\5.8\msvc2015\include\QtCore/qvariant.h(210): note: 参见“QVariant::QVariant”的声明
+  qextserialbase.cpp
+  qextserialenumerator.cpp
+  qextserialport.cpp
+  win_qextserialport.cpp
+  moc_allwarnmsgmodel.cpp
+  moc_form_device_data_curve.cpp
+e:\gasmonitor\src\server\h2smonitorclient\generatedfiles\debug\../../../../../client/ui/form_device_data_curve.h(5): fatal error C1083: 无法打开包括文件: “qwt.h”: No such file or directory
+  moc_form_device_data_curve_container.cpp
+e:\gasmonitor\client\ui\form_device_data_curve.h(5): fatal error C1083: 无法打开包括文件: “qwt.h”: No such file or directory
+  moc_form_device_data_table_view.cpp
+  moc_form_login.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_h2smonitorclient.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qallpaneltablewidget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qallwarninfowidget.cpp
+  moc_qall_pannel_widget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qcheckdatamodel.cpp
+  moc_qcheckrecvdataqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qcheckrecvloaddataqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qcheckrecvsysqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qconnectstate.cpp
+  moc_qcustombutton.cpp
+  正在生成代码...
+  正在编译...
+  moc_qdataexportthread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qdatashowwidget.cpp
+E:\GasMonitor\src\server\H2SMonitorClient\qdialwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_dial.h”: No such file or directory
+  moc_qdevice_collect_dlg.cpp
+  moc_qdialwidget.cpp
+e:\gasmonitor\src\server\h2smonitorclient\generatedfiles\debug\../../qdialwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_dial.h”: No such file or directory
+  moc_qexportwidget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qextserialbase.cpp
+  moc_qextserialport.cpp
+  moc_qinnerwidget.cpp
+  moc_qioservicethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qmessagethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qparamsetwidget.cpp
+  moc_qpasswd_dlg.cpp
+  moc_qphotoshowwidget.cpp
+e:\gasmonitor\src\server\h2smonitorclient\generatedfiles\debug\../../qphotoshowwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_plot_curve.h”: No such file or directory
+  moc_qprocesswidget.cpp
+  moc_qquerydatathread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qquerywarnthread.cpp
+  moc_qregistdlg.cpp
+  moc_qremovedatatobasethread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  moc_qrunstateinfo_widget.cpp
+  moc_qshowwarndlg.cpp
+  正在生成代码...
+  正在编译...
+  moc_qshowwarnmodel.cpp
+  moc_qstatebutton.cpp
+  moc_qstateinfomodel.cpp
+  moc_qwaitwidget.cpp
+  moc_qwarning_widget.cpp
+  moc_win_qextserialport.cpp
+  h2smonitorclient.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  logging.cpp
+  main.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qallpaneltablewidget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qallwarninfowidget.cpp
+  qall_pannel_widget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qcheckdatamodel.cpp
+qcheckdatamodel.cpp(56): warning C4927: 转换非法；隐式应用了多个用户定义的转换
+  qcheckdatamodel.cpp(56): note: 调用构造函数“QVariant::QVariant(int)”时
+  D:\qtmsvc\5.8\msvc2015\include\QtCore/qvariant.h(210): note: 参见“QVariant::QVariant”的声明
+  qcheckrecvdataqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qcheckrecvloaddataqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qcheckrecvsysqueuethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qcustombutton.cpp
+  qdataexportthread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qdatashowwidget.cpp
+E:\GasMonitor\src\server\H2SMonitorClient\qdialwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_dial.h”: No such file or directory
+  qdevice_collect_dlg.cpp
+  正在生成代码...
+  正在编译...
+  qdialwidget.cpp
+e:\gasmonitor\src\server\h2smonitorclient\qdialwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_dial.h”: No such file or directory
+  qexportwidget.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qinit_configuration.cpp
+  qinnerwidget.cpp
+  qioservicethread.cpp
+e:\gasmonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qparamsetwidget.cpp
+  qpasswd_dlg.cpp
+  qphotoshowwidget.cpp
+e:\gasmonitor\src\server\h2smonitorclient\qphotoshowwidget.h(5): fatal error C1083: 无法打开包括文件: “qwt_plot_curve.h”: No such file or directory
+  qprocesswidget.cpp
+  qquerydatathread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qquerywarnthread.cpp
+  qregistdlg.cpp
+  qremovedatatobasethread.cpp
+E:\GasMonitor\cxxcommon\util\qshow_struct.h(5): fatal error C1083: 无法打开包括文件: “qwt_scale_draw.h”: No such file or directory
+  qrunstateinfo_widget.cpp
+  qshowwarndlg.cpp
+  qshowwarnmodel.cpp
+qshowwarnmodel.cpp(45): warning C4927: 转换非法；隐式应用了多个用户定义的转换
+  qshowwarnmodel.cpp(45): note: 调用构造函数“QVariant::QVariant(int)”时
+  D:\qtmsvc\5.8\msvc2015\include\QtCore/qvariant.h(210): note: 参见“QVariant::QVariant”的声明
+  qstatebutton.cpp
+  qstateinfomodel.cpp
+qstateinfomodel.cpp(39): warning C4927: 转换非法；隐式应用了多个用户定义的转换
+  qstateinfomodel.cpp(39): note: 调用构造函数“QVariant::QVariant(int)”时
+  D:\qtmsvc\5.8\msvc2015\include\QtCore/qvariant.h(210): note: 参见“QVariant::QVariant”的声明
+  qwaitwidget.cpp
+  qwarning_widget.cpp
+  正在生成代码...
+  正在编译...
+  yxyDES2.cpp
+  正在生成代码...

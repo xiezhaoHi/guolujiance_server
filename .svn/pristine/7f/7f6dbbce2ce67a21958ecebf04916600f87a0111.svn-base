@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>锅炉在线综合监测信息平台-统计图详细</title>
+	<link type="text/css" href="/CSS/global.css" rel="stylesheet" />
+	<style type="text/css">
+		.show-block { display: block !important; }
+		.show-inline { display: inline !important; }
+		#big { border: 1px solid #FF3300; width: 100%; height: 30px; position: relative; margin-top: 50px; }
+		#small { background: #99CC00; height: 30px; position: absolute; cursor: move; }
+	</style>
+	<!--[if ie 6]>
+	<script type="text/javascript" src="/Scripts/libs/EvPNG.js"></script>
+	<script type="text/javascript">EvPNG.fix('div, li, a, img, dt');</script>
+	<![endif]-->
+	<script type="text/javascript" src="/Scripts/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout-3.1.0.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.trafficCop.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.infuser.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.templateEngine.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.mapping-latest.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/layer-v1.9.3/layer/layer.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/moment-with-locales.js"></script>
+	<script type="text/javascript" src="/Scripts/utils/rtmc-util.js"></script>
+	<script type="text/javascript" src="/Scripts/project/config.js"></script>
+	<script type="text/javascript" src="/Scripts/project/poco.js"></script>
+	<script src="../Scripts/libs/hichart/highcharts.js"></script>
+	<script src="../Scripts/libs/hichart/themes/skies.js"></script>
+	<script type="text/javascript">
+		var ch = {
+			chart1: null,
+			GetThresholdValue: function () {
+				JqPost(url_map, { action: "GetThresholdValue", data: ch.ShowData, id: ch.ID }, function (data) {
+					var max = data.MaxThresholdValue;
+					var min = data.MinThresholdValue;
+					ch.MinValue = min;
+					ch.MaxValue = max;
+				});
+			},
+			GetData: function () {
+				var url = location.search;
+				if (url != null && url != "") {
+					ch.ID = url.split('&')[0].split('=')[1];
+					//ch.ShowData = url.split('&')[1].split('=')[1].split("(")[1].split(")")[0];
+					ch.ShowData = url.split('&')[1].split('=')[1];
+				} else {
+					location.href = "/Index.aspx";
+				}
+			},
+			Create: function () {
+				ch.t = setInterval(function () {
+					if (ch.b) {
+						$.post(url_map, { action: "getDeviceDataById", id: ch.ID }, function (json) {
+							Data.CurrentTime = json[0].CurrentTime;
+							Data.FlameTemperature = json[0].FlameTemperature;
+							Data.NegativePressure = json[0].NegativePressure;
+							Data.Data3 = json[0].Data3;
+							Data.Data4 = json[0].Data4;
+							if (ch.ShowData == "FlameTemperature") {
+								ch.data = Data.FlameTemperature;
+								Data.FlameTemperature = null;
+							} else if (ch.ShowData == "NegativePressure") {
+								ch.data = Data.NegativePressure;
+								Data.NegativePressure = null;
+							} else if (ch.ShowData == "Data3") {
+								ch.data = Data.Data3;
+								Data.Data3 = null;
+							} else if (ch.ShowData == "Data4") {
+								ch.data = Data.Data4;
+								Data.Data4 = null;
+							}
+							$.post(url_map, { action: "GetDataLength", id: ch.ID }, function (data) {
+								if (data) {
+									var bili1 = ((300.000000 / parseInt(data)) * 100).toString().split('.')[0];
+									var bili2 = ((300.000000 / parseInt(data)) * 100).toString().split('.')[1];
+									var bili = 0;
+									if (bili2) {
+										if (parseInt(bili2.substr(0, 1)) >= 5) {
+											bili = parseInt(bili1) + 1;
+										} else {
+											bili = parseInt(bili1);
+										}
+									} else {
+										bili = parseInt(bili1);
+									}
+									$('#small').css('width', bili + "%").css('left', (100 - bili) + "%");
+								}
+							});
+						});
+					}
+				}, 10000);
+			},
+			Change: function () {
+				if (ch.b) {
+					ch.b = false;
+				} else {
+					ch.b = true;
+					$('#container_sp').css('display', 'none');
+					$('#container').css('display', 'block');
+				}
+			},
+			GoAll: function () {
+				location.href = "/Pages/AllCharts.html?id=" + ch.ID;
+			},
+			ID: null,
+			ShowData: null,
+			b: true,
+			b1: true,
+			t: null,
+			t1: null,
+			data: null,
+			MinValue: null,
+			MaxValue: null,
+			small_down: function (e) {
+				if (!ch.b) {
+					var obig = document.getElementById("big");
+					var osmall = document.getElementById("small");
+					var e = e || window.event;
+					document.onmousemove = ch.small_move;
+					document.onmouseup = ch.small_up;
+					osmall.startX = e.clientX - osmall.offsetLeft;
+				}
+			},
+			small_move: function (e) {
+				var obig = document.getElementById("big");
+				var osmall = document.getElementById("small");
+				var e = e || window.event;
+
+				osmall.style.left = e.clientX - osmall.startX + "px";
+
+				if (e.clientX - osmall.startX <= 0) { osmall.style.left = 0 + "px"; }
+				//if (e.clientX - osmall.startX >= 250) { osmall.style.left = 250 + "px"; }
+				var width = document.getElementById("big").offsetWidth;
+				var small2 = document.getElementById('small').offsetWidth;
+				var smallwidth = e.clientX - small2;
+				if (e.clientX - osmall.startX >= width - small2) {
+					osmall.style.left = (width - small2) + "px";
+				}
+			},
+			small_up: function () {
+				var width = document.getElementById("big").offsetWidth;
+				var small2 = document.getElementById('small').offsetWidth;
+				var left = document.getElementById('small').style.left;
+				var bili1 = (parseInt(left.split('p')[0]) * 100.00 / (width - small2)).toString().split('.')[0];
+				var bili2 = (parseInt(left.split('p')[0]) * 100.00 / (width - small2)).toString().split('.')[1];
+				var bili = 0;
+				if (bili2) {
+					if (parseInt(bili2.substr(0, 1)) >= 5) {
+						bili = parseInt(bili1) + 1;
+					} else {
+						bili = parseInt(bili1);
+					}
+				} else {
+					bili = parseInt(bili1);
+				}
+				JqPost(url_map, { action: "GetDataByBili", id: ch.ID, Bili: bili }, function (json) {
+					if (json) {
+						//$('#container_sp').highcharts().destroy();
+						ch.chart1 = $('#container_sp').highcharts({
+							chart: {
+								type: 'spline',
+							},
+							title: {
+								text: ch.ShowData + '详细折线图',
+							},
+							xAxis: {
+								//type: 'string',
+								type: 'datetime'//'category',
+								//tickPixelInterval: 60000
+							},
+							yAxis: {
+								title: {
+									text: 'Value'
+								},
+								plotLines: [{
+									value: ch.MaxValue,
+									width: 2,
+									color: '#ff0000'
+								}, {
+									value: ch.MinValue,
+									width: 1,
+									color: '#ff0000'
+								}]
+							},
+							scrollbar: {
+								enabled: true
+							},
+							tooltip: {
+							},
+							plotOptions: {
+								spline: {
+									lineWidth: 0.5,//粗细：lineWidth  默认值为2
+									fillOpacity: 0.1,
+									marker: {
+										enabled: false,
+										states: {
+											hover: {
+												enabled: true,
+												radius: 0.2
+											}
+										}
+									},
+									shadow: false,
+								},
+								series: {
+									animation: false
+								}
+							},
+							legend: {
+								enabled: false
+							},
+							exporting: {
+								enabled: false
+							},
+							series: [{
+								name: 'Random data',
+								data: (function () {
+									var data1 = [];
+									for (var i = 0; i < json.length; i++) {
+										var l = json[json.length - 1 - i];
+										var str = l.CurrentTime;
+										str = str.replace(/-/g, "/");
+										str = str.replace('T', ' ');
+										str = str.split('+')[0].split('.')[0];
+										var date = new Date(str).getTime();
+										var d = null;
+										if (ch.ShowData == "FlameTemperature") {
+											d = l.FlameTemperature;
+											l.FlameTemperature = null;
+										} else if (ch.ShowData == "NegativePressure") {
+											d = l.NegativePressure;
+											l.NegativePressure = null;
+										} else if (ch.ShowData == "Data3") {
+											d = l.Data3;
+											l.Data3 = null;
+										} else if (ch.ShowData == "Data4") {
+											d = l.Data4;
+											l.Data4 = null;
+										}
+										data1.push([date, d]);
+									}
+									return data1;
+								})(),
+								zones: [{
+									value: ch.MinValue,
+									color: '#ff00c6',
+								}, {
+									value: ch.MaxValue,
+									color: '#004eff'
+								}, {
+									color: '#ff0000'
+								},
+								]
+							}],
+							credits: {
+								enabled: false
+							}
+						});
+						$('#container').css('display', 'none');
+						$('#container_sp').css('display', 'block');
+					}
+				});
+				document.onmousemove = "";
+				document.onmouseup = "";
+			},
+		}
+
+		var Data = {
+			CurrentTime: null,
+			FlameTemperature: null,
+			NegativePressure: null,
+			Data3: null,
+			Data4: null
+		}
+		$(function () {
+			$(window).resize(function () {
+				var h = $('#divContent').innerHeight() * 0.6;
+				$('#container').css('max-height', h + 'px');
+			});
+			ch.GetData();
+			//ch.GetThresholdValue();
+			ch.Create();
+			JqPost(url_map, { action: "GetDataLength", id: ch.ID }, function (data) {
+				if (data) {
+					var bili1 = ((300.000000 / parseInt(data)) * 100).toString().split('.')[0];
+					var bili2 = ((300.000000 / parseInt(data)) * 100).toString().split('.')[1];
+					var bili = 0;
+					if (bili2) {
+						if (parseInt(bili2.substr(0, 1)) >= 5) {
+							bili = parseInt(bili1) + 1;
+						} else {
+							bili = parseInt(bili1);
+						}
+					} else {
+						bili = parseInt(bili1);
+					}
+					$('#small').css('width', bili + "%").css('left', (100 - bili) + "%");
+				}
+			}); //得到进度条
+			JqPost(url_map, { action: "GetThresholdValue", data: ch.ShowData, id: ch.ID }, function (data) {
+				var max = data.MaxThresholdValue;
+				var min = data.MinThresholdValue;
+				ch.MinValue = min;
+				ch.MaxValue = max;
+				//先拿到警戒线。
+				JqPost(url_map, { action: "getDeviceDataByIdFirstXiangXi", id: ch.ID }, function (json) {
+					$(document).ready(function () {
+						Highcharts.setOptions({
+							global: {
+								useUTC: false
+							}
+						});
+						ch.chart1 = $('#container').highcharts({
+							chart: {
+								type: 'spline',
+								animation: Highcharts.svg, // don't animate in old IE
+								marginRight: 10,
+								events: {
+									load: function (e) {
+										var series = this.series[0];
+										ch.t1 = setInterval(function () {
+											if (ch.b1) {
+												if (ch.data != null) {
+													var str = Data.CurrentTime;
+													str = str.replace(/-/g, "/");
+													str = str.replace('T', ' ');
+													str = str.split('+')[0].split('.')[0];
+													var date = new Date(str).getTime();
+													series.addPoint([date, ch.data], true, true);
+													ch.data = null;
+												}
+											}
+										}, 1000);
+									},
+								}
+							},
+							title: {
+								text: ch.ShowData + '详细折线图',
+							},
+							xAxis: {
+								//type: 'string',
+								type: 'datetime'//'category',
+								//tickPixelInterval: 60000
+							},
+							yAxis: {
+								title: {
+									text: 'Value'
+								},
+								plotLines: [{
+									value: ch.MaxValue,
+									width: 2,
+									color: '#ff0000'
+								}, {
+									value: ch.MinValue,
+									width: 1,
+									color: '#ff0000'
+								}]
+							},
+							scrollbar: {
+								enabled: true
+							},
+							tooltip: {
+							},
+							plotOptions: {
+								spline: {
+									lineWidth: 0.5,//粗细：lineWidth  默认值为2
+									fillOpacity: 0.1,
+									marker: {
+										enabled: false,
+										states: {
+											hover: {
+												enabled: true,
+												radius: 0.2
+											}
+										}
+									},
+									shadow: false
+								}
+							},
+							legend: {
+								enabled: false
+							},
+							exporting: {
+								enabled: false
+							},
+							series: [{
+								name: 'Random data',
+								data: (function () {
+									var data1 = [];
+									for (var i = 0; i < json.length; i++) {
+										var l = json[json.length - 1 - i];
+										var str = l.CurrentTime;
+										str = str.replace(/-/g, "/");
+										str = str.replace('T', ' ');
+										str = str.split('+')[0].split('.')[0];
+										var date = new Date(str).getTime();
+										var d = null;
+										if (ch.ShowData == "FlameTemperature") {
+											d = l.FlameTemperature;
+											l.FlameTemperature = null;
+										} else if (ch.ShowData == "NegativePressure") {
+											d = l.NegativePressure;
+											l.NegativePressure = null;
+										} else if (ch.ShowData == "Data3") {
+											d = l.Data3;
+											l.Data3 = null;
+										} else if (ch.ShowData == "Data4") {
+											d = l.Data4;
+											l.Data4 = null;
+										}
+										data1.push([date, d]);
+									}
+									return data1;
+								})(),
+								zones: [{
+									value: ch.MinValue,
+									color: '#ff00c6',
+								}, {
+									value: ch.MaxValue,
+									color: '#004eff'
+								}, {
+									color: '#ff0000'
+								},
+								]
+							}],
+							credits: {
+								enabled: false
+							}
+						});
+					});
+				});
+			});
+		});
+	</script>
+</head>
+<body style="height: 100%;">
+	<div id="divTop" class='top' data-bind="template: 'top-template'"></div>
+	<div id="divLeft" class="left" data-bind="template: 'left-template'"></div>
+	<div id="divContent" class="content">
+		<div class="tab">
+			<div class="tab_title"><span id="s"></span>统计图</div>
+		</div>
+		<!--操作条-->
+		<div class="panel">
+			<div class="querypanel">
+				<ul>
+					<li><a class="btn1 btnadd show-inline" href="javascript:ch.GoAll()">返回</a></li>
+					<li><a class="btn1 btnplay show-inline" href="javascript:ch.Change()">数据监测</a></li>
+				</ul>
+			</div>
+		</div>
+		<div style="background-color:transparent;position:absolute;left:80%;top:90px; z-index:999;width:150px;height:100px;">
+			<p>红线表示超出了阈值上限</p>
+			<p>蓝线表示处于正常范围内</p>
+			<p>粉红线表示低于了阈值下限</p>
+		</div>
+		<!--chart图-->
+		<div id="chart">
+			<center><div id="container" style="width: 100%;height:60%"></div></center>
+			<center><div id="container_sp" style="width: 100%; height: 60%; display: none; "></div></center>
+		</div>
+		<!--滑动条-->
+		<div id="big">
+			<div id="small" onmousedown="ch.small_down(event)"></div>
+		</div>
+	</div>
+	<div id="divBottom" class="bottom" data-bind="template: 'bottom-template'"></div>
+	<div id="div_Down" class="layer">
+		<span><b>记录导出完毕，请下载</b></span>
+		<div class="btns">
+			<a href="javascript:;" id="DownExcel" class="btn1 btndownload">下载</a>
+			<a href="javascript:;" class="btn1 btncancel">关闭</a>
+		</div>
+	</div>
+</body>
+</html>

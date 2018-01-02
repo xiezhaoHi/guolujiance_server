@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{ab443b6b-9471-47ef-9bf0-bb78335645ad}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{29a26893-3edf-48a5-b628-035c6926a992}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Header Files\ui">
+      <UniqueIdentifier>{c5b71aad-e988-497d-a676-b7979a0b39a9}</UniqueIdentifier>
+      <Extensions>.h</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{c6897f1c-6de1-4c99-8a83-a25589ab1f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\setting">
+      <UniqueIdentifier>{dc6332e4-772d-4cfb-ba95-ea6b5b2c82d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core">
+      <UniqueIdentifier>{8f6ff916-bd91-4521-b63e-f14962f91eba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{f070295a-beb2-4253-94f9-86b38d37db4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui\layout">
+      <UniqueIdentifier>{1e099bc1-bde0-48cf-929b-893634b17130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\layout">
+      <UniqueIdentifier>{a2e34b5c-3c24-4b04-aede-3f078f849692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui\table_model">
+      <UniqueIdentifier>{496995c8-8049-411b-8eab-5ea40dc128e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tcp">
+      <UniqueIdentifier>{974474fe-1571-4ee1-b3ee-a5ef957fe151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tcp\message">
+      <UniqueIdentifier>{abfc25d2-b4ac-4609-89e6-e3790c594865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tcp">
+      <UniqueIdentifier>{941dda18-549d-4f24-bf02-23f98ce99b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tcp\message">
+      <UniqueIdentifier>{e38a7a66-c197-4f3c-a9dd-c6183cba5594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tcp\protocol">
+      <UniqueIdentifier>{ab3ee46e-bc9c-404e-aabb-2f9ad6925454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tcp\connection">
+      <UniqueIdentifier>{dd138f93-b75b-425a-9296-f395281136c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tcp\connection">
+      <UniqueIdentifier>{3e68a775-6f61-4757-b99a-0284192f5873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{6e455392-7da1-4ef6-b584-a8b657c7c4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{9666c483-c820-4b3b-ad80-a6b69a050bfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files\qss">
+      <UniqueIdentifier>{e1044618-bdab-4fe5-ac1d-754766a6dd5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\model">
+      <UniqueIdentifier>{2ee43441-faa9-499c-b1f6-f54a90032ebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\model">
+      <UniqueIdentifier>{7ae113cf-0a9c-4917-b0aa-e94000408bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\thread">
+      <UniqueIdentifier>{51a79ea1-5662-4ba3-8d5e-09ed2f0dd8c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\thread">
+      <UniqueIdentifier>{78123671-61fc-4089-955a-1479f2074033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui\login">
+      <UniqueIdentifier>{b7b1a0a2-102d-4b1d-a820-54f38ad83843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ui\main">
+      <UniqueIdentifier>{bae344aa-ec33-431e-804f-5b402343faba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\login">
+      <UniqueIdentifier>{3f00589d-d601-4828-a1c4-7c639458c442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\main">
+      <UniqueIdentifier>{07266fc2-5bc6-41cd-845b-4665125f32f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\extserial">
+      <UniqueIdentifier>{b133b328-c242-4f68-b88b-d1d150841a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\extserial">
+      <UniqueIdentifier>{036ab9cf-958c-44b9-a7a8-3f53bff4feec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\sound">
+      <UniqueIdentifier>{58f118a9-6dbd-4adf-9f40-e2fbbcb08b15}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_login.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_login.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_curve.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_curve.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_curve_container.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_curve_container.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_table_view.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_table_view.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\ui\flow_layout.cpp">
+      <Filter>Source Files\ui\layout</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\settings\settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcustombutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcustombutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qstatebutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qstatebutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qinnerwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qinnerwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\io_bytearray.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_body_factory.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_header.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_login.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_login_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\util\global_util.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_error_info.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qmessagethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qmessagethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\connection\message_queue.cpp">
+      <Filter>Source Files\tcp\connection</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdialwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdialwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdatashowwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdatashowwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_devices_info_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_broadcast_device_realtime_data.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_item_info.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_data.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_devices_list_item.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_list_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qphotoshowwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qphotoshowwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qwaitwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qwaitwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_id.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_devices_info_req.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_unrecognized_body_type.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qall_pannel_widget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qall_pannel_widget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qparamsetwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qparamsetwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep_item.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_broadcast_device_online_status.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_set_device_param.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qshowwarndlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qshowwarndlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qshowwarnmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qshowwarnmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qwarning_widget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qwarning_widget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qrunstateinfo_widget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qrunstateinfo_widget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qstateinfomodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qstateinfomodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_h2smonitorclient.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_h2smonitorclient.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvsysqueuethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvsysqueuethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvdataqueuethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvdataqueuethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qioservicethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qioservicethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qallpaneltablewidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qallpaneltablewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qregistdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qregistdlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="yxyDES2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qpasswd_dlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qpasswd_dlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdevice_collect_dlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdevice_collect_dlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qexportwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qexportwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qquerywarnthread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qquerywarnthread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qallwarninfowidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qallwarninfowidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_allwarnmsgmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_allwarnmsgmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckdatamodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckdatamodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="allwarnmsgmodel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="qshowwarnmodel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="qstateinfomodel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="qcheckdatamodel.cpp">
+      <Filter>Source Files\model</Filter>
+    </ClCompile>
+    <ClCompile Include="qcheckrecvdataqueuethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="qcheckrecvsysqueuethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="qioservicethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\connection\qmessagethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="qquerywarnthread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\ui\form_login.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\ui\form_device_data_curve.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\ui\form_device_data_curve_container.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\ui\form_device_data_table_view.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="h2smonitorclient.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qall_pannel_widget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qallpaneltablewidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qallwarninfowidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qcustombutton.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qdatashowwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qdialwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qexportwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qinnerwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qparamsetwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qpasswd_dlg.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="qphotoshowwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qregistdlg.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qrunstateinfo_widget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qshowwarndlg.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qwaitwidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qstatebutton.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qwarning_widget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qremovedatatobasethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdataexportthread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdataexportthread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="qdataexportthread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qprocesswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qprocesswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="qprocesswidget.cpp">
+      <Filter>Source Files\ui\main</Filter>
+    </ClCompile>
+    <ClCompile Include="qdevice_collect_dlg.cpp">
+      <Filter>Source Files\ui\login</Filter>
+    </ClCompile>
+    <ClCompile Include="qinit_configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qquerydatathread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qquerydatathread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="qquerydatathread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="logging.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qextserialbase.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qextserialbase.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qextserialport.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qextserialport.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_win_qextserialport.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_win_qextserialport.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="extserial\qextserialbase.cpp">
+      <Filter>Source Files\extserial</Filter>
+    </ClCompile>
+    <ClCompile Include="extserial\qextserialenumerator.cpp">
+      <Filter>Source Files\extserial</Filter>
+    </ClCompile>
+    <ClCompile Include="extserial\qextserialport.cpp">
+      <Filter>Source Files\extserial</Filter>
+    </ClCompile>
+    <ClCompile Include="extserial\win_qextserialport.cpp">
+      <Filter>Source Files\extserial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_heartbeat.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qconnectstate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qconnectstate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\client\connection\qconnectstate.cpp">
+      <Filter>Source Files\tcp\connection</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_server_time_beijing.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_count_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_count_req.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_rep.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_req.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_data_item.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvloaddataqueuethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvloaddataqueuethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="qcheckrecvloaddataqueuethread.cpp">
+      <Filter>Source Files\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qremovedatatobasethread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qremovedatatobasethread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_h2smonitorclient.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_batched_data.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_data_item.cpp">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\..\client\ui\flow_layout.h">
+      <Filter>Header Files\ui\layout</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\message_queue.h">
+      <Filter>Header Files\tcp\connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Resources\h2smonitorclient.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="allwarnmsgmodel.h">
+      <Filter>Header Files\model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qcheckdatamodel.h">
+      <Filter>Header Files\model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qstateinfomodel.h">
+      <Filter>Header Files\model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qshowwarnmodel.h">
+      <Filter>Header Files\model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qcheckrecvdataqueuethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qcheckrecvsysqueuethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qioservicethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\qmessagethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qquerywarnthread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_login.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_curve.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_curve_container.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_table_view.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="h2smonitorclient.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qall_pannel_widget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qallpaneltablewidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qallwarninfowidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qcustombutton.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qdatashowwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qdialwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qexportwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qinnerwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qparamsetwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qpasswd_dlg.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qphotoshowwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qregistdlg.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qrunstateinfo_widget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qshowwarndlg.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qstatebutton.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qwaitwidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qwarning_widget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qdataexportthread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qprocesswidget.h">
+      <Filter>Header Files\ui\main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qdevice_collect_dlg.h">
+      <Filter>Header Files\ui\login</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qquerydatathread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="extserial\qextserialbase.h">
+      <Filter>Header Files\extserial</Filter>
+    </CustomBuild>
+    <CustomBuild Include="extserial\qextserialport.h">
+      <Filter>Header Files\extserial</Filter>
+    </CustomBuild>
+    <CustomBuild Include="extserial\win_qextserialport.h">
+      <Filter>Header Files\extserial</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\qconnectstate.h">
+      <Filter>Header Files\tcp\connection</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qcheckrecvloaddataqueuethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qremovedatatobasethread.h">
+      <Filter>Header Files\thread</Filter>
+    </CustomBuild>
+    <CustomBuild Include="h2smonitorclient.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\client\settings\settings.h">
+      <Filter>Header Files\setting</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\i_message.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\io_bytearray.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_body_factory.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_header.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_login.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_cmd.h">
+      <Filter>Header Files\tcp\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_data_type.h">
+      <Filter>Header Files\tcp\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_structs.h">
+      <Filter>Header Files\tcp\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_login_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\util\global_util.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_error_info.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\client\connection\tcp_client.h">
+      <Filter>Header Files\tcp\connection</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_item_info.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_data.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_devices_list_item.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_list_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_devices_info_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_broadcast_device_realtime_data.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_devices_info_req.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_unrecognized_body_type.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_id.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep_item.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_broadcast_device_online_status.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_set_device_param.h">
+      <Filter>Source Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_data_desc.h">
+      <Filter>Header Files\tcp\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\util\sync_cond_queue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diskid32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="yxyDES2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qinit_configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="extserial\qextserialenumerator.h">
+      <Filter>Header Files\extserial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_heartbeat.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_server_time_beijing.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_count_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_count_req.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_rep.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_req.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_data_item.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_h2smonitorclient.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\util\qshow_struct.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_batched_data.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_data_item.h">
+      <Filter>Header Files\tcp\message</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="h2smonitorclient_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="Resources\qss\form_login.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="Resources\qss\form_device_data_curve_container.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="Resources\qss\client_main_window.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="Resources\qss\application_common_style.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="H2SMonitorClient1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\exe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Fire.mp3">
+      <Filter>Resource Files\sound</Filter>
+    </Media>
+    <Media Include="Resources\warn.mp3">
+      <Filter>Resource Files\sound</Filter>
+    </Media>
+  </ItemGroup>
+</Project>

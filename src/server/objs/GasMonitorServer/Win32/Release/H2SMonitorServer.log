@@ -1,0 +1,126 @@
+﻿  Moc'ing h2smonitorserver.h...
+  Uic'ing h2smonitorserver.ui...
+  Moc'ing device_table_model.h...
+  Moc'ing device_tree.h...
+  Moc'ing form_rig_detail.h...
+  Moc'ing user_table_model.h...
+  Moc'ing form_registration.h...
+  Moc'ing form_devices_container.h...
+  Moc'ing form_rig_device_detail.h...
+  Moc'ing form_server_control_panel.h...
+  Moc'ing rig.h...
+  Moc'ing device_tree_node.h...
+  Moc'ing device_tree_model.h...
+  Moc'ing structs.h...
+  Moc'ing form_log_viewer.h...
+  Rcc'ing h2smonitorserver.qrc...
+  dbg_logger.cpp
+  stack_walker.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(1544): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\DbgHelp.h(3190): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+..\..\..\cxxcommon\dbg\stack_walker.cpp(123): warning C4477: “printf”: 格式字符串“%s”需要类型“char *”的参数，但可变参数 1 拥有了类型“const WCHAR *”
+  ..\..\..\cxxcommon\dbg\stack_walker.cpp(123): note: 请考虑在格式字符串中使用“%ls”
+  ..\..\..\cxxcommon\dbg\stack_walker.cpp(123): note: 请考虑在格式字符串中使用“%lls”
+  ..\..\..\cxxcommon\dbg\stack_walker.cpp(123): note: 请考虑在格式字符串中使用“%Ls”
+  ..\..\..\cxxcommon\dbg\stack_walker.cpp(123): note: 请考虑在格式字符串中使用“%ws”
+  io_bytearray.cpp
+  message.cpp
+  message_body_factory.cpp
+  message_broadcast_device_online_status.cpp
+  message_broadcast_device_realtime_data.cpp
+  message_devices_list_item.cpp
+  message_device_data_item.cpp
+  message_device_id.cpp
+  message_device_item_info.cpp
+  message_device_realtime_batched_data.cpp
+  message_device_realtime_data.cpp
+  message_device_realtime_data_item.cpp
+  message_error_info.cpp
+  message_get_devices_info_rep.cpp
+  message_get_devices_info_req.cpp
+  message_get_device_data_count_rep.cpp
+  message_get_device_data_count_req.cpp
+  message_get_device_data_rep.cpp
+  正在生成代码...
+  正在编译...
+  message_get_device_data_req.cpp
+  message_get_device_list_rep.cpp
+  message_get_device_online_status.cpp
+  message_get_device_online_status_rep.cpp
+  message_get_device_online_status_rep_item.cpp
+  message_header.cpp
+  message_heartbeat.cpp
+  message_login.cpp
+  message_login_rep.cpp
+  message_server_time_beijing.cpp
+  message_set_device_param.cpp
+  message_unrecognized_body_type.cpp
+  global_util.cpp
+  registration.cpp
+  yxyDES2.cpp
+  business_handle_service.cpp
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(78): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(81): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(84): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(87): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(90): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(93): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(96): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(99): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(102): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(109): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(112): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(115): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(118): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+..\..\..\server\service\business_handle_service\business_handle_service.cpp(121): warning C4407: 在指向成员表示形式的不同指针之间进行转换，编译器可能生成不正确的代码
+  business_model.cpp
+  device.cpp
+  oil_field.cpp
+  rig.cpp
+  正在生成代码...
+  正在编译...
+  user.cpp
+  configuration_service.cpp
+  db_service.cpp
+  log_service.cpp
+  service_hub.cpp
+  message_handler_hub.cpp
+  socket_service.cpp
+  tcp_session.cpp
+  tcp_session_message_handler_hub.cpp
+  task_service.cpp
+  path_collector.cpp
+  form_registration.cpp
+  form_rig_device_detail.cpp
+  form_devices_container.cpp
+  form_log_viewer.cpp
+  form_rig_detail.cpp
+  form_server_control_panel.cpp
+  device_table_model.cpp
+  user_table_model.cpp
+  device_tree.cpp
+  正在生成代码...
+  正在编译...
+  device_tree_model.cpp
+  device_tree_node.cpp
+  moc_device_table_model.cpp
+  moc_device_tree.cpp
+  moc_device_tree_model.cpp
+  moc_device_tree_node.cpp
+  moc_form_devices_container.cpp
+  moc_form_log_viewer.cpp
+  moc_form_registration.cpp
+  moc_form_rig_detail.cpp
+  moc_form_rig_device_detail.cpp
+  moc_form_server_control_panel.cpp
+  moc_h2smonitorserver.cpp
+  moc_rig.cpp
+  moc_structs.cpp
+  moc_user_table_model.cpp
+  h2smonitorserver.cpp
+  main.cpp
+  windows_service_entry.cpp
+  正在生成代码...
+  qrc_h2smonitorserver.cpp
+  H2SMonitorServer.vcxproj -> E:\GasMonitor\src\server\H2SMonitorServer\..\bin\Win32\Release\GasMonitorServer.exe
+  H2SMonitorServer.vcxproj -> E:\GasMonitor\src\server\H2SMonitorServer\..\bin\Win32\Release\GasMonitorServer.pdb (Full PDB)

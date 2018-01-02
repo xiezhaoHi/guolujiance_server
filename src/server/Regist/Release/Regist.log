@@ -1,0 +1,11 @@
+﻿  Moc'ing regist.h...
+  Rcc'ing regist.qrc...
+RCC : warning : No resources in 'E:\GasMonitor\src\server\Regist\regist.qrc'.
+  
+  qrc_regist.cpp
+  moc_regist.cpp
+  main.cpp
+  regist.cpp
+  yxyDES2.cpp
+  正在生成代码...
+  Regist.vcxproj -> E:\GasMonitor\src\server\Win32\Release\Regist.exe

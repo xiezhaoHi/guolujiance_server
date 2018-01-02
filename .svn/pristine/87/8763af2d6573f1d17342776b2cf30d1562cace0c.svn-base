@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{557E7738-2028-4195-9982-2DD51DD80B8B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RTMC.Web</RootNamespace>
+    <AssemblyName>RTMC.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OOXML.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.1.3.1, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AlertLine.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="CSS\global.css" />
+    <Content Include="CSS\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\2.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\3.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\4.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\5.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\6.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\7.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\8.png" />
+    <Content Include="CSS\zTreeStyle\img\diy\9.png" />
+    <Content Include="CSS\zTreeStyle\img\line_conn.gif" />
+    <Content Include="CSS\zTreeStyle\img\loading.gif" />
+    <Content Include="CSS\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="CSS\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="CSS\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\anbtn.png" />
+    <Content Include="Images\anbtn2.png" />
+    <Content Include="Images\bootnbg.jpg" />
+    <Content Include="Images\bottombg.jpg" />
+    <Content Include="Images\bullet.gif" />
+    <Content Include="Images\fybtn3.gif" />
+    <Content Include="Images\head_bg.png" />
+    <Content Include="Images\icon-demo.gif" />
+    <Content Include="Images\icon-login-seaver.gif" />
+    <Content Include="Images\icon-mail2.gif" />
+    <Content Include="Images\icon-phone.gif" />
+    <Content Include="Images\icons\all.png" />
+    <Content Include="Images\icons\arrange.png" />
+    <Content Include="Images\icons\audit.png" />
+    <Content Include="Images\icons\back.png" />
+    <Content Include="Images\icons\blank.gif" />
+    <Content Include="Images\icons\cancel.png" />
+    <Content Include="Images\icons\cancel2.png" />
+    <Content Include="Images\icons\clear.png" />
+    <Content Include="Images\icons\cut.png" />
+    <Content Include="Images\icons\del.png" />
+    <Content Include="Images\icons\del2.png" />
+    <Content Include="Images\icons\download.png" />
+    <Content Include="Images\icons\edit.png" />
+    <Content Include="Images\icons\edit2.png" />
+    <Content Include="Images\icons\edit_add.png" />
+    <Content Include="Images\icons\edit_remove.png" />
+    <Content Include="Images\icons\email.png" />
+    <Content Include="Images\icons\excel.png" />
+    <Content Include="Images\icons\exit.png" />
+    <Content Include="Images\icons\female.png" />
+    <Content Include="Images\icons\female16.png" />
+    <Content Include="Images\icons\files.png" />
+    <Content Include="Images\icons\filesave.png" />
+    <Content Include="Images\icons\filter.png" />
+    <Content Include="Images\icons\fybtn1.png" />
+    <Content Include="Images\icons\fybtn2.png" />
+    <Content Include="Images\icons\fybtn3.png" />
+    <Content Include="Images\icons\goog.png" />
+    <Content Include="Images\icons\gray.png" />
+    <Content Include="Images\icons\green.png" />
+    <Content Include="Images\icons\help.png" />
+    <Content Include="Images\icons\home.gif" />
+    <Content Include="Images\icons\home.png" />
+    <Content Include="Images\icons\info.png" />
+    <Content Include="Images\icons\large_chart.png" />
+    <Content Include="Images\icons\large_clipart.png" />
+    <Content Include="Images\icons\large_picture.png" />
+    <Content Include="Images\icons\large_shapes.png" />
+    <Content Include="Images\icons\large_smartart.png" />
+    <Content Include="Images\icons\list.png" />
+    <Content Include="Images\icons\location.png" />
+    <Content Include="Images\icons\lock.png" />
+    <Content Include="Images\icons\male.png" />
+    <Content Include="Images\icons\male16.png" />
+    <Content Include="Images\icons\man.png" />
+    <Content Include="Images\icons\mini_add.png" />
+    <Content Include="Images\icons\mini_edit.png" />
+    <Content Include="Images\icons\mini_refresh.png" />
+    <Content Include="Images\icons\modify.png" />
+    <Content Include="Images\icons\monitor.png" />
+    <Content Include="Images\icons\no.png" />
+    <Content Include="Images\icons\ok.png" />
+    <Content Include="Images\icons\pencil.png" />
+    <Content Include="Images\icons\play.png" />
+    <Content Include="Images\icons\print.png" />
+    <Content Include="Images\icons\red.png" />
+    <Content Include="Images\icons\redo.png" />
+    <Content Include="Images\icons\reset2.png" />
+    <Content Include="Images\icons\reload.png" />
+    <Content Include="Images\icons\report.png" />
+    <Content Include="Images\icons\reset.png" />
+    <Content Include="Images\icons\search.png" />
+    <Content Include="Images\icons\search2.png" />
+    <Content Include="Images\icons\submit2.png" />
+    <Content Include="Images\icons\sum.png" />
+    <Content Include="Images\icons\system.png" />
+    <Content Include="Images\icons\tip.png" />
+    <Content Include="Images\icons\undo.png" />
+    <Content Include="Images\icons\usermodify.png" />
+    <Content Include="Images\icons\view.png" />
+    <Content Include="Images\icons\yellow.png" />
+    <Content Include="Images\imagedelete.gif" />
+    <Content Include="Images\imageedit.gif" />
+    <Content Include="Images\image_%28add%296.gif" />
+    <Content Include="Images\image_1.gif" />
+    <Content Include="Images\image_icon.png" />
+    <Content Include="Images\layout_arrows.png" />
+    <Content Include="Images\login\bg1.png" />
+    <Content Include="Images\login\loginbg.png" />
+    <Content Include="Images\login\login_bg123r.jpg" />
+    <Content Include="Images\login\titlebg.png" />
+    <Content Include="Images\luck.gif" />
+    <Content Include="Images\nav_icon.gif" />
+    <Content Include="Images\nav_icon2.gif" />
+    <Content Include="Images\pic26.gif" />
+    <Content Include="Images\run.gif" />
+    <Content Include="Images\switch_but1.png" />
+    <Content Include="Images\switch_but2.png" />
+    <Content Include="Images\title.png" />
+    <Content Include="Images\topbg2.png" />
+    <Content Include="Images\tou.png" />
+    <Content Include="Index.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="Pages\AlarmRecord.html" />
+    <Content Include="Pages\AllCharts.html" />
+    <Content Include="Pages\BoilerManager.html" />
+    <Content Include="Pages\Chart.html" />
+    <Content Include="Pages\ConfigHtml.html" />
+    <Content Include="Pages\Demo.html" />
+    <Content Include="Pages\DeviceData.html" />
+    <Content Include="Pages\DeviceManager.html" />
+    <Content Include="Scripts\libs\base64.js" />
+    <Content Include="Scripts\libs\blank.gif" />
+    <Content Include="Scripts\libs\chosen\chosen-sprite%402x.png" />
+    <Content Include="Scripts\libs\chosen\chosen-sprite.png" />
+    <Content Include="Scripts\libs\chosen\chosen.css" />
+    <Content Include="Scripts\libs\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\libs\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\libs\chosen\chosen.min.css" />
+    <Content Include="Scripts\libs\chosen\chosen.proto.js" />
+    <Content Include="Scripts\libs\chosen\chosen.proto.min.js" />
+    <Content Include="Scripts\libs\DatePicker\calendar.js" />
+    <Content Include="Scripts\libs\DatePicker\config.js" />
+    <Content Include="Scripts\libs\DatePicker\lang\en.js" />
+    <Content Include="Scripts\libs\DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\libs\DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\libs\DatePicker\My97DatePicker.htm" />
+    <Content Include="Scripts\libs\DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\libs\DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\libs\DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\libs\DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\libs\DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\libs\DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\libs\DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\libs\DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\libs\EvPNG.js" />
+    <Content Include="Scripts\libs\hichart\adapters\standalone-framework.js" />
+    <Content Include="Scripts\libs\hichart\adapters\standalone-framework.src.js" />
+    <Content Include="Scripts\libs\hichart\highcharts-3d.js" />
+    <Content Include="Scripts\libs\hichart\highcharts-3d.src.js" />
+    <Content Include="Scripts\libs\hichart\highcharts-more.js" />
+    <Content Include="Scripts\libs\hichart\highcharts-more.src.js" />
+    <Content Include="Scripts\libs\hichart\highcharts.js" />
+    <Content Include="Scripts\libs\hichart\highcharts.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\broken-axis.js" />
+    <Content Include="Scripts\libs\hichart\modules\broken-axis.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\canvas-tools.js" />
+    <Content Include="Scripts\libs\hichart\modules\canvas-tools.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\data.js" />
+    <Content Include="Scripts\libs\hichart\modules\data.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\drilldown.js" />
+    <Content Include="Scripts\libs\hichart\modules\drilldown.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\exporting.js" />
+    <Content Include="Scripts\libs\hichart\modules\exporting.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\funnel.js" />
+    <Content Include="Scripts\libs\hichart\modules\funnel.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\heatmap.js" />
+    <Content Include="Scripts\libs\hichart\modules\heatmap.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\no-data-to-display.js" />
+    <Content Include="Scripts\libs\hichart\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\solid-gauge.js" />
+    <Content Include="Scripts\libs\hichart\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\libs\hichart\modules\treemap.js" />
+    <Content Include="Scripts\libs\hichart\modules\treemap.src.js" />
+    <Content Include="Scripts\libs\hichart\themes\dark-blue.js" />
+    <Content Include="Scripts\libs\hichart\themes\dark-green.js" />
+    <Content Include="Scripts\libs\hichart\themes\dark-unica.js" />
+    <Content Include="Scripts\libs\hichart\themes\gray.js" />
+    <Content Include="Scripts\libs\hichart\themes\grid-light.js" />
+    <Content Include="Scripts\libs\hichart\themes\grid.js" />
+    <Content Include="Scripts\libs\hichart\themes\sand-signika.js" />
+    <Content Include="Scripts\libs\hichart\themes\skies.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\libs\jquery.datagrid.js" />
+    <Content Include="Scripts\libs\json2.js" />
+    <Content Include="Scripts\libs\json2.min.js" />
+    <Content Include="Scripts\libs\knockout-3.1.0.debug.js" />
+    <Content Include="Scripts\libs\knockout-3.1.0.js" />
+    <Content Include="Scripts\libs\knockout.jquery.infuser.js" />
+    <Content Include="Scripts\libs\knockout.jquery.infuser.min.js" />
+    <Content Include="Scripts\libs\knockout.jquery.templateEngine.js" />
+    <Content Include="Scripts\libs\knockout.jquery.templateEngine.min.js" />
+    <Content Include="Scripts\libs\knockout.jquery.trafficCop.js" />
+    <Content Include="Scripts\libs\knockout.jquery.trafficCop.min.js" />
+    <Content Include="Scripts\libs\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\libs\knockout.mapping-latest.js" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\extend\layer.ext.js" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\layer.js" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\default\icon-ext.png" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\default\icon.png" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\default\loading-0.gif" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\default\loading-1.gif" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\default\loading-2.gif" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\layer.css" />
+    <Content Include="Scripts\libs\layer-v1.9.3\layer\skin\layer.ext.css" />
+    <Content Include="Scripts\libs\moment-with-locales.js" />
+    <Content Include="Scripts\libs\moment-with-locales.min.js" />
+    <Content Include="Scripts\libs\moment.js" />
+    <Content Include="Scripts\libs\moment.min.js" />
+    <Content Include="Scripts\libs\uploadify\cancel.png" />
+    <Content Include="Scripts\libs\uploadify\images\BeginUpload.gif" />
+    <Content Include="Scripts\libs\uploadify\images\CancelUpload.gif" />
+    <Content Include="Scripts\libs\uploadify\jquery.uploadify.js" />
+    <Content Include="Scripts\libs\uploadify\jquery.uploadify.min.js" />
+    <Content Include="Scripts\libs\uploadify\button.png" />
+    <Content Include="Scripts\libs\uploadify\uploadify-cancel.png" />
+    <Content Include="Scripts\libs\uploadify\uploadify.css" />
+    <Content Include="Scripts\libs\uploadify\uploadify.swf" />
+    <Content Include="Scripts\libs\zTree\jquery-1.4.4.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.all-3.5.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.core-3.5.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.excheck-3.5.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.exedit-3.5.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.exedit.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.exhide-3.5.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="Scripts\project\config.js" />
+    <Content Include="Scripts\project\poco.js" />
+    <Content Include="Scripts\utils\rtmc-util.js" />
+    <Content Include="System\Menus.html" />
+    <Content Include="System\Roles.html" />
+    <Content Include="System\Users.html" />
+    <Content Include="Template\bottom-template.html" />
+    <Content Include="Template\left-template.html" />
+    <Content Include="Template\top-template.html" />
+    <Content Include="ValidCode.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\AlarmRecordHandler.ashx.cs">
+      <DependentUpon>AlarmRecordHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\BaseCodeHandler.ashx.cs">
+      <DependentUpon>BaseCodeHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\BaseHandler.cs" />
+    <Compile Include="Handler\BoilerHandler.ashx.cs">
+      <DependentUpon>BoilerHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\ConfigHandler.ashx.cs">
+      <DependentUpon>ConfigHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\DeviceDataHandler.ashx.cs">
+      <DependentUpon>DeviceDataHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\DeviceHandler.ashx.cs">
+      <DependentUpon>DeviceHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\DownloadHandler.ashx.cs">
+      <DependentUpon>DownloadHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\MapHandler.ashx.cs">
+      <DependentUpon>MapHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\NoAuthorityHandler.ashx.cs">
+      <DependentUpon>NoAuthorityHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\SystemHandler.ashx.cs">
+      <DependentUpon>SystemHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\UpHandler.ashx.cs">
+      <DependentUpon>UpHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidCode.aspx.cs">
+      <DependentUpon>ValidCode.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ValidCode.aspx.designer.cs">
+      <DependentUpon>ValidCode.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Handler\SystemHandler.ashx" />
+    <Content Include="System\Web.config" />
+    <Content Include="Handler\NoAuthorityHandler.ashx" />
+    <Content Include="packages.config" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.map" />
+    <Content Include="Handler\DeviceHandler.ashx" />
+    <Content Include="Handler\MapHandler.ashx" />
+    <Content Include="Handler\AlarmRecordHandler.ashx" />
+    <Content Include="Handler\ConfigHandler.ashx" />
+    <Content Include="Handler\DownloadHandler.ashx" />
+    <Content Include="Handler\DeviceDataHandler.ashx" />
+    <Content Include="Handler\UpHandler.ashx" />
+    <Content Include="Handler\BoilerHandler.ashx" />
+    <Content Include="Handler\BaseCodeHandler.ashx" />
+    <Content Include="Pages\Web.config" />
+    <None Include="Properties\PublishProfiles\EmissinsMonitor.pubxml" />
+    <None Include="Properties\PublishProfiles\FireMonitor.pubxml" />
+    <None Include="Properties\PublishProfiles\GasMonitor.pubxml" />
+    <None Include="Properties\PublishProfiles\inetpub.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RTMC.BLL\RTMC.BLL.csproj">
+      <Project>{ff2c14fe-826b-438e-896d-097b65888568}</Project>
+      <Name>RTMC.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTMC.Core\RTMC.Core.csproj">
+      <Project>{e4007687-cddb-4aa5-b0bb-30894129d3c4}</Project>
+      <Name>RTMC.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTMC.Permission\RTMC.Permissions.csproj">
+      <Project>{9f030083-0248-4f41-854a-cad524106167}</Project>
+      <Name>RTMC.Permissions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RTMC.Source\RTMC.Source.csproj">
+      <Project>{9963a34c-d9ca-425d-9636-eb5a985a3cf4}</Project>
+      <Name>RTMC.Source</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Files\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

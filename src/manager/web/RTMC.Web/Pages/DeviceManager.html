@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>锅炉在线综合监测信息平台-设备管理</title>
+	<link type="text/css" href="/CSS/global.css" rel="stylesheet" />
+	<!--[if ie 6]>
+	<script type="text/javascript" src="/Scripts/libs/EvPNG.js"></script>
+	<script type="text/javascript">EvPNG.fix('div, li, a, img, dt');</script>
+	<![endif]-->
+	<script type="text/javascript" src="/Scripts/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout-3.1.0.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.trafficCop.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.infuser.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.templateEngine.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.mapping-latest.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/layer-v1.9.3/layer/layer.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/moment-with-locales.js"></script>
+	<script type="text/javascript" src="/Scripts/utils/rtmc-util.js"></script>
+	<script type="text/javascript" src="/Scripts/project/config.js"></script>
+	<script type="text/javascript" src="/Scripts/project/poco.js"></script>
+	<script>
+		var area = {
+			AreaArray: [],
+			code: null,
+			UserCode: null,
+			UserCodeName: null,
+			GetBaseCodeList: function (obj) {
+				//var bcode = area.UserCode.substring(2);
+				if (area.UserCode.substring(4) == "00000" || area.UserCode.substring(2) != "0000000") {
+					if ($("#selProvince option:selected").val() == "-1") {
+						return;
+					}
+					JqPost("/Handler/BaseCodeHandler.ashx", { action: "getBaseCodeTreeModel", code: "510000000" }, function (data) {
+						area.AreaArray = data;
+						if (obj != null) {
+							area.InitCityArea(null);
+							area.InitCountyArea(null);
+						}
+					});
+				} else {
+					$("#trProvince").hide();
+					RTMC.Device.Entity.Code(area.UserCode);
+					RTMC.Device.Entity.AreaName(area.UserCodeName);
+				}
+			},
+			InitProvinceArea: function () {
+				$("#selProvince").empty();
+				var province = $("#selProvince")[0];
+				province.length = 0;
+				if (area.UserCode.substring(2) == "0000000") {
+					province.options.add(new Option("---请选择省---", "-1"));
+					if (area.code != null) {
+						var opt = new Option("四川省", "510000000");
+						$(opt).attr("selected", "selected");
+						province.options.add(opt);
+						return;
+					}
+					province.options.add(new Option("四川省", "510000000"));
+					$("#selProvince").change(function () {
+						area.InitCityArea(area.AreaArray);
+					});
+				} else {
+					province.options.add(new Option("四川省", "510000000"));
+				}
+			},
+			InitCityArea: function (data) {
+				var provinceArea = $("#selCity")[0];
+				provinceArea.length = 0;
+				if (data) {
+					if (area.UserCode.substring(2) == "0000000") {
+						provinceArea.options.add(new Option("---请选择市---", "-1"));
+						for (var i = 0; i < data.length; i++) {
+							provinceArea.options.add(new Option(data[i].Name, data[i].Code));
+							//if (area.code == data[i].Code) {
+							//	var opt = new Option(data[i].Name, data[i].Code);
+							//	$(opt).attr("selected", "selected");
+							//	provinceArea.options.add(opt);
+							//} else {
+							//	provinceArea.options.add(new Option(data[i].Name, data[i].Code));
+							//}
+						}
+						$("#selCity").change(function () {
+							area.CityAreaOnChange();
+						});
+					} else {
+						//var aa = area.UserCodeName.substring(4);
+						provinceArea.options.add(new Option(area.UserCodeName.substring(4), area.UserCode));
+						for (var i = 0; i < data.length; i++) {
+							if (area.code == data[i].Code || area.UserCode == data[i].Code) {
+								area.InitCountyArea(data[i].Childs);
+								break;
+							}
+						}
+					}
+				} else {
+					provinceArea.options.add(new Option("---请选择市---", "-1"));
+				}
+			},
+			InitCountyArea: function (data) {
+				var cityArea = $("#selArea")[0];
+				cityArea.length = 0;
+				cityArea.options.add(new Option("---请选择区---", "-1"));
+				if (data) {
+					for (var i = 0; i < data.length; i++) {
+						cityArea.options.add(new Option(data[i].Name, data[i].Code));
+					}
+				}
+			},
+			CityAreaOnChange: function () {
+				var cityArea = $("#selCity option:selected").val();
+				for (var i = 0; i < area.AreaArray.length; i++) {
+					if (area.AreaArray[i].Code == cityArea) {
+						area.InitCountyArea(area.AreaArray[i].Childs);
+					}
+				}
+			},
+			SetArea: function (code) {
+				area.code = code;
+				area.InitProvinceArea();
+				if (code == null) {
+					area.InitCityArea(null);
+					area.InitCountyArea(null);
+					return;
+				}
+				area.InitCityArea(area.AreaArray);
+				if (code == "510000000") {
+					$("#selCity").val("-1");
+					$("#selArea").val("-1");
+					area.InitCountyArea(null);
+					return;
+				}
+				if (code.substring(4, 9) == "00000") {
+					$("#selCity").val(code);
+					$("#selArea").val("-1");
+					area.CityAreaOnChange();
+				} else {
+					var cityCode = code.substring(0, 4) + "00000";
+					$("#selCity").val(cityCode);
+					for (var j = 0; j < area.AreaArray.length; j++) {
+						if (area.AreaArray[j].Code == cityCode) {
+							area.InitCountyArea(area.AreaArray[j].Childs);
+							$("#selArea").val(code);
+						}
+					}
+				}
+			}
+		};
+		RTMC.Device = {
+			Model: RTMC.Device.Model,
+			Detail: null,
+			Meta: {
+				$pk: 'Id',
+				设备编号: { clazz: 'leborno', bind: 'Number' },
+				设备别名: { bind: 'Name' },
+				状态: 'State()?"启用":"禁用"',
+				行政区域: { bind: 'AreaName' },
+				添加时间: 'moment(CreateDate()).format(\'YYYY-MM-DD HH:mm:ss\')',
+				备注: 'Remark()',
+				_编辑: { clazz: 'btn3 btnedit2', call: 'RTMC.Device.Func.Edit("$pk")' },
+				_详情: { clazz: 'btn3 btnview', call: 'RTMC.Device.Func.Info("$pk")' },
+				_删除: { clazz: 'btn3 btnrecycl', call: 'RTMC.Device.Func.Del("$pk")' }
+			},
+			Data: ko.mapping.fromJS([]),
+			Pager: new Page.Pager(function (index) {
+				var me = RTMC.Device.Pager;
+				JqPost(url_device, { action: 'getDeviceByPage', index: index, size: me.Size, key: $("#txtKey").val() }, function (json) {
+					if (json) {
+						ko.mapping.fromJS(json.data, RTMC.Device.Data);
+						me.Total(json.total);
+						me.Pages(Math.ceil(json.total / me.Size));
+						me.Index(index);
+					}
+					Page.showBtn();
+				});
+			}),
+			Entity: ko.mapping.fromJS(new RTMC.Device.Model()),
+			Action: null,
+			Form: {
+				column: 1,
+				keyClass: 'w15 tdr',
+				valClass: 'w35',
+				cells: {
+					'*设备编号': { clazz: 'w80', type: 'text', bind: 'Number', max: '50' },
+					'*设备别名': { clazz: 'w80', type: 'text', bind: 'Name', max: '50' },
+					'*设备状态': { clazz: 'w85', type: 'select', bind: 'State', options: [['请选择', ''], ['启用', 1], ['禁用', 0]] },
+					'*所在经度': { clazz: 'w80', type: 'text', bind: 'Longitude', max: '50' },
+					'*所在纬度': { clazz: 'w80', type: 'text', bind: 'Latitude', max: '50' },
+					备注: { clazz: 'w80', type: 'textarea', bind: 'Remark', rows: 3 },
+					_保存: { clazz: 'btn1 btnsave', call: 'RTMC.Device.Func.Save()', verify: true },
+					_取消: { clazz: 'btn1 btncancel', call: '' }
+				}
+			},
+			Func: {
+				Add: function () {
+					area.InitProvinceArea();
+					if (area.UserCode == null || area.UserCode == "510000000") {
+						area.InitCityArea(null);
+						area.InitCountyArea(null);
+					} else {
+						area.InitCityArea(area.AreaArray);
+					}
+					ko.mapping.fromJS(new RTMC.Device.Model(), RTMC.Device.Entity);
+					RTMC.Device.Action = "addDevice";
+					Page.layer({ id: 'divEdit', title: '设备-添加', width: '500px' });
+				},
+				Del: function (id) {
+					layer.confirm("确定删除吗？", { icon: 3, title: '提示' }, function () {
+						JqPost(url_device, { action: "delDevice", data: JSON.stringify(ko.toJS(RTMC.Device.Data).find(function (d) { return d.Id == id })) }, function (data) {
+							if (data === true) {
+								RTMC.Device.Pager.GetPagedData(1);
+								layer.msg("删除成功");
+							} else {
+								layer.alert("删除失败，请稍后重试！", { icon: 5 });
+							}
+						});
+					});
+				},
+				Edit: function (id) {
+					RTMC.Device.Action = "updateDevice";
+					var list = ko.toJS(RTMC.Device.Data);
+					for (var i = 0; i < list.length; i++) {
+						if (list[i].Id == id) {
+							area.SetArea(list[i].Code);
+							break;
+						}
+					}
+					ko.mapping.fromJS(ko.toJS(RTMC.Device.Data).find(function (d) { return d.Id == id }), RTMC.Device.Entity);
+					Page.layer({ id: 'divEdit', title: '设备-编辑', width: '500px' });
+				},
+				Save: function () {
+					var data = ko.mapping.toJS(RTMC.Device.Entity, ko.mapping);
+					if (RTMC.Device.Func.FnVerify(data, area.UserCode)) {
+						JqPost(url_device, { action: RTMC.Device.Action, data: JSON.stringify(data) }, function (data) {
+							RTMC.Device.Func.Close();
+							RTMC.Device.Pager.GetPagedData(1);
+							//area.code = null;
+							layer.msg("保存成功");
+						});
+					}
+				},
+				FnVerify: function (data, code) {
+					if (data.Number == null) {
+						layer.tips("编号不能为空", "#txtNumber", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else if (data.Name == null) {
+						layer.tips("名称不能为空", "#txtName", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else if (data.State == null) {
+						layer.tips("状态不能为空", "#selState", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else if (data.Code == null && $("#selProvince").val() == "-1") {
+						layer.tips("行政区域不能为空", "#selProvince", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else if (data.Longitude == null) {
+						layer.tips("经度不能为空", "#txtLongitude", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else if (data.Latitude == null) {
+						layer.tips("纬度不能为空", "#txtLatitude", { tips: [1, '#3595CC'], time: 4000 });
+						return false;
+					} else {
+						var aa = code.substring(2);
+						if (code.substring(2) == "0000000") {
+							var city = $("#selCity").val();
+							var area = $("#selArea").val();
+							if (city == "-1") {
+								data.Code = "51000000";
+								data.AreaName = "四川省";
+							} else if (area == "-1") {
+								data.Code = city;
+								data.AreaName = $("#selProvince option:selected").text() + "-" + $("#selCity option:selected").text();
+							} else {
+								data.Code = area;
+								data.AreaName = $("#selCity option:selected").text() + "-" + $("#selArea option:selected").text();
+							}
+						}
+						return true;
+					}
+				},
+				Close: function () {
+					area.code = null;
+					ko.mapping.fromJS(new RTMC.Device.Model(), RTMC.Device.Entity);
+					layer.closeAll();
+				}
+			}
+		};
+		$(function () {
+			JqPost("/Handler/BaseCodeHandler.ashx", { action: 'getSessionCodeByUserId' }, function (data) {
+				if (data) {
+					area.UserCode = data.Code;
+					area.UserCodeName = data.AreaName;
+				}
+				area.GetBaseCodeList(null);
+			});
+			$.rtmc.list(divContent);
+			//$.rtmc.form();
+			RTMC.Device.Pager.GetPagedData(1);
+			ko.applyBindings(RTMC.Device.Entity, divEdit);
+		});
+	</script>
+</head>
+<body>
+	<div id="divTop" class='top' data-bind="template: 'top-template'"></div>
+	<div id="divLeft" class="left" data-bind="template: 'left-template'"></div>
+	<div id="divContent" class="content">
+		<div class="tab">
+			<div class="tab_title">设备管理</div>
+		</div>
+		<!--操作条-->
+		<div class="panel">
+			<!--查询条-->
+			<div class="querypanel">
+				<ul>
+					<li>关键字：<input type="text" id="txtKey" /></li>
+					<li><a href="javascript:RTMC.Device.Pager.GetPagedData(1);" class="btn1 btnsearch">查询</a></li>
+				</ul>
+			</div>
+
+			<!--按钮条-->
+			<div class="btnpanel">
+				<ul>
+					<li><a href="javascript:RTMC.Device.Func.Add();" class="btn1 btnadd">添加</a></li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="gray_list" data-list="RTMC.Device"></div>
+		<div class="pager" data-pager="RTMC.Device"></div>
+	</div>
+	<div id="divBottom" class="bottom" data-bind="template: 'bottom-template'"></div>
+
+	<!--<div id="divEdit" class="layer" data-form="RTMC.Device"></div>-->
+	<div id="divEdit" class="layer">
+		<table>
+			<tr>
+				<td class="w20 tdr">设备编号：</td>
+				<td><input type="text" data-bind="value:Number" id="txtNumber" class="wp200" /></td>
+			</tr>
+			<tr>
+				<td class="w20 tdr">设备名称：</td>
+				<td><input type="text" data-bind="value:Name" class="wp200" id="txtName" /></td>
+			</tr>
+			<tr>
+				<td class="w20 tdr">设备状态：</td>
+				<td>
+					<select id="selState" data-bind="value:State" class="wp200">
+						<option value=" ">--请选择--</option>
+						<option value="1">启用</option>
+						<option value="0">禁用</option>
+					</select>
+				</td>
+			</tr>
+			<tr id="trProvince">
+				<td class="w20 tdr">行政区域：</td>
+				<td>
+					<select id="selProvince" class="wp100"></select>
+					<select id="selCity" class="wp100"></select>&nbsp;
+					<select id="selArea" class="wp100"></select>
+				</td>
+			</tr>
+			<tr>
+				<td class="w20 tdr">所在经度：</td>
+				<td><input type="text" data-bind="value:Longitude" id="txtLongitude" class="wp200" maxlength="9" /></td>
+			</tr>
+			<tr>
+				<td class="w20 tdr">所在纬度：</td>
+				<td><input type="text" data-bind="value:Latitude" id="txtLatitude" class="wp200" maxlength="9" /></td>
+			</tr>
+			<tr>
+				<td class="w20 tdr">备注：</td>
+				<td><textarea id="txtRemark" data-bind="value:Remark" style="width:90%;height:40px;text-indent:2em;"></textarea></td>
+			</tr>
+		</table>
+		<div class="btns">
+			<a class="btn1 btnsave" href="javascript:RTMC.Device.Func.Save()">保存</a>
+			<a class="btn1 btncancel" href="javascript:RTMC.Device.Func.Close()">取消</a>
+		</div>
+	</div>
+
+
+
+	<div id="divAuthorized" class="layer">
+		<div class="gray_list">
+			<table>
+				<tr>
+					<th class="w50">角色名称</th>
+					<th class="w50">授权</th>
+				</tr>
+
+				<!-- ko foreach: {data:$data,as:'m'} -->
+				<tr>
+					<td style="text-align: center" data-bind="    text: m.Name"></td>
+					<td>
+						<input name="cboRole" onclick="RTMC.SYS_Roles.Func.CheckRole(this)" data-bind="	value: m.Id" style="margin-right: 2px;" type="checkbox" />
+					</td>
+				</tr>
+				<!-- /ko -->
+			</table>
+		</div>
+		<div class="btns">
+			<a href="javascript:;" class="btn1 btnsave">保存</a>&nbsp;&nbsp;&nbsp;
+			<a href="javascript:;" class="btn1 btncancel">取消</a>
+		</div>
+	</div>
+</body>
+</html>

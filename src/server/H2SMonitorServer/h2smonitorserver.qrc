@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file alias="application_common_style.qss">Resources/qss/application_common_style.qss</file>
+        <file alias="form_device_detail.qss">Resources/qss/form_device_detail.qss</file>
+        <file alias="form_devices_container.qss">Resources/qss/form_devices_container.qss</file>
+        <file alias="form_server_control_panel.qss">Resources/qss/form_server_control_panel.qss</file>
+        <file alias="form_log_viewer.qss">Resources/qss/form_log_viewer.qss</file>
+        <file alias="form_registration.qss">Resources/qss/form_registration.qss</file>
+    </qresource>
+</RCC>

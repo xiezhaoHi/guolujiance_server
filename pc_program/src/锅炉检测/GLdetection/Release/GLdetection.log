@@ -1,0 +1,64 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  stdafx.cpp
+  GLdetection.cpp
+  GLdetectionDlg.cpp
+GLdetectionDlg.cpp(877): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+GLdetectionDlg.cpp(879): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(883): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(885): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(887): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(889): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(891): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(901): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(903): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(905): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(907): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(909): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(916): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+GLdetectionDlg.cpp(922): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(924): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(926): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(935): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(937): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+GLdetectionDlg.cpp(939): warning C4244: “参数”: 从“float”转换到“int”，可能丢失数据
+  LogRecord.cpp
+  mscomm.cpp
+  ReadWriteConfig.cpp
+  DUIButton.cpp
+skin\DUIButton.cpp(31): warning C4244: “参数”: 从“LONG”转换到“Gdiplus::REAL”，可能丢失数据
+  SkinManager.cpp
+  SkinWndHelper.cpp
+skin\SkinWndHelper.cpp(89): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(90): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(91): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(92): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(92): warning C4244: “参数”: 从“UINT”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(94): warning C4244: “=”: 从“LONG”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(95): warning C4244: “=”: 从“LONG”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(96): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(97): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(98): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(98): warning C4244: “参数”: 从“UINT”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(101): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(102): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(103): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(104): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(104): warning C4244: “参数”: 从“UINT”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(108): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(109): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(110): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(111): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(115): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(116): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(117): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(118): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(119): warning C4244: “参数”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(119): warning C4244: “参数”: 从“UINT”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(124): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(125): warning C4244: “=”: 从“int”转换到“Gdiplus::REAL”，可能丢失数据
+skin\SkinWndHelper.cpp(130): warning C4244: “参数”: 从“Gdiplus::REAL”转换到“INT”，可能丢失数据
+  正在生成代码
+  All 1243 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  已完成代码的生成
+  GLdetection.vcxproj -> G:\项目整理\锅炉检测\GLdetection\..\bin\GLdetection.exe
+  GLdetection.vcxproj -> ..\bin\GLdetection.pdb (Full PDB)

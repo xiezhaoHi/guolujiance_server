@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>菜单管理</title>
+	<link type="text/css" href="/CSS/global.css" rel="stylesheet" />
+	<!--[if ie 6]>
+	<script type="text/javascript" src="/Scripts/libs/EvPNG.js"></script>
+	<script type="text/javascript">EvPNG.fix('div, li, a, img, dt');</script>
+	<![endif]-->
+	<script type="text/javascript" src="/Scripts/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout-3.1.0.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.trafficCop.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.infuser.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.templateEngine.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.mapping-latest.js"></script>
+	<!--<script type="text/javascript" src="/Scripts/libs/layer/layer.min.js"></script>-->
+	<script type="text/javascript" src="/Scripts/libs/layer-v1.9.3/layer/layer.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/moment-with-locales.js"></script>
+	<script type="text/javascript" src="/Scripts/utils/rtmc-util.js"></script>
+	<script type="text/javascript" src="/Scripts/project/config.js"></script>
+	<script type="text/javascript" src="/Scripts/project/poco.js"></script>
+	<script>
+		RTMC.SYS_Menus = {
+			Model: RTMC.SYS_Menus.Model,
+			Meta: {
+				$pk: 'Id',
+				菜单名称: { clazz: 'leborno', bind: 'Name' },
+				父节点: 'ParentName',
+				URL: { clazz: 'wp300', bind: 'Url' },
+				//图标: 'Icon',
+				排序: { clazz: 'wp100', bind: 'Sort' },
+				是否启用: { clazz: 'wp100', bind: 'IsEnabled()?"是":"否"' },
+				_编辑: { clazz: 'btn3 btnedit2', call: 'RTMC.SYS_Menus.Func.Edit("$pk")' },
+				_删除: { clazz: 'btn3 btnrecycl', call: 'RTMC.SYS_Menus.Func.Del("$pk")' }
+			},
+			Data: ko.mapping.fromJS([]),
+			Pager: new Page.Pager(function (index) {
+				var me = RTMC.SYS_Menus.Pager;
+				JqPost(url_sys, { action: 'getMenuByPage', index: index, size: me.Size, key: $("#txtKey").val() }, function (json) {
+					if (json) {
+						ko.mapping.fromJS(json.data, RTMC.SYS_Menus.Data);
+						me.Total(json.total);
+						me.Pages(Math.ceil(json.total / me.Size));
+						me.Index(index);
+					}
+					Page.showBtn();
+				});
+			}),
+			Entity: ko.mapping.fromJS(new RTMC.SYS_Menus.Model()),
+			Action: null,
+			Func: {
+				Add: function () {
+					$("#aEditAuth").hide();
+					$("#aAddAuth").show();
+					ko.mapping.fromJS(new RTMC.SYS_Authorities.Model(), RTMC.SYS_Authorities.Entity);
+					ko.mapping.fromJS(new RTMC.SYS_Menus.Model, RTMC.SYS_Menus.Entity);
+					ko.mapping.fromJS([], RTMC.SYS_Authorities.Data);
+					RTMC.SYS_Menus.Action = "addMenu";
+					Page.layer({ id: 'divEdit', title: '菜单-添加', width: '820px' });
+				},
+				Del: function (id) {
+					layer.confirm("确定删除吗？", { icon: 3, title: '提示' }, function () {
+						JqPost(url_sys, { action: "delMenu", id: id }, function (data) {
+							if (data === true) {
+								RTMC.SYS_Menus.Pager.GetPagedData(1);
+								layer.msg("删除成功");
+							} else {
+								layer.alert("删除失败，请稍后重试！", { icon: 5 });
+							}
+						});
+					});
+				},
+				Edit: function (id) {
+					$("#aEditAuth").hide();
+					$("#aAddAuth").show();
+					ko.mapping.fromJS(new RTMC.SYS_Authorities.Model(), RTMC.SYS_Authorities.Entity);
+					RTMC.SYS_Menus.Action = "updateMenu";
+					JqPost(url_sys, { action: "getMenuById", id: id }, function (data) {
+						ko.mapping.fromJS(data, RTMC.SYS_Menus.Entity);
+						ko.mapping.fromJS(data.SYS_Authorities, RTMC.SYS_Authorities.Data);
+						Page.layer({ id: 'divEdit', title: '菜单-编辑', width: '820px' });
+					});
+				},
+				Save: function () {
+					var menu = ko.mapping.toJS(RTMC.SYS_Menus.Entity, ko.mapping);
+					var funcAuthoritys = ko.mapping.toJS(RTMC.SYS_Authorities.Data, ko.mapping);
+					JqPost(url_sys, { action: RTMC.SYS_Menus.Action, menu: JSON.stringify(menu), auths: JSON.stringify(funcAuthoritys) }, function (data) {
+						RTMC.SYS_Menus.Pager.GetPagedData(1);
+						layer.closeAll();
+						layer.msg("保存成功");
+						if (RTMC.SYS_Menus.Action == "addMenu") {
+							$("#cboParent").append('<option value="' + menu.Id + '">' + menu.Name + '</option>');
+						}
+					});
+				}
+			}
+		};
+		RTMC.SYS_Authorities = {
+			Model: RTMC.SYS_Authorities.Model,
+			Entity: ko.mapping.fromJS(new RTMC.SYS_Authorities.Model()),
+			Data: ko.mapping.fromJS([]),
+			Func: {
+				AddFuncAuthority: function () {
+					var data = ko.mapping.toJS(RTMC.SYS_Authorities.Entity, ko.mapping);
+					data.MenuId = RTMC.SYS_Menus.Entity.Id();
+					data.CreateDate = Page.getDate();
+
+					if (RTMC.SYS_Menus.Action == "updateMenu") {
+						JqPost(url_sys, { action: "addFuncAuthority", data: JSON.stringify(data) }, function (json) {
+							RTMC.SYS_Authorities.Data.push(ko.mapping.fromJS(data));
+							ko.mapping.fromJS(new RTMC.SYS_Authorities.Model(), RTMC.SYS_Authorities.Entity);
+						});
+					} else {
+						RTMC.SYS_Authorities.Data.push(ko.mapping.fromJS(data));
+						ko.mapping.fromJS(new RTMC.SYS_Authorities.Model(), RTMC.SYS_Authorities.Entity);
+					}
+				},
+				DelFuncAuthority: function (index, id) {
+					if (RTMC.SYS_Menus.Action == "updateMenu") {
+						layer.confirm("确定删除吗？", { icon: 3, title: '提示' }, function () {
+							JqPost(url_sys, { action: "delFuncAuthority", id: id }, function (json) {
+								if (json === true) {
+									RTMC.SYS_Authorities.Data.splice(index, 1);
+									layer.msg("删除成功");
+								}
+								else
+									layer.alert("删除失败", { icon: 5 });
+							});
+						});
+					} else {
+						RTMC.SYS_Authorities.Data.splice(index, 1);
+					}
+
+				},
+				EditFuncAuthority: function (index, id) {
+					var auth = ko.toJS(RTMC.SYS_Authorities.Data).find(function (r) { return r.Id == id });
+					ko.mapping.fromJS(auth, RTMC.SYS_Authorities.Entity);
+					$("#aEditAuth").show().unbind('click').click(function () {
+						RTMC.SYS_Authorities.Func.SaveEditFuncAuthority(index);
+					});
+					$("#aAddAuth").hide();
+				},
+				SaveEditFuncAuthority: function (index) {
+					var data = ko.mapping.toJS(RTMC.SYS_Authorities.Entity, ko.mapping);
+					JqPost(url_sys, { action: "editFuncAuthority", data: JSON.stringify(data) }, function (json) {
+						if (json === "成功") {
+							RTMC.SYS_Authorities.Data.splice(index, 1);
+							RTMC.SYS_Authorities.Data.splice(index, 0, ko.mapping.fromJS(data));
+							ko.mapping.fromJS(new RTMC.SYS_Authorities.Model(), RTMC.SYS_Authorities.Entity);
+							$("#aEditAuth").hide();
+							$("#aAddAuth").show();
+						} else {
+							layer.alert("修改失败，请稍后重试", { icon: 5 });
+						}
+					});
+				}
+			}
+		}
+
+		$(function () {
+			$.rtmc.list(divContent);
+			RTMC.SYS_Menus.Pager.GetPagedData(1);
+
+			JqPost(url_sys, { action: 'getParentMenu' }, function (data) {
+				var opt = '<option value="">请选择</option>';
+				for (var i = 0; i < data.length; i++) {
+					opt += '<option value="' + data[i].Id + '">' + data[i].Name + '</option>';
+				}
+				$("#cboParent").html(opt);
+			});
+
+			ko.applyBindings(RTMC.SYS_Menus.Entity, tbMenuInfo);
+			ko.applyBindings(RTMC.SYS_Authorities.Data, divFuncAuthority);
+			ko.applyBindings(RTMC.SYS_Authorities.Entity, tbFuncAuthorityInfo);
+		});
+	</script>
+</head>
+<body>
+	<div id="divTop" class='top' data-bind="template: 'top-template'"></div>
+	<div id="divLeft" class="left" data-bind="template: 'left-template'"></div>
+	<div id="divContent" class="content">
+		<div class="tab">
+			<div class="tab_title">菜单管理</div>
+		</div>
+		<div class="panel">
+			<div class="querypanel">
+				<ul>
+					<li>关键字：<input type="text" id="txtKey" /></li>
+					<li><a href="javascript:RTMC.SYS_Menus.Pager.GetPagedData(1);" class="btn1 btnsearch">查询</a></li>
+				</ul>
+			</div>
+
+			<div class="btnpanel">
+				<ul>
+					<li><a href="javascript:RTMC.SYS_Menus.Func.Add();" class="btn1 btnadd">添加</a></li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="gray_list" data-list="RTMC.SYS_Menus"></div>
+		<div class="pager" data-pager="RTMC.SYS_Menus"></div>
+	</div>
+	<div id="divBottom" class="bottom" data-bind="template: 'bottom-template'"></div>
+	<div id="divEdit" class="layer">
+		<div style="border-bottom: 1px dashed #209AED; margin-bottom: 5px;">
+			菜单基本信息
+		</div>
+		<table id="tbMenuInfo">
+			<tr>
+				<td class="w15 tdr">菜单名称：</td>
+				<td class="w35">
+					<input type="text" class="w80" data-bind="value: Name" />
+				</td>
+				<td class="w15 tdr">父节点：</td>
+				<td class="w35">
+					<select class="w85" id="cboParent" data-bind="value: ParentId"></select>
+				</td>
+			</tr>
+			<tr>
+				<td class="w15 tdr">URL：</td>
+				<td class="w35">
+					<input type="text" class="w80" data-bind="value: Url" />
+				</td>
+				<td class="w15 tdr">图标：</td>
+				<td class="w35">
+					<input type="text" class="w80" data-bind="value: Icon" />
+				</td>
+			</tr>
+			<tr>
+				<td class="w15 tdr">排序：</td>
+				<td class="w35">
+					<input type="text" class="w80" data-bind="value: Sort" />
+				</td>
+				<td class="w15 tdr">是否在用：</td>
+				<td class="w35">
+					<select class="w85" data-bind="value: IsEnabled">
+						<option value="true">是</option>
+						<option value="false">否</option>
+					</select>
+				</td>
+			</tr>
+
+		</table>
+		<div style="border-bottom: 1px dashed #209AED; margin: 5px 0;">
+			功能权限
+		</div>
+		<table id="tbFuncAuthorityInfo">
+			<tr>
+				<td class="w10 tdr">名称：</td>
+				<td class="w30">
+					<input type="text" class="w80" data-bind="value: Name" />
+				</td>
+				<td class="w10 tdr">地址：</td>
+				<td class="w30">
+					<input type="text" class="w80" data-bind="value: Handler" />
+				</td>
+				<td rowspan="2" class="w20 txtc">
+					<a id="aAddAuth" href="javascript:RTMC.SYS_Authorities.Func.AddFuncAuthority();" class="btn1 btnadd">添加</a>
+					<a id="aEditAuth" href="javascript:;" class="btn1 btnsave hide">保存</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="w10 tdr">动作</td>
+				<td class="w30">
+					<input type="text" class="w80" data-bind="value: Action" />
+				</td>
+				<td class="w10 tdr">按钮：</td>
+				<td class="w30">
+					<input type="text" class="w80" data-bind="value: BtnClass" />
+				</td>
+			</tr>
+		</table>
+		<div id="divFuncAuthority" class="gray_list" style="height: 200px;">
+			<table>
+				<tr>
+					<th class="w20">名称</th>
+					<th class="w30">地址</th>
+					<th class="w30">动作</th>
+					<th class="w10">按钮</th>
+					<th class="w15">操作</th>
+				</tr>
+				<!-- ko foreach: {data:$data,as:'f'} -->
+				<tr>
+					<td data-bind="text: f.Name"></td>
+					<td data-bind="text: f.Handler"></td>
+					<td data-bind="text: f.Action"></td>
+					<td data-bind="text: f.BtnClass"></td>
+					<td>
+						<!-- ko if:RTMC.SYS_Menus.Action == "updateMenu"-->
+						<a href="javascript:;" data-bind="attr: { 'onclick': 'RTMC.SYS_Authorities.Func.EditFuncAuthority(' + $index() + ',\''+ f.Id() +'\')'}" class="btn3 btnedit2">编辑</a>
+						<!-- /ko -->
+						<a href="javascript:;" data-bind="attr: { 'onclick': 'RTMC.SYS_Authorities.Func.DelFuncAuthority(' + $index() + ',\''+ f.Id() +'\')'}" class="btn3 btnrecycl">删除</a>
+					</td>
+				</tr>
+				<!-- /ko -->
+			</table>
+		</div>
+
+		<div class="btns">
+			<a href="javascript:RTMC.SYS_Menus.Func.Save();" class="btn1 btnsave">保存</a>&nbsp;&nbsp;&nbsp;
+			<a href="javascript:;" class="btn1 btncancel">取消</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>锅炉在线综合监测信息平台-数据统计图</title>
+	<link type="text/css" href="/CSS/global.css" rel="stylesheet" />
+	<!--[if ie 6]>
+	<script type="text/javascript" src="/Scripts/libs/EvPNG.js"></script>
+	<script type="text/javascript">EvPNG.fix('div, li, a, img, dt');</script>
+	<![endif]-->
+	<script type="text/javascript" src="/Scripts/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout-3.1.0.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.trafficCop.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.infuser.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.jquery.templateEngine.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/knockout.mapping-latest.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/layer-v1.9.3/layer/layer.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/moment-with-locales.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/DatePicker/WdatePicker.js" defer></script>
+	<script type="text/javascript" src="/Scripts/utils/rtmc-util.js"></script>
+	<script type="text/javascript" src="/Scripts/project/config.js"></script>
+	<script type="text/javascript" src="/Scripts/project/poco.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/hichart/highcharts.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/hichart/highcharts-more.js"></script>
+	<!--<script type="text/javascript" src="/Scripts/libs/hichart/themes/dark-unica.js"></script>-->
+	<!--<script type="text/javascript" src="/Scripts/libs/hichart/modules/exporting.js"></script>-->
+	<!--<script type="text/javascript" src="/Scripts/libs/hichart/themes/skies.js"></script>
+	<script type="text/javascript" src="/Scripts/libs/hichart/themes/grid.js"></script>-->
+	<style type="text/css">
+		.list_table { margin-top: 15px; }
+			.list_table table { border-collapse: collapse; width: 100%; table-layout: fixed; }
+				.list_table table tr { height: 28px !important; line-height: 28px; }
+					.list_table table tr th { border: 1px solid #DDDDDD; background-color: #F1F1F1; color: #666666; }
+					.list_table table tr td { border: 1px dashed #DDDDDD; text-align: center; padding: 0 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+					.list_table table tr:hover { background-color: #01B8F3; color: white; cursor: default; }
+			.list_table a:hover.btn3 { border: 1px solid #1E1E1E; color: white; }
+			.list_table .tdb { text-align: center; border: 0px; }
+		.d_tes { width: 94%; height: 170px; text-align: center; font-size: 45px; line-height: 170px; }
+		.d_span { text-align: center; font-size: 18px; }
+		.container { min-width: 600px; width: 100%; min-height: 300px; height: 45%; }
+		.control-panel { position: absolute; top: 10px; right: 10px; width: 300px; height: 30px; z-index: 999; }
+			.control-panel * { float: right; margin-right: 5px; }
+			.control-panel button { height: 22px; border: 1px solid transparent; cursor: pointer; line-height: 20px; }
+				.control-panel button:hover { border-color: gray; }
+	</style>
+	<script type="text/javascript">
+		function DeviceModel() {
+			this.Id = null;
+			this.DeviceName = null;
+			this.Number = null;
+			this.Longitude = null;
+			this.Latitude = null;
+			this.BoilerName = null;
+			this.AreaName = null;
+			this.SulfurDioxide = null;
+			this.NitricOxide = null;
+			this.CarbonMonoxide = null;
+			this.Hydrogen = null;
+			this.Oxygen = null;
+			this.CarbonDioxide = null;
+			this.CurrentTime = null;
+		}
+
+		var ch = {
+			DeviceId: null,
+			Series: [],
+			Time: [],
+			DeviceView: null,
+			CurrentTime: null,
+			Flag: false,  //判断是否有新数据
+			ViewList: ko.observableArray([]),
+			Index: ko.observable(1),
+			Pages: ko.observable(1),
+			Total: ko.observable(0),
+			DeviceModel: ko.mapping.fromJS(new DeviceModel()),
+			GetDevId: function () {
+				if (!(ch.DeviceId = window.request['id'])) return false;
+				return true;
+			},
+			ShowTab: function (obj, tabId) {
+				$(".tab div").removeClass("tab_title").addClass("tab_title1");
+				$(".tabr").hide();
+				$(obj).removeClass("tab_title1").addClass("tab_title");
+				$("#" + tabId).show();
+			},
+			GetDeviceInfoById: function () {
+				var me = this;
+				JqPost(url_map, { action: "getDeviceInfoById", id: ch.DeviceId }, function (json) {
+					var data = json[0];
+					if (data) {
+						ch.DeviceView = data;
+						ch.CurrentTime = data.CurrentTime;
+						//data.Oxygen = data.Oxygen / 100;
+						//data.CarbonDioxide = data.CarbonDioxide / 100;
+						data.Oxygen = data.Oxygen + '%';
+						data.CarbonDioxide = data.CarbonDioxide + '%';
+						ko.mapping.fromJS(data, ch.DeviceModel);
+					}
+				});
+				setInterval(function () {
+					$.post(url_map, { action: "getDeviceInfoById", id: ch.DeviceId }, function (json) {
+						var data = json[0];
+						if (data) {
+							ch.DeviceView = data;
+							ch.CurrentTime = data.CurrentTime;
+							//data.Oxygen = data.Oxygen / 100;
+							//data.CarbonDioxide = data.CarbonDioxide / 100;
+							data.Oxygen = data.Oxygen + '%';
+							data.CarbonDioxide = data.CarbonDioxide + '%';
+							ko.mapping.fromJS(data, ch.DeviceModel);
+						}
+					});
+				}, 1000 * 5);
+			},
+			GetDeviceHistoryListByPage: function (index, size) {
+				JqPost(url_map, { action: 'getDeviceHistoryListByPage', devId: ch.DeviceId, index: index, size: size }, function (data) {
+					var list = data.Data;
+					ch.ViewList.removeAll();
+					if (list) {
+						for (var i = 0; i < list.length; i++) {
+							ch.ViewList.push(list[i]);
+						}
+					}
+					ch.Index(index);
+					ch.Pages(Math.ceil(data.Total / size));
+					ch.Total(data.Total);
+					ch.ShowHistoryData($('.list_table').find('tr')[1]);
+				});
+			},
+			Page: function (index) {
+				$('#txtGo').val('');
+				if (index > 0 && index <= ch.Pages()) {
+					ch.Index(index);
+					ch.GetDeviceHistoryListByPage(index, 12);
+				}
+			},
+			Pager: function (index) {
+				$('#txtGo').val('');
+				var i = ch.Index();
+				var j = index + i;
+				if (j > 0 && j < ch.Pages()) {
+					ch.Index(j);
+					ch.GetDeviceHistoryListByPage(j, 12);
+				}
+			},
+			ChartHandler: -1,
+			GetChartData: function () {
+				var lastDate = ch.Series[0].data[ch.Series[0].data.length - 1].x;
+				$.getJSON(url_map, { action: 'UpdateChartDataById', id: ch.DeviceId, date: lastDate }, function (item) {
+					if (item) {
+						for (var i = 0, j; j = item[i]; i++) {
+							ch.Series[0].addPoint([j.UnixTime, j.O2Min, j.O2Max], true, true);
+							ch.Series[1].addPoint([j.UnixTime, j.CO2Min, j.CO2Max], true, true);
+							ch.Series[2].addPoint([j.UnixTime, j.SO2Min, j.SO2Max], true, true);
+							ch.Series[3].addPoint([j.UnixTime, j.NOMin, j.NOMax], true, true);
+							ch.Series[4].addPoint([j.UnixTime, j.COMin, j.COMax], true, true);
+							ch.Series[5].addPoint([j.UnixTime, j.NOxMin, j.NOxMax], true, true);
+						}
+					}
+				});
+			},
+			UpdateCharts: function (s) {
+				if (!s) return;
+				ch.Series = ch.Series.concat(s);
+				if (ch.Series.length === 6) {
+					this.ChartHandler = setInterval(this.GetChartData, 1000 * 30);
+				}
+			},
+			CreateCharts: function () {
+				$.getJSON(url_map, { action: 'GetChartDataById', id: ch.DeviceId }, function (json) {
+					if (!json) return;
+					var data = [[], [], [], [], [], []];
+					for (var i = 0, j; j = json[i]; i++) {
+						data[0].push([j.UnixTime, j.O2Min, j.O2Max]);
+						data[1].push([j.UnixTime, j.CO2Min, j.CO2Max]);
+						data[2].push([j.UnixTime, j.SO2Min, j.SO2Max]);
+						data[3].push([j.UnixTime, j.NOMin, j.NOMax]);
+						data[4].push([j.UnixTime, j.COMin, j.COMax]);
+						data[5].push([j.UnixTime, j.NOxMin, j.NOxMax]);
+					}
+					ch.DrawCharts(data, true);
+				});
+			},
+			DrawCharts: function (data, update) {
+				Highcharts.setOptions({
+					'lang': {
+						resetZoom: '重置视图'
+						//printChart: '打印统计图',
+						//downloadPNG: '下载图片 PNG',
+						//downloadJPEG: '下载图片 JPG',
+						//downloadPDF: '下载文件 PDF',
+						//downloadSVG: '下载图像 SVG',
+						//contextButtonTitle: '菜单'
+					}
+				});
+				$('#container1').highcharts({
+					chart: {
+						type: 'arearange',
+						zoomType: 'x',
+						animation: Highcharts.svg,
+						events: {
+							load: function () { if (update) ch.UpdateCharts(this.series); }
+						}
+					},
+					title: {
+						text: '气体监控状态图'
+					},
+					subtitle: {
+						text: '过去24小时，每分钟'
+					},
+					xAxis: {
+						type: 'datetime',
+						dateTimeLabelFormats: {
+							millisecond: '%H:%M',
+							second: '%H:%M',
+							minute: '%H:%M',
+							hour: '%H:%M',
+							day: '%Y-%m-%d',
+							week: '%Y-%m-%d',
+							month: '%Y-%m-%d',
+							year: '%Y-%m-%d'
+						}
+					},
+					tooltip: {
+						dateTimeLabelFormats: {
+							millisecond: '%Y-%m-%d %H:%M',
+							second: '%Y-%m-%d %H:%M',
+							minute: '%Y-%m-%d %H:%M',
+							hour: '%Y-%m-%d %H:%M',
+							day: '%Y-%m-%d %H:%M',
+							week: '%Y-%m-%d %H:%M',
+							month: '%Y-%m-%d',
+							year: '%Y-%m-%d'
+						},
+						crosshairs: true,
+						shared: true
+					},
+					yAxis: [{
+						title: {
+							text: '百分比(%)'
+						}
+					}],
+					plotOptions: {
+						arearange: {
+							lineWidth: 1,
+							states: {
+								hover: false
+							}
+						}
+					},
+					series: [{
+						name: '氧气(O2)',
+						data: data[0],
+						color: Highcharts.getOptions().colors[6],
+						tooltip: {
+							valueSuffix: '%'
+						}
+					}, {
+						name: '二氧化碳(CO2)',
+						data: data[1],
+						color: Highcharts.getOptions().colors[7],
+						tooltip: {
+							valueSuffix: '%'
+						}
+					}]
+				});
+				$('#container2').highcharts({
+					chart: {
+						type: 'arearange',
+						zoomType: 'x',
+						animation: Highcharts.svg,
+						events: {
+							load: function () { if (update) ch.UpdateCharts(this.series); }
+						}
+					},
+					title: null,
+					xAxis: {
+						type: 'datetime',
+						dateTimeLabelFormats: {
+							millisecond: '%H:%M',
+							second: '%H:%M',
+							minute: '%H:%M',
+							hour: '%H:%M',
+							day: '%Y-%m-%d',
+							week: '%Y-%m-%d',
+							month: '%Y-%m-%d',
+							year: '%Y-%m-%d'
+						}
+					},
+					tooltip: {
+						dateTimeLabelFormats: {
+							millisecond: '%Y-%m-%d %H:%M',
+							second: '%Y-%m-%d %H:%M',
+							minute: '%Y-%m-%d %H:%M',
+							hour: '%Y-%m-%d %H:%M',
+							day: '%Y-%m-%d %H:%M',
+							week: '%Y-%m-%d %H:%M',
+							month: '%Y-%m-%d',
+							year: '%Y-%m-%d'
+						},
+						crosshairs: true,
+						shared: true,
+						valueSuffix: ' ppm'
+					},
+					yAxis: [{
+						title: {
+							text: '气体浓度(ppm)'
+						}
+					}],
+					legend: {
+						//enabled: false
+					},
+					plotOptions: {
+						arearange: {
+							lineWidth: 1,
+							states: {
+								hover: false
+							}
+						}
+					},
+					series: [{
+						name: '二氧化硫(SO2)',
+						data: data[2],
+					}, {
+						name: '一氧化氮(NO)',
+						data: data[3],
+					}, {
+						name: '一氧化碳(CO)',
+						data: data[4],
+					}, {
+						name: '氮氧化物(NOx)',
+						data: data[5],
+					}]
+				});
+			},
+			HasLoad: false,
+			InitHistoryData: function () {
+				if (this.HasLoad) return;
+				ch.GetDeviceHistoryListByPage(1, 12);
+				ko.applyBindings(ch.ViewList, divHistory);
+				ch.HasLoad = true;
+			},
+			ShowHistoryData: function (trObj) {
+				var tdList = [];
+				$(trObj).find("td").each(function () {
+					tdList.push($(this).text());
+				});
+				$("#txtDeviceName").val(ch.DeviceView.DeviceName);
+				$("#txtNumber").val(ch.DeviceView.Number);
+				$("#txtLongitude").val(ch.DeviceView.Longitude);
+				$("#txtLatitude").val(ch.DeviceView.Latitude);
+
+				$("#txtSO2").val(tdList[1]);
+				$("#txtNO").val(tdList[2]);
+				$("#txtCO").val(tdList[3]);
+				$("#txtNOx").val(tdList[4]);
+				$("#txtO2").val(tdList[5]);
+				$("#txtCO2").val(tdList[6]);
+				$("#txtCurrentTime").val(tdList[7]);
+			},
+			ViewCharts: function () {
+				var date = $('#txtDate').val();
+				if (!date) {
+					layer.alert('请选择查看日期。');
+					return;
+				}
+				date = moment(date);
+				if (date > moment()) {
+					layer.alert('查看日期不能晚于当前日期。');
+					return;
+				}
+				if (this.ChartHandler > -1) clearInterval(this.ChartHandler);
+				$.post(url_map, { action: 'GetDailyChartDataById', id: ch.DeviceId, date: date.format('YYYY-MM-DD') }, function (json) {
+					if (!json || json.length == 0) {
+						layer.alert("没有该天的数据。");
+						return;
+					}
+					var data = [[], [], [], [], [], []];
+					for (var i = 0, j; j = json[i]; i++) {
+						data[0].push([j.UnixTime, j.O2Min, j.O2Max]);
+						data[1].push([j.UnixTime, j.CO2Min, j.CO2Max]);
+						data[2].push([j.UnixTime, j.SO2Min, j.SO2Max]);
+						data[3].push([j.UnixTime, j.NOMin, j.NOMax]);
+						data[4].push([j.UnixTime, j.COMin, j.COMax]);
+						data[5].push([j.UnixTime, j.NOxMin, j.NOxMax]);
+					}
+					ch.DrawCharts(data, false);
+					$('#container1').highcharts().subtitle.textSetter(date.format('YYYY年MM月DD日') + '，每分钟');
+				});
+			},
+			ResumeRuntime: function () {
+				if (this.ChartHandler >= 0) clearInterval(this.ChartHandler);
+				$('#divContainer').height(divContent.clientHeight - 31);
+				ch.CreateCharts();
+			}
+		};
+
+		$(function () {
+			$('#divContainer').height(divContent.clientHeight - 31);
+			if (ch.GetDevId()) {
+				ko.applyBindings(ch.DeviceModel, divNewest);
+				ch.GetDeviceInfoById();
+				ch.CreateCharts();
+			} else {
+				window.location.href = "/Index.aspx";
+			}
+		});
+	</script>
+</head>
+<body>
+	<div id="divTop" class='top' data-bind="template: 'top-template'"></div>
+	<div id="divLeft" class="left" data-bind="template: 'left-template'"></div>
+	<div id="divContent" class="content">
+		<div class="tab">
+			<div class="tab_title" onclick="ch.ShowTab(this, 'divNewest')">实时数据</div>
+			<div class="tab_title1" onclick="ch.ShowTab(this, 'divContainer')">实时统计</div>
+			<div class="tab_title1" onclick="ch.ShowTab(this, 'divHistory'); ch.InitHistoryData();">历史数据</div>
+		</div>
+		<!--实时数据-->
+		<div id="divNewest" class="gray_form tabr" style="margin:20px 20px 0px 20px; overflow:visible;">
+			<table>
+				<tr style="line-height:50px;">
+					<td style="text-align:center;border:0px;" class="w25">
+						<div class="d_tes" style="background-color:#F1F1F1;" data-bind="html:SulfurDioxide()?SulfurDioxide:'0'"></div>
+						<span class="d_span">二氧化硫(ppm)</span>
+					</td>
+					<td style="text-align:center;border:0px;" class="w25">
+						<div class="d_tes" style="background-color:#e6e3e8;" data-bind="html:NitricOxide()?NitricOxide:'0'"></div>
+						<span class="d_span">一氧化氮(ppm)</span>
+					</td>
+					<td style="text-align:center;border:0px;" class="w25">
+						<div class="d_tes" style="background-color:#ccd6e5;" data-bind="html:CarbonMonoxide()?CarbonMonoxide:'0'"></div>
+						<span class="d_span">一氧化碳(ppm)</span>
+					</td>
+					<td style="text-align:center;border:0px;" class="w25">
+						<div class="d_tes" style="background-color:#bfcdd8;" data-bind="html:Hydrogen()?Hydrogen:'0'"></div>
+						<span class="d_span">氮氧化物(ppm)</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="tdr w25" style="font-size:25px;">氧气：</td>
+					<td><label type="text" class="wp200" data-bind="html:Oxygen" style="font-size:30px;" /></td>
+					<td class="tdr w25" style="font-size:25px;">二氧化碳：</td>
+					<td><label type="text" class="wp200" data-bind="html:CarbonDioxide" style="font-size:30px;" /></td>
+				</tr>
+				<tr>
+					<td class="tdr w25">设备名称：</td>
+					<td><label type="text" class="wp200" data-bind="html:DeviceName" /></td>
+					<td class="tdr w25">编号：</td>
+					<td><label type="text" class="wp200" data-bind="html:Number" /></td>
+				</tr>
+				<tr>
+					<td class="tdr w25">经度：</td>
+					<td><label type="text" class="wp200" data-bind="html:Longitude" /></td>
+					<td class="tdr w25">纬度：</td>
+					<td><label type="text" class="wp200" data-bind="html:Latitude" /></td>
+				</tr>
+				<tr>
+					<td class="tdr w25">所属锅炉：</td>
+					<td><label type="text" class="wp200" data-bind="html:BoilerName" /></td>
+					<td class="tdr w25">行政区域：</td>
+					<td><label type="text" class="wp200" data-bind="html:AreaName" /></td>
+				</tr>
+				<tr>
+					<td class="tdr w25">记录时间：</td>
+					<td colspan="3"><label type="text" class="wp200" data-bind="html:CurrentTime()?moment(CurrentTime()).format('YYYY-MM-DD HH:mm:ss'):' '" /></td>
+				</tr>
+			</table>
+		</div>
+		<!--图表区-->
+		<div id="divContainer" class="hide tabr" style="position:relative; overflow:hidden;">
+			<div class="control-panel">
+				<button id="btnRuntime" type="button" onclick="ch.ResumeRuntime()">实时</button>
+				<button id="btnView" type="button" onclick="ch.ViewCharts()">查看</button>
+				<input id="txtDate" type="text" onclick="WdatePicker({lang:'zh-cn', dateFmt:'yyyy-MM-dd'})" style="width:70px;" />
+			</div>
+			<div id="container1" class="container">加载中……</div>
+			<div id="container2" class="container"></div>
+			<!--<div id="container" style="min-width:400px;height:400px"></div>-->
+		</div>
+		<!--历史数据-->
+		<div id="divHistory" class="hide tabr" style="overflow:hidden;">
+			<div class="gray_form">
+				<table>
+					<tr>
+						<td class="tdr w20">设备名称：</td>
+						<td><input type="text" class="wp200" id="txtDeviceName" disabled="disabled" /></td>
+						<td class="tdr w20">编号：</td>
+						<td><input type="text" class="wp200" id="txtNumber" disabled="disabled" /></td>
+						<td class="tdr w20">经度：</td>
+						<td><input type="text" class="wp200" id="txtLongitude" disabled="disabled" /></td>
+					</tr>
+					<tr>
+						<td class="tdr w20">纬度：</td>
+						<td><input type="text" class="wp200" id="txtLatitude" disabled="disabled" /></td>
+						<td class="tdr w20">二氧化硫：</td>
+						<td><input type="text" class="wp200" id="txtSO2" disabled="disabled" /></td>
+						<td class="tdr w20">一氧化氮：</td>
+						<td><input type="text" class="wp200" id="txtNO" disabled="disabled" /></td>
+					</tr>
+					<tr>
+						<td class="tdr w20">一氧化碳：</td>
+						<td><input type="text" class="wp200" id="txtCO" disabled="disabled" /></td>
+						<td class="tdr w20">氮氧化物：</td>
+						<td><input type="text" class="wp200" id="txtNOx" disabled="disabled" /></td>
+						<td class="tdr w20">氧气：</td>
+						<td><input type="text" class="wp200" id="txtO2" disabled="disabled" /></td>
+					</tr>
+					<tr>
+						<td class="tdr w20">二氧化碳：</td>
+						<td><input type="text" class="wp200" id="txtCO2" disabled="disabled" /></td>
+						<td class="tdr w20">记录时间：</td>
+						<td onclose="3"><input type="text" class="wp200" id="txtCurrentTime" disabled="disabled" /></td>
+					</tr>
+				</table>
+			</div>
+			<div class="list_table">
+				<table>
+					<tr>
+						<th class="w10">序号</th>
+						<th>二氧化硫(ppm)</th>
+						<th>一氧化氮(ppm)</th>
+						<th>一氧化碳(ppm)</th>
+						<th>氮氧化物(ppm)</th>
+						<th>氧气(%)</th>
+						<th>二氧化碳(%)</th>
+						<th>记录时间</th>
+					</tr>
+					<!--ko foreach:{data:ch.ViewList,as:'v'}-->
+					<tr onclick="ch.ShowHistoryData(this)">
+						<td class="w10" data-bind="text: $index() + 1 + ( ch.Index()-1 ) * 12"></td>
+						<td data-bind="text:v.SulfurDioxide"></td>
+						<td data-bind="text:v.NitricOxide"></td>
+						<td data-bind="text:v.CarbonMonoxide"></td>
+						<td data-bind="text:v.Hydrogen"></td>
+						<td data-bind="text:v.Oxygen"></td>
+						<td data-bind="text:v.CarbonDioxide"></td>
+						<td data-bind="text:moment(v.CurrentTime).format('YYYY-MM-DD hh:mm:ss')"></td>
+					</tr>
+					<!-- /ko-->
+				</table>
+			</div>
+			<div class="pager">
+				<ul>
+					<li><a href="javascript:ch.Page(1)" id="btnFist">首页</a></li>
+					<li><a title="上一页" class="fybtn1" href="javascript:ch.Pager(-1)">&nbsp;</a></li>
+					<li data-bind="text: ch.Index() + '/' + ch.Pages() + '页'">1/1页</li>
+					<li><a title="下一页" class="fybtn2" href="javascript:ch.Pager(1)">&nbsp;</a></li>
+					<li><a href="javascript:ch.Page(ch.Pages())">尾页</a></li>
+					<li>跳转到第</li>
+					<li><input id="txtGo" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/D/g,'')}" type="text"></li>
+					<li>页</li>
+					<li><a class="btn3 fybtn3" href="javascript:ch.Page($('#txtGo').val())">转</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="divBottom" class="bottom" data-bind="template: 'bottom-template'"></div>
+	<div id="div_Down" class="layer">
+		<span><b>记录导出完毕，请下载</b></span>
+		<div class="btns">
+			<a href="javascript:;" id="DownExcel" class="btn1 btndownload">下载</a>
+			<a href="javascript:;" class="btn1 btncancel">关闭</a>
+		</div>
+	</div>
+</body>
+</html>

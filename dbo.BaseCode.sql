@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[BaseCode] (
+    [Id]   UNIQUEIDENTIFIER NOT NULL,
+    [Code] NVARCHAR (50)    NOT NULL,
+    [Name] NVARCHAR (50)    NOT NULL,
+    CONSTRAINT [PK_BaseCode] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

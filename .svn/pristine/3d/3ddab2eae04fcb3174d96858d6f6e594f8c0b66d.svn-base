@@ -1,0 +1,14 @@
+;//设置com口  界面显示时  combox 中的数据
+[COM]
+;总共的com口数 例如 10 表示 1-10
+COM_MAX=10
+;上次使用的com口 1-COM_MAX
+COM_CUR=6
+;通信时的波特率
+COM_BTL=115200
+;数据位
+COM_SJW=8
+;校验位
+COM_JYW=N
+;停止位
+COM_TZW=1

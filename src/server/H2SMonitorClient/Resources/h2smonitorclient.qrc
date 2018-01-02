@@ -1,0 +1,55 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file alias="form_login.qss">qss/form_login.qss</file>
+        <file alias="main_window.qss">qss/client_main_window.qss</file>
+        <file alias="application_common_style.qss">qss/application_common_style.qss</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>images/button_left1.png</file>
+        <file>images/button_left2.png</file>
+        <file>images/button_top1.png</file>
+        <file>images/button_top2.png</file>
+        <file>images/button_top3.png</file>
+        <file>images/button_top4.png</file>
+        <file>images/button_top5.png</file>
+        <file>images/main_right.png</file>
+        <file>images/mian_botton.png</file>
+        <file>images/mian_left.png</file>
+        <file>images/status.png</file>
+        <file>images/Status_bar.png</file>
+        <file>images/status_left1.png</file>
+        <file>images/status_left2.png</file>
+        <file>images/main.png</file>
+        <file>images/top1.png</file>
+        <file>images/top.png</file>
+        <file>images/top2.png</file>
+        <file>images/top3.png</file>
+        <file>images/bt_export.png</file>
+        <file>images/bt_warn.png</file>
+    </qresource>
+    <qresource prefix="/login">
+        <file>images/login/botton.png</file>
+        <file>images/login/loading.gif</file>
+        <file>images/login/loading2.gif</file>
+        <file>images/login/loading3.gif</file>
+        <file>images/login/login.png</file>
+        <file>images/login/login_bg.jpg</file>
+        <file>images/login/login_cancel.png</file>
+        <file>images/login/login_commit.png</file>
+        <file>images/login/collect_main.png</file>
+        <file>images/login/bt_collect_close.png</file>
+        <file>images/login/bt_collect_full.png</file>
+        <file>images/login/bt_collect_zero.png</file>
+        <file>images/login/bt_device_collect.png</file>
+    </qresource>
+    <qresource prefix="/warning">
+        <file>images/warning/clear.png</file>
+        <file>images/warning/normal.png</file>
+        <file>images/warning/warn_1st.gif</file>
+        <file>images/warning/warn_2nd.gif</file>
+    </qresource>
+    <qresource prefix="/sound">
+        <file>Fire.mp3</file>
+        <file>warn.mp3</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,7 @@
+QWidget#formdevicedatacurvecontainer {
+    background-color:rgb(244, 0, 0);
+}
+
+QWidget#formdevicedatacurvecontainer_scrollareawidget{
+    background-color:rgb(0, 0, 0);
+}

@@ -1,0 +1,967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{44A1605B-A8C4-4DAD-9A60-DA813EF0FF52}</ProjectGuid>
+    <Keyword>Qt4VSv1.0</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140_xp</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60315.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)..\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\objs\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(QTDIR)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(ProjectDir)..\objs\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <OutDir>$(ProjectDir)..\bin\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;_WIN32_WINNT=0x0501;QT_SQL_LIB;USED_BY_H2SMONITORCLIENT_ONLY;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(ProjectDir)..\..\..\client\;$(BOOSTDIR_1_58_0)\;$(ProjectDir)..\..\..\cxxcommon\;$(ProjectDir)\..\..\..\client\ui;$(QWTDIR)\include\;$(ProjectDir)\..\..\..\client\connection;.\Header Files;$(ProjectDir)\..\..\..\client\DAL;$(ProjectDir)\..\..\..\client\DAL\QxOrm;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;..\..\..\client\connection;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtMultimedia;$(ProjectDir)..\..\..\cxxcommon\util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <StructMemberAlignment>4Bytes</StructMemberAlignment>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QWTDIR)\lib;$(BOOSTDIR_1_58_0)\stage\lib;../lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;qwtd.lib;Qt5SerialPortd.lib;Qt5SerialPort.lib;Qt5Sqld.lib;Qt5AxContainerd.lib;Qt5AxBased.lib;Qt5AxServerd.lib;Qt5AxBase.lib;Qt5MultimediaWidgetsd.lib;Qt5Multimediad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_SQL_LIB;USED_BY_H2SMONITORCLIENT_ONLY;_WIN32_WINNT=0x0501;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(ProjectDir)..\..\..\client\;$(BOOSTDIR_1_58_0)\;$(ProjectDir)..\..\..\cxxcommon\;$(ProjectDir)..\..\..\client\ui;$(QTDIR)\include\QtSql;$(QTDIR)\include\ActiveQt;$(QWTDIR)\include\;$(ProjectDir)\..\..\..\client\connection;$(ProjectDir)\..\..\..\client\DAL;$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm;$(ProjectDir)..\..\..\cxxcommon\util;..\..\..\client\connection;$(QTDIR)\include\QtMultimediaWidgets;$(QTDIR)\include\QtMultimedia;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <StructMemberAlignment>4Bytes</StructMemberAlignment>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QWTDIR)\lib;$(BOOSTDIR_1_58_0)\stage\lib;$(ProjectDir)\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Sql.lib;qwt.lib;Qt5SerialPort.lib;Qt5AxBase.lib;Qt5MultimediaWidgets.lib;Qt5Multimedia.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+    </Link>
+    <PostBuildEvent>
+      <Command>COPY $(OutDir)\$(TargetFileName) $(OutDir)\deploy\$(TargetFileName)
+rem makensis.exe $(OutDir)\H2SMonitorClientInstaller.nsi
+IF EXIST $(ProjectDir)tools\backup.bat (START $(ProjectDir)tools\backup.bat $(OutDir) $(TargetName))</Command>
+    </PostBuildEvent>
+    <CustomBuildStep />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\client\connection\message_queue.cpp" />
+    <ClCompile Include="..\..\..\client\connection\qconnectstate.cpp" />
+    <ClCompile Include="..\..\..\client\connection\qmessagethread.cpp" />
+    <ClCompile Include="..\..\..\client\settings\settings.cpp" />
+    <ClCompile Include="..\..\..\client\ui\flow_layout.cpp" />
+    <ClCompile Include="..\..\..\client\ui\form_device_data_curve.cpp" />
+    <ClCompile Include="..\..\..\client\ui\form_device_data_curve_container.cpp" />
+    <ClCompile Include="..\..\..\client\ui\form_device_data_table_view.cpp" />
+    <ClCompile Include="..\..\..\client\ui\form_login.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\io_bytearray.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_body_factory.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_broadcast_device_online_status.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_broadcast_device_realtime_data.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_devices_list_item.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_data_item.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_id.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_item_info.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_batched_data.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_data.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_device_realtime_data_item.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_error_info.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_devices_info_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_devices_info_req.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_count_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_count_req.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_data_req.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_list_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep_item.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_header.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_heartbeat.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_login.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_login_rep.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_server_time_beijing.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_set_device_param.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\message\message_unrecognized_body_type.cpp" />
+    <ClCompile Include="..\..\..\cxxcommon\util\global_util.cpp" />
+    <ClCompile Include="allwarnmsgmodel.cpp" />
+    <ClCompile Include="extserial\qextserialbase.cpp" />
+    <ClCompile Include="extserial\qextserialenumerator.cpp" />
+    <ClCompile Include="extserial\qextserialport.cpp" />
+    <ClCompile Include="extserial\win_qextserialport.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_allwarnmsgmodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_curve.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_curve_container.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_device_data_table_view.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_form_login.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_h2smonitorclient.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qallpaneltablewidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qallwarninfowidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qall_pannel_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckdatamodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvdataqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvloaddataqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcheckrecvsysqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qconnectstate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qcustombutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdataexportthread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdatashowwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdevice_collect_dlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qdialwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qexportwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qextserialbase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qextserialport.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qinnerwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qioservicethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qmessagethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qparamsetwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qpasswd_dlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qphotoshowwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qprocesswidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qquerydatathread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qquerywarnthread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qregistdlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qremovedatatobasethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qrunstateinfo_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qshowwarndlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qshowwarnmodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qstatebutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qstateinfomodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qwaitwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qwarning_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_win_qextserialport.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_h2smonitorclient.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_allwarnmsgmodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_curve.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_curve_container.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_device_data_table_view.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_form_login.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_h2smonitorclient.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qallpaneltablewidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qallwarninfowidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qall_pannel_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckdatamodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvdataqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvloaddataqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcheckrecvsysqueuethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qconnectstate.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qcustombutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdataexportthread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdatashowwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdevice_collect_dlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qdialwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qexportwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qextserialbase.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qextserialport.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qinnerwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qioservicethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qmessagethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qparamsetwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qpasswd_dlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qphotoshowwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qprocesswidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qquerydatathread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qquerywarnthread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qregistdlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qremovedatatobasethread.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qrunstateinfo_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qshowwarndlg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qshowwarnmodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qstatebutton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qstateinfomodel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qwaitwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qwarning_widget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_win_qextserialport.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="h2smonitorclient.cpp" />
+    <ClCompile Include="logging.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="qallpaneltablewidget.cpp" />
+    <ClCompile Include="qallwarninfowidget.cpp" />
+    <ClCompile Include="qall_pannel_widget.cpp" />
+    <ClCompile Include="qcheckdatamodel.cpp" />
+    <ClCompile Include="qcheckrecvdataqueuethread.cpp" />
+    <ClCompile Include="qcheckrecvloaddataqueuethread.cpp" />
+    <ClCompile Include="qcheckrecvsysqueuethread.cpp" />
+    <ClCompile Include="qcustombutton.cpp" />
+    <ClCompile Include="qdataexportthread.cpp" />
+    <ClCompile Include="qdatashowwidget.cpp" />
+    <ClCompile Include="qdevice_collect_dlg.cpp" />
+    <ClCompile Include="qdialwidget.cpp" />
+    <ClCompile Include="qexportwidget.cpp" />
+    <ClCompile Include="qinit_configuration.cpp" />
+    <ClCompile Include="qinnerwidget.cpp" />
+    <ClCompile Include="qioservicethread.cpp" />
+    <ClCompile Include="qparamsetwidget.cpp" />
+    <ClCompile Include="qpasswd_dlg.cpp" />
+    <ClCompile Include="qphotoshowwidget.cpp" />
+    <ClCompile Include="qprocesswidget.cpp" />
+    <ClCompile Include="qquerydatathread.cpp" />
+    <ClCompile Include="qquerywarnthread.cpp" />
+    <ClCompile Include="qregistdlg.cpp" />
+    <ClCompile Include="qremovedatatobasethread.cpp" />
+    <ClCompile Include="qrunstateinfo_widget.cpp" />
+    <ClCompile Include="qshowwarndlg.cpp" />
+    <ClCompile Include="qshowwarnmodel.cpp" />
+    <ClCompile Include="qstatebutton.cpp" />
+    <ClCompile Include="qstateinfomodel.cpp" />
+    <ClCompile Include="qwaitwidget.cpp" />
+    <ClCompile Include="qwarning_widget.cpp" />
+    <ClCompile Include="yxyDES2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="qpasswd_dlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qpasswd_dlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qpasswd_dlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qdevice_collect_dlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qdevice_collect_dlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qdevice_collect_dlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qexportwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qexportwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qexportwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qquerywarnthread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qquerywarnthread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qquerywarnthread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qallwarninfowidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qallwarninfowidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qallwarninfowidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="allwarnmsgmodel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing allwarnmsgmodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing allwarnmsgmodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qcheckdatamodel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcheckdatamodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qcheckdatamodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qdataexportthread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qdataexportthread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qdataexportthread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qprocesswidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qprocesswidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qprocesswidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\qconnectstate.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qconnectstate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qconnectstate.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_data_item.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_batched_data.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_data_item.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_count_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_count_req.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_req.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_heartbeat.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_server_time_beijing.h" />
+    <CustomBuild Include="extserial\qextserialbase.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qextserialbase.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qextserialbase.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\cxxcommon\util\qshow_struct.h" />
+    <ClInclude Include="extserial\qextserialenumerator.h" />
+    <CustomBuild Include="extserial\qextserialport.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qextserialport.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qextserialport.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="extserial\win_qextserialport.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing win_qextserialport.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing win_qextserialport.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="GeneratedFiles\ui_h2smonitorclient.h" />
+    <ClInclude Include="logging.h" />
+    <CustomBuild Include="qcheckrecvloaddataqueuethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcheckrecvloaddataqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qcheckrecvloaddataqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="qinit_configuration.h" />
+    <CustomBuild Include="qquerydatathread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qquerydatathread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qquerydatathread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qremovedatatobasethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qremovedatatobasethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qremovedatatobasethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="yxyDES2.h" />
+    <CustomBuild Include="qregistdlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qregistdlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qregistdlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="diskid32.h" />
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_curve.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing form_device_data_curve.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing form_device_data_curve.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_curve_container.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing form_device_data_curve_container.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing form_device_data_curve_container.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\form_device_data_table_view.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing form_device_data_table_view.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing form_device_data_table_view.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\ui\flow_layout.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\qmessagethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qmessagethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qmessagethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\client\connection\message_queue.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\client\connection\tcp_client.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\io_bytearray.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\i_message.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_body_factory.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_broadcast_device_online_status.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_broadcast_device_realtime_data.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_devices_list_item.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_id.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_item_info.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_device_realtime_data.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_error_info.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_devices_info_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_devices_info_req.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_list_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_online_status_rep_item.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_header.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_login.h" />
+    <CustomBuild Include="qcustombutton.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcustombutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qcustombutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qstatebutton.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qstatebutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qstatebutton.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qinnerwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qinnerwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qinnerwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\cxxcommon\message\message_login_rep.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_set_device_param.h" />
+    <ClInclude Include="..\..\..\cxxcommon\message\message_unrecognized_body_type.h" />
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_cmd.h" />
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_data_desc.h" />
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_data_type.h" />
+    <ClInclude Include="..\..\..\cxxcommon\protocol\protocol_structs.h" />
+    <ClInclude Include="..\..\..\cxxcommon\util\global_util.h" />
+    <CustomBuild Include="qdialwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qdialwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qdialwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qdatashowwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qdatashowwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qdatashowwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qphotoshowwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qphotoshowwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qphotoshowwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwaitwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwaitwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwaitwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qall_pannel_widget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qall_pannel_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qall_pannel_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qparamsetwidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qparamsetwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qparamsetwidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qshowwarndlg.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qshowwarndlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qshowwarndlg.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qshowwarnmodel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qshowwarnmodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qshowwarnmodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qrunstateinfo_widget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qrunstateinfo_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qrunstateinfo_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qcheckrecvsysqueuethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcheckrecvsysqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qcheckrecvsysqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="h2smonitorclient.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing h2smonitorclient.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing h2smonitorclient.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\cxxcommon\util\sync_cond_queue.h" />
+    <CustomBuild Include="qcheckrecvdataqueuethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qcheckrecvdataqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qcheckrecvdataqueuethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qioservicethread.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qioservicethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qioservicethread.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qallpaneltablewidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qallpaneltablewidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qallpaneltablewidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qwarning_widget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qwarning_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qwarning_widget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="qstateinfomodel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing qstateinfomodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing qstateinfomodel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="resource.h" />
+    <CustomBuild Include="..\..\..\client\ui\form_login.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing form_login.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)\..\..\..\client\ui" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I.\Header Files" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\client\DAL\QxOrm" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia" "-I$(ProjectDir)..\..\..\cxxcommon\util"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing form_login.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DQT_SQL_LIB -DUSED_BY_H2SMONITORCLIENT_ONLY -D_WIN32_WINNT=0x0501 -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB  "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\client" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)..\..\..\cxxcommon" "-I$(ProjectDir)..\..\..\client\ui" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\ActiveQt" "-I$(QWTDIR)\include" "-I$(ProjectDir)\..\..\..\client\connection" "-I$(ProjectDir)\..\..\..\client\DAL" "-I$(ProjectDir)\..\..\..\AMDclient\DAL\QxOrm" "-I$(ProjectDir)..\..\..\cxxcommon\util" "-I.\..\..\..\client\connection" "-I$(QTDIR)\include\QtMultimediaWidgets" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\client\settings\settings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Resources\h2smonitorclient.qrc">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <SubType>Designer</SubType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="h2smonitorclient.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
+    <None Include="h2smonitorclient_zh.ts" />
+    <None Include="Resources\qss\application_common_style.qss" />
+    <None Include="Resources\qss\client_main_window.qss" />
+    <None Include="Resources\qss\form_device_data_curve_container.qss" />
+    <None Include="Resources\qss\form_login.qss" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="H2SMonitorClient1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\images\exe.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\Fire.mp3" />
+    <Media Include="Resources\warn.mp3" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_Win32="qt" MocOptions="" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

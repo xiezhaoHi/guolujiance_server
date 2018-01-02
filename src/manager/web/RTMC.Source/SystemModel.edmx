@@ -1,0 +1,1008 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RTMC.Source.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AlarmRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceId" Type="uniqueidentifier" />
+          <Property Name="AlarmDataCeiling" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AlarmDataFloor" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="AlarmDataType_English" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlarmDataType_Chinese" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlarmData" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CurrentTime" Type="datetime" />
+          <Property Name="AlarmTime" Type="datetime" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BaseCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Boiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Longitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="Latitude" Type="decimal" Precision="9" Scale="6" />
+          <Property Name="BoilerId" Type="uniqueidentifier" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SYS_Authorities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Handler" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="BtnClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="MenuId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Menus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="Url" Type="nvarchar" MaxLength="150" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="uniqueidentifier" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SYS_Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="AreaCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+          <Property Name="Level" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Role2Authority">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="AuthorityId" />
+          </Key>
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AuthorityId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Role2Menu">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MenuId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Role2Permission">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="uniqueidentifier" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SYS_User2Role">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYS_Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoginName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrganizationId" Type="uniqueidentifier" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="uniqueidentifier" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“GasMonitor.dbo.ViewDeviceAlarm”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewDeviceAlarm">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DeviceId" Type="uniqueidentifier" />
+          <Property Name="AlarmDataCeiling" Type="float" />
+          <Property Name="AlarmDataFloor" Type="float" />
+          <Property Name="AlarmDataType_English" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlarmDataType_Chinese" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlarmData" Type="float" />
+          <Property Name="CurrentTime" Type="datetime" />
+          <Property Name="AlarmTime" Type="datetime" />
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“GasMonitor.dbo.ViewMenu”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="ViewMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Sort" />
+            <PropertyRef Name="IsEnabled" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ParentName" Type="nvarchar" MaxLength="30" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="Url" Type="nvarchar" MaxLength="150" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifyUserId" Type="uniqueidentifier" />
+          <Property Name="ModifyDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__AlarmReco__Devic__300424B4">
+          <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+          <End Role="AlarmRecord" Type="Self.AlarmRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlarmRecord">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Autho__MenuI__398D8EEE">
+          <End Role="SYS_Menus" Type="Self.SYS_Menus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_Authorities" Type="Self.SYS_Authorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Menus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Authorities">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__Autho__3A81B327">
+          <End Role="SYS_Authorities" Type="Self.SYS_Authorities" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_Role2Authority" Type="Self.SYS_Role2Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Authorities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Authority">
+              <PropertyRef Name="AuthorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__MenuI__3C69FB99">
+          <End Role="SYS_Menus" Type="Self.SYS_Menus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_Role2Menu" Type="Self.SYS_Role2Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Menus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Menu">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__RoleI__3B75D760">
+          <End Role="SYS_Roles" Type="Self.SYS_Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_Role2Authority" Type="Self.SYS_Role2Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Authority">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__RoleI__3D5E1FD2">
+          <End Role="SYS_Roles" Type="Self.SYS_Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_Role2Menu" Type="Self.SYS_Role2Menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Menu">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__RoleI__3E52440B">
+          <End Role="SYS_Roles" Type="Self.SYS_Roles" Multiplicity="1" />
+          <End Role="SYS_Role2Permission" Type="Self.SYS_Role2Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Permission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_User2__RoleI__3F466844">
+          <End Role="SYS_Roles" Type="Self.SYS_Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_User2Role" Type="Self.SYS_User2Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_User2Role">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_User2__UserI__37A5467C">
+          <End Role="SYS_Users" Type="Self.SYS_Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SYS_User2Role" Type="Self.SYS_User2Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_User2Role">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Users__Organ__38996AB5">
+          <End Role="SYS_Organization" Type="Self.SYS_Organization" Multiplicity="0..1" />
+          <End Role="SYS_Users" Type="Self.SYS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Users">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sql_DeviceData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeviceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataByIdAverage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeviceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataByIdFirst" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeviceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataByIdFirstXiangxi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeviceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataHistorical" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="sql_DeviceDataTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="TableName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sql_DeviceDataTop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="str" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="RTMCSourceStoreContainer">
+          <EntitySet Name="AlarmRecord" EntityType="Self.AlarmRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BaseCode" EntityType="Self.BaseCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Boiler" EntityType="Self.Boiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Authorities" EntityType="Self.SYS_Authorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Menus" EntityType="Self.SYS_Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Organization" EntityType="Self.SYS_Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Role2Authority" EntityType="Self.SYS_Role2Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Role2Menu" EntityType="Self.SYS_Role2Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Role2Permission" EntityType="Self.SYS_Role2Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Roles" EntityType="Self.SYS_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_User2Role" EntityType="Self.SYS_User2Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_Users" EntityType="Self.SYS_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewDeviceAlarm" EntityType="Self.ViewDeviceAlarm" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewDeviceAlarm].[Name] AS [Name], 
+    [ViewDeviceAlarm].[Number] AS [Number], 
+    [ViewDeviceAlarm].[DeviceId] AS [DeviceId], 
+    [ViewDeviceAlarm].[AlarmDataCeiling] AS [AlarmDataCeiling], 
+    [ViewDeviceAlarm].[AlarmDataFloor] AS [AlarmDataFloor], 
+    [ViewDeviceAlarm].[AlarmDataType_English] AS [AlarmDataType_English], 
+    [ViewDeviceAlarm].[AlarmDataType_Chinese] AS [AlarmDataType_Chinese], 
+    [ViewDeviceAlarm].[AlarmData] AS [AlarmData], 
+    [ViewDeviceAlarm].[CurrentTime] AS [CurrentTime], 
+    [ViewDeviceAlarm].[AlarmTime] AS [AlarmTime], 
+    [ViewDeviceAlarm].[Id] AS [Id]
+    FROM [dbo].[ViewDeviceAlarm] AS [ViewDeviceAlarm]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewMenu" EntityType="Self.ViewMenu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewMenu].[Id] AS [Id], 
+    [ViewMenu].[Name] AS [Name], 
+    [ViewMenu].[ParentName] AS [ParentName], 
+    [ViewMenu].[ParentId] AS [ParentId], 
+    [ViewMenu].[Url] AS [Url], 
+    [ViewMenu].[Icon] AS [Icon], 
+    [ViewMenu].[Sort] AS [Sort], 
+    [ViewMenu].[IsEnabled] AS [IsEnabled], 
+    [ViewMenu].[CreateUserId] AS [CreateUserId], 
+    [ViewMenu].[CreateDate] AS [CreateDate], 
+    [ViewMenu].[ModifyUserId] AS [ModifyUserId], 
+    [ViewMenu].[ModifyDate] AS [ModifyDate]
+    FROM [dbo].[ViewMenu] AS [ViewMenu]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__AlarmReco__Devic__300424B4" Association="Self.FK__AlarmReco__Devic__300424B4">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="AlarmRecord" EntitySet="AlarmRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Autho__MenuI__398D8EEE" Association="Self.FK__SYS_Autho__MenuI__398D8EEE">
+            <End Role="SYS_Menus" EntitySet="SYS_Menus" />
+            <End Role="SYS_Authorities" EntitySet="SYS_Authorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__Autho__3A81B327" Association="Self.FK__SYS_Role2__Autho__3A81B327">
+            <End Role="SYS_Authorities" EntitySet="SYS_Authorities" />
+            <End Role="SYS_Role2Authority" EntitySet="SYS_Role2Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__MenuI__3C69FB99" Association="Self.FK__SYS_Role2__MenuI__3C69FB99">
+            <End Role="SYS_Menus" EntitySet="SYS_Menus" />
+            <End Role="SYS_Role2Menu" EntitySet="SYS_Role2Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__RoleI__3B75D760" Association="Self.FK__SYS_Role2__RoleI__3B75D760">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_Role2Authority" EntitySet="SYS_Role2Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__RoleI__3D5E1FD2" Association="Self.FK__SYS_Role2__RoleI__3D5E1FD2">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_Role2Menu" EntitySet="SYS_Role2Menu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__RoleI__3E52440B" Association="Self.FK__SYS_Role2__RoleI__3E52440B">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_Role2Permission" EntitySet="SYS_Role2Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_User2__RoleI__3F466844" Association="Self.FK__SYS_User2__RoleI__3F466844">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_User2Role" EntitySet="SYS_User2Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_User2__UserI__37A5467C" Association="Self.FK__SYS_User2__UserI__37A5467C">
+            <End Role="SYS_Users" EntitySet="SYS_Users" />
+            <End Role="SYS_User2Role" EntitySet="SYS_User2Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Users__Organ__38996AB5" Association="Self.FK__SYS_Users__Organ__38996AB5">
+            <End Role="SYS_Organization" EntitySet="SYS_Organization" />
+            <End Role="SYS_Users" EntitySet="SYS_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RTMC.Source" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SystemContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SYS_Authorities" EntityType="RTMC.Source.SYS_Authorities" />
+          <EntitySet Name="SYS_Menus" EntityType="RTMC.Source.SYS_Menus" />
+          <EntitySet Name="SYS_Organization" EntityType="RTMC.Source.SYS_Organization" />
+          <EntitySet Name="SYS_Role2Permission" EntityType="RTMC.Source.SYS_Role2Permission" />
+          <EntitySet Name="SYS_Roles" EntityType="RTMC.Source.SYS_Roles" />
+          <EntitySet Name="SYS_Users" EntityType="RTMC.Source.SYS_Users" />
+          <EntitySet Name="ViewMenu" EntityType="RTMC.Source.ViewMenu" />
+          <AssociationSet Name="FK__SYS_Autho__MenuI__1273C1CD" Association="RTMC.Source.FK__SYS_Autho__MenuI__1273C1CD">
+            <End Role="SYS_Menus" EntitySet="SYS_Menus" />
+            <End Role="SYS_Authorities" EntitySet="SYS_Authorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Users__Organ__1A14E395" Association="RTMC.Source.FK__SYS_Users__Organ__1A14E395">
+            <End Role="SYS_Organization" EntitySet="SYS_Organization" />
+            <End Role="SYS_Users" EntitySet="SYS_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYS_Role2__RoleI__173876EA" Association="RTMC.Source.FK__SYS_Role2__RoleI__173876EA">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_Role2Permission" EntitySet="SYS_Role2Permission" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_Role2Authority" Association="RTMC.Source.SYS_Role2Authority">
+            <End Role="SYS_Authorities" EntitySet="SYS_Authorities" />
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_Role2Menu" Association="RTMC.Source.SYS_Role2Menu">
+            <End Role="SYS_Menus" EntitySet="SYS_Menus" />
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_User2Role" Association="RTMC.Source.SYS_User2Role">
+            <End Role="SYS_Roles" EntitySet="SYS_Roles" />
+            <End Role="SYS_Users" EntitySet="SYS_Users" />
+          </AssociationSet>
+          <FunctionImport Name="sql_DeviceData">
+          <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataById">
+            <Parameter Name="DeviceId" Mode="In" Type="String" />
+            <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataByIdFirst">
+            <Parameter Name="DeviceId" Mode="In" Type="String" />
+            <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataByIdAverage">
+            <Parameter Name="DeviceId" Mode="In" Type="String" />
+            <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataTop">
+          <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="AlarmRecord" EntityType="RTMC.Source.AlarmRecord" />
+          <EntitySet Name="ViewDeviceAlarm" EntityType="RTMC.Source.ViewDeviceAlarm" />
+          <FunctionImport Name="sql_DeviceDataTable">
+          <Parameter Name="TableName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataByIdFirstXiangxi">
+            <Parameter Name="DeviceId" Mode="In" Type="String" />
+            <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sql_DeviceDataHistorical">
+            <Parameter Name="id" Mode="In" Type="String" />
+            <Parameter Name="str" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Boiler" EntityType="RTMC.Source.Boiler" />
+          <EntitySet Name="BaseCode" EntityType="RTMC.Source.BaseCode" />
+          <EntitySet Name="Device" EntityType="RTMC.Source.Device" />
+          <AssociationSet Name="FK__AlarmReco__Devic__300424B4" Association="RTMC.Source.FK__AlarmReco__Devic__300424B4">
+            <End Role="Device" EntitySet="Device" />
+            <End Role="AlarmRecord" EntitySet="AlarmRecord" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SYS_Authorities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Handler" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BtnClass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYS_Menus" Relationship="RTMC.Source.FK__SYS_Autho__MenuI__1273C1CD" FromRole="SYS_Authorities" ToRole="SYS_Menus" />
+          <NavigationProperty Name="SYS_Roles" Relationship="RTMC.Source.SYS_Role2Authority" FromRole="SYS_Authorities" ToRole="SYS_Roles" />
+        </EntityType>
+        <EntityType Name="SYS_Menus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Guid" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SYS_Authorities" Relationship="RTMC.Source.FK__SYS_Autho__MenuI__1273C1CD" FromRole="SYS_Menus" ToRole="SYS_Authorities" />
+          <NavigationProperty Name="SYS_Roles" Relationship="RTMC.Source.SYS_Role2Menu" FromRole="SYS_Menus" ToRole="SYS_Roles" />
+        </EntityType>
+        <EntityType Name="SYS_Organization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="AreaCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_Users" Relationship="RTMC.Source.FK__SYS_Users__Organ__1A14E395" FromRole="SYS_Organization" ToRole="SYS_Users" />
+        </EntityType>
+        <EntityType Name="SYS_Role2Permission">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SYS_Roles" Relationship="RTMC.Source.FK__SYS_Role2__RoleI__173876EA" FromRole="SYS_Role2Permission" ToRole="SYS_Roles" />
+        </EntityType>
+        <EntityType Name="SYS_Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Guid" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SYS_Role2Permission" Relationship="RTMC.Source.FK__SYS_Role2__RoleI__173876EA" FromRole="SYS_Roles" ToRole="SYS_Role2Permission" />
+          <NavigationProperty Name="SYS_Authorities" Relationship="RTMC.Source.SYS_Role2Authority" FromRole="SYS_Roles" ToRole="SYS_Authorities" />
+          <NavigationProperty Name="SYS_Menus" Relationship="RTMC.Source.SYS_Role2Menu" FromRole="SYS_Roles" ToRole="SYS_Menus" />
+          <NavigationProperty Name="SYS_Users" Relationship="RTMC.Source.SYS_User2Role" FromRole="SYS_Roles" ToRole="SYS_Users" />
+        </EntityType>
+        <EntityType Name="SYS_Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationId" Type="Guid" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Guid" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SYS_Organization" Relationship="RTMC.Source.FK__SYS_Users__Organ__1A14E395" FromRole="SYS_Users" ToRole="SYS_Organization" />
+          <NavigationProperty Name="SYS_Roles" Relationship="RTMC.Source.SYS_User2Role" FromRole="SYS_Users" ToRole="SYS_Roles" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Sort" />
+            <PropertyRef Name="IsEnabled" />
+            <PropertyRef Name="CreateUserId" />
+            <PropertyRef Name="CreateDate" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ParentName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="Url" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Guid" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifyUserId" Type="Guid" />
+          <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK__SYS_Autho__MenuI__1273C1CD">
+          <End Type="RTMC.Source.SYS_Menus" Role="SYS_Menus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="RTMC.Source.SYS_Authorities" Role="SYS_Authorities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Menus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Authorities">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Users__Organ__1A14E395">
+          <End Type="RTMC.Source.SYS_Organization" Role="SYS_Organization" Multiplicity="0..1" />
+          <End Type="RTMC.Source.SYS_Users" Role="SYS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Users">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SYS_Role2__RoleI__173876EA">
+          <End Type="RTMC.Source.SYS_Roles" Role="SYS_Roles" Multiplicity="1" />
+          <End Type="RTMC.Source.SYS_Role2Permission" Role="SYS_Role2Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SYS_Role2Permission">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_Role2Authority">
+          <End Type="RTMC.Source.SYS_Authorities" Role="SYS_Authorities" Multiplicity="*" />
+          <End Type="RTMC.Source.SYS_Roles" Role="SYS_Roles" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_Role2Menu">
+          <End Type="RTMC.Source.SYS_Menus" Role="SYS_Menus" Multiplicity="*" />
+          <End Type="RTMC.Source.SYS_Roles" Role="SYS_Roles" Multiplicity="*" />
+        </Association>
+        <Association Name="SYS_User2Role">
+          <End Type="RTMC.Source.SYS_Roles" Role="SYS_Roles" Multiplicity="*" />
+          <End Type="RTMC.Source.SYS_Users" Role="SYS_Users" Multiplicity="*" />
+        </Association>
+        <EntityType Name="AlarmRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="DeviceId" Type="Guid" />
+          <Property Name="AlarmDataCeiling" Type="Decimal" />
+          <Property Name="AlarmDataFloor" Type="Decimal" />
+          <Property Name="AlarmData" Type="Decimal" />
+          <Property Name="CurrentTime" Type="DateTime" Precision="3" />
+          <Property Name="AlarmTime" Type="DateTime" Precision="3" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AlarmDataType_English" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlarmDataType_Chinese" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Device" Relationship="RTMC.Source.FK__AlarmReco__Devic__300424B4" FromRole="AlarmRecord" ToRole="Device" />
+        </EntityType>
+        <EntityType Name="ViewDeviceAlarm">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeviceId" Type="Guid" />
+          <Property Name="AlarmDataCeiling" Type="Double" />
+          <Property Name="AlarmDataFloor" Type="Double" />
+          <Property Name="AlarmData" Type="Double" />
+          <Property Name="CurrentTime" Type="DateTime" Precision="3" />
+          <Property Name="AlarmTime" Type="DateTime" Precision="3" />
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="AlarmDataType_English" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlarmDataType_Chinese" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Boiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BaseCode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="Guid" Nullable="false" />
+          <Property Name="Longitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="Latitude" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="BoilerId" Type="Guid" />
+          <NavigationProperty Name="AlarmRecord" Relationship="RTMC.Source.FK__AlarmReco__Devic__300424B4" FromRole="Device" ToRole="AlarmRecord" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__AlarmReco__Devic__300424B4">
+          <End Type="RTMC.Source.Device" Role="Device" Multiplicity="0..1" />
+          <End Type="RTMC.Source.AlarmRecord" Role="AlarmRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Device">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AlarmRecord">
+              <PropertyRef Name="DeviceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RTMCSourceStoreContainer" CdmEntityContainer="SystemContext">
+          <EntitySetMapping Name="SYS_Authorities">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Authorities">
+              <MappingFragment StoreEntitySet="SYS_Authorities">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="BtnClass" ColumnName="BtnClass" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Handler" ColumnName="Handler" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Menus">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Menus">
+              <MappingFragment StoreEntitySet="SYS_Menus">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Organization">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Organization">
+              <MappingFragment StoreEntitySet="SYS_Organization">
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AreaCode" ColumnName="AreaCode" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Role2Permission">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Role2Permission">
+              <MappingFragment StoreEntitySet="SYS_Role2Permission">
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Roles">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Roles">
+              <MappingFragment StoreEntitySet="SYS_Roles">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_Users">
+            <EntityTypeMapping TypeName="RTMC.Source.SYS_Users">
+              <MappingFragment StoreEntitySet="SYS_Users">
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewMenu">
+            <EntityTypeMapping TypeName="RTMC.Source.ViewMenu">
+              <MappingFragment StoreEntitySet="ViewMenu">
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="ModifyUserId" ColumnName="ModifyUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="SYS_Role2Authority" TypeName="RTMC.Source.SYS_Role2Authority" StoreEntitySet="SYS_Role2Authority">
+            <EndProperty Name="SYS_Roles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="SYS_Authorities">
+              <ScalarProperty Name="Id" ColumnName="AuthorityId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SYS_Role2Menu" TypeName="RTMC.Source.SYS_Role2Menu" StoreEntitySet="SYS_Role2Menu">
+            <EndProperty Name="SYS_Roles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="SYS_Menus">
+              <ScalarProperty Name="Id" ColumnName="MenuId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SYS_User2Role" TypeName="RTMC.Source.SYS_User2Role" StoreEntitySet="SYS_User2Role">
+            <EndProperty Name="SYS_Users">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="SYS_Roles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sql_DeviceData" FunctionName="RTMC.Source.Store.sql_DeviceData" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataById" FunctionName="RTMC.Source.Store.sql_DeviceDataById" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataByIdFirst" FunctionName="RTMC.Source.Store.sql_DeviceDataByIdFirst" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataByIdAverage" FunctionName="RTMC.Source.Store.sql_DeviceDataByIdAverage" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataTop" FunctionName="RTMC.Source.Store.sql_DeviceDataTop" />
+          <EntitySetMapping Name="AlarmRecord">
+            <EntityTypeMapping TypeName="RTMC.Source.AlarmRecord">
+              <MappingFragment StoreEntitySet="AlarmRecord">
+                <ScalarProperty Name="AlarmDataType_Chinese" ColumnName="AlarmDataType_Chinese" />
+                <ScalarProperty Name="AlarmDataType_English" ColumnName="AlarmDataType_English" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AlarmTime" ColumnName="AlarmTime" />
+                <ScalarProperty Name="CurrentTime" ColumnName="CurrentTime" />
+                <ScalarProperty Name="AlarmData" ColumnName="AlarmData" />
+                <ScalarProperty Name="AlarmDataFloor" ColumnName="AlarmDataFloor" />
+                <ScalarProperty Name="AlarmDataCeiling" ColumnName="AlarmDataCeiling" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewDeviceAlarm">
+            <EntityTypeMapping TypeName="RTMC.Source.ViewDeviceAlarm">
+              <MappingFragment StoreEntitySet="ViewDeviceAlarm">
+                <ScalarProperty Name="AlarmDataType_Chinese" ColumnName="AlarmDataType_Chinese" />
+                <ScalarProperty Name="AlarmDataType_English" ColumnName="AlarmDataType_English" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AlarmTime" ColumnName="AlarmTime" />
+                <ScalarProperty Name="CurrentTime" ColumnName="CurrentTime" />
+                <ScalarProperty Name="AlarmData" ColumnName="AlarmData" />
+                <ScalarProperty Name="AlarmDataFloor" ColumnName="AlarmDataFloor" />
+                <ScalarProperty Name="AlarmDataCeiling" ColumnName="AlarmDataCeiling" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataTable" FunctionName="RTMC.Source.Store.sql_DeviceDataTable" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataByIdFirstXiangxi" FunctionName="RTMC.Source.Store.sql_DeviceDataByIdFirstXiangxi" />
+          <FunctionImportMapping FunctionImportName="sql_DeviceDataHistorical" FunctionName="RTMC.Source.Store.sql_DeviceDataHistorical" />
+          <EntitySetMapping Name="Boiler">
+            <EntityTypeMapping TypeName="RTMC.Source.Boiler">
+              <MappingFragment StoreEntitySet="Boiler">
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BaseCode">
+            <EntityTypeMapping TypeName="RTMC.Source.BaseCode">
+              <MappingFragment StoreEntitySet="BaseCode">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Device">
+            <EntityTypeMapping TypeName="RTMC.Source.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="BoilerId" ColumnName="BoilerId" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,4 @@
+﻿  db_service.cpp
+  qrc_h2smonitorserver.cpp
+  H2SMonitorServer.vcxproj -> E:\GasMonitor\src\server\H2SMonitorServer\..\bin\Win32\Debug\GasMonitorServer.exe
+  H2SMonitorServer.vcxproj -> E:\GasMonitor\src\server\H2SMonitorServer\..\bin\Win32\Debug\GasMonitorServer.pdb (Full PDB)

@@ -1,0 +1,50 @@
+[2017-06-26 18:23:14.874][   INFO] H2S监测服务器开始启动
+[2017-06-26 18:23:14.874][   INFO] log service启动成功
+[2017-06-26 18:23:14.874][   INFO] configration service启动成功
+[2017-06-26 18:23:14.874][   INFO] task service启动成功
+[2017-06-26 18:23:15.626][   INFO] 新建数据库连接[con_20170626_182314_874]成功,数据库连接字符串[DRIVER={SQL SERVER};SERVER=182.131.2.216,1335\\SQL2005;DATABASE=GASMonitor]
+[2017-06-26 18:23:15.626][   INFO] db service启动成功
+[2017-06-26 18:23:15.626][   INFO] business handle service启动成功
+[2017-06-26 18:23:15.626][  DEBUG] CDBHandleTask  26#18_23_15__626##30232start
+[2017-06-26 18:23:15.626][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_LOGIN  ##value: 262145  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_GET_DEVICE_LIST  ##value: 262146  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_GET_DEVICE_INFO  ##value: 262147  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_EXIT  ##value: 262149  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_GET_DEVICE_STATUS  ##value: 262150  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_SET_DEVICE_PARAM  ##value: 262151  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_SEND_HEARTBEAT  ##value: 262152  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_SEND_HEARTBEAT  ##value: 262153  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_CLIENT_CMD_GET_HISTORY_DEVICE_DATA  ##value: 262154  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: DEVICE_CMD_LOGIN  ##value: 524289  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: DEVICE_CMD_REALTIME_DATA  ##value: 524292  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: DEVICE_CMD_EXIT  ##value: 524293  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: DEVICE_CMD_SEND_HEARTBEAT  ##value: 524296  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: DEVICE_CMD_REALTIME_BATCHED_DATA  ##value: 524299  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_LOGIN_REP  ##value: 131073  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_GET_DEVICE_LIST_REP  ##value: 131074  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_GET_DEVICES_INFO_REP  ##value: 131075  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_BROADCAST_REALTIME_DATA  ##value: 131078  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_SET_DEVICE_PARAM_REP  ##value: 131079  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_SEND_HEARTBEAT_REP  ##value: 131080  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_SEND_HEARTBEAT_REP  ##value: 131081  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_SEND_HEARTBEAT_REP  ##value: 131082  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_BROADCAST_REALTIME_DATA  ##value: 65540  ##creator: 
+[2017-06-26 18:23:15.627][  DEBUG] RegisterMessageBodyCreator ##cmdName: PC_SERVER_CMD_BROADCAST_DEVICE_STATUS  ##value: 65542  ##creator: 
+[2017-06-26 18:23:15.628][  DEBUG] SOCKET SERVICE THREAD  26#18_23_15__627##41START
+[2017-06-26 18:23:15.628][   INFO] socket service启动成功
+[2017-06-26 18:23:15.628][  DEBUG] CTcpSessionMessageHandlerHub task  26#18_23_15__628##29968start
+[2017-06-26 18:23:15.628][   INFO] H2S监测服务器启动完成
+[2017-06-26 18:23:15.628][  DEBUG] CTcpSessionMessageHandlerHub task  26#18_23_15__628##29964start
+[2017-06-26 18:23:15.628][  DEBUG] CDevConnKeepLiveTask start
+[2017-06-26 18:23:15.628][  DEBUG] CTcpSessionMessageHandlerHub task  26#18_23_15__628##30268start
+[2017-06-26 18:23:15.628][  DEBUG] CTcpSessionMessageHandlerHub task  26#18_23_15__628##30256start
+[2017-06-26 18:23:15.628][   INFO] 监听端口17024
+[2017-06-26 18:23:15.628][  DEBUG] CTcpSessionMessageHandlerHub task  26#18_23_15__628##30252start
+[2017-06-26 18:23:27.902][  DEBUG] SOCKET SERVICE THREAD  26#18_23_15__627##41EXIT
+[2017-06-26 18:23:28.138][  DEBUG] CTcpSessionMessageHandlerHub task 26#18_23_15__628##30252 exit
+[2017-06-26 18:23:28.138][  DEBUG] CTcpSessionMessageHandlerHub task 26#18_23_15__628##29964 exit
+[2017-06-26 18:23:28.138][  DEBUG] CTcpSessionMessageHandlerHub task 26#18_23_15__628##29968 exit
+[2017-06-26 18:23:28.138][  DEBUG] CTcpSessionMessageHandlerHub task 26#18_23_15__628##30256 exit
+[2017-06-26 18:23:28.138][  DEBUG] CTcpSessionMessageHandlerHub task 26#18_23_15__628##30268 exit
+[2017-06-26 18:23:28.630][  DEBUG] CDBHandleTask  26#18_23_15__626##30232exit
+[2017-06-26 18:23:28.632][  DEBUG] CDevConnKeepLiveTask exit

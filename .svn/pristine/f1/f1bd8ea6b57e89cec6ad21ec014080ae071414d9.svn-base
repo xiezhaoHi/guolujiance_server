@@ -1,0 +1,965 @@
+<HTML><HEAD><TITLE>Build Report</TITLE></HEAD><BODY>
+
+<B><FONT FACE="Arial" SIZE=4><P ALIGN="center">
+Build Report</P></B></FONT>
+
+<B><I><FONT FACE="Arial" ><P>
+Summary</P></I></B></FONT>
+
+<TABLE CELLSPACING=0 STYLE="margin-left:20" BORDER=0 CELLPADDING=4 WIDTH=600>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Number of features:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Number of merge modules:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+0
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Number of dynamic links:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+0
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Media:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+SingleImage
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Number of files:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+23
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Uncompressed files total size:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+0.00 MB
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="45%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Compressed files total size:
+</FONT></P></TD>
+
+<TD WIDTH="55%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+0.00 MB
+</FONT></P></TD>
+
+</TR>
+
+</TABLE>
+
+<B><I><FONT FACE="Arial" ><P>
+Features</P></I></B></FONT>
+
+<TABLE CELLSPACING=0 STYLE="margin-left:20" BORDER=0 CELLPADDING=4 WIDTH=600>
+
+<TR>
+
+<TD WIDTH="100%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+AlwaysInstall
+</FONT></P></TD>
+
+</TR>
+
+</TABLE>
+
+<B><I><FONT FACE="Arial" ><P>
+Merge  Modules</P></I></B></FONT>
+
+<TABLE CELLSPACING=0 STYLE="margin-left:20" BORDER=0 CELLPADDING=4 WIDTH=600>
+
+</TABLE>
+
+<B><I><FONT FACE="Arial" ><P>
+Dynamic links</P></I></B></FONT>
+
+<TABLE CELLSPACING=0 STYLE="margin-left:20" BORDER=0 CELLPADDING=4 WIDTH=600>
+
+</TABLE>
+
+<B><I><FONT FACE="Arial" ><P>
+Files</P></I></B></FONT>
+
+<TABLE CELLSPACING=0 STYLE="margin-left:20" BORDER=0 CELLPADDING=4 WIDTH=600>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+File
+</I></B></FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+Destination
+</I></B></FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+Feature
+</I></B></FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+Last Modified
+</I></B></FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+Size (bytes)
+</I></B></FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><B><I><FONT FACE="Arial"SIZE=2><P>
+
+Version
+</I></B></FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+GLdetection.exe
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/15 10:48:01
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+3570688
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1.0.0.1
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+day.ini
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\logfiles
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/7 15:50:47
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+17
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+co.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:17
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1856
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+co2.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:26
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1942
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_+.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:53:22
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1007
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_c_d.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:53:04
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+969
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_c_n.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:53:01
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+975
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_close.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:51:46
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1122
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_minimize.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:52:02
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1000
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_window.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:51:55
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+999
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+logo.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:52:17
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+11773
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+no.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:11
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1755
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+no2.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:23
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1581
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+o2.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:33
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1776
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+so2.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\picture
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:54:04
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2131
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+Button.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\Skins\Default
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2013/10/14 17:21:01
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1929
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+DialogBkg.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\Skins\Default\dialog
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2013/9/24 19:25:35
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+18553
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_close.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\Skins\Default\dialog
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:51:46
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1122
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_window.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\Skins\Default\dialog
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:51:55
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+999
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+icon_minimize.png
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\Skins\Default\dialog
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/10 10:52:02
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+1000
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+init.bat
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/8 12:31:46
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+26
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+baseConfig.ini
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测\config
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2017/3/14 16:10:15
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+226
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+
+</FONT></P></TD>
+
+</TR>
+
+<TR>
+
+<TD WIDTH="30%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+MSCOMM32.OCX
+</FONT></P></TD>
+
+<TD WIDTH="20%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+[ProgramFilesFolder]成都润泰茂成\锅炉综合检测
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+始终安装
+</FONT></P></TD>
+
+<TD WIDTH="15%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+2015/12/21 19:07:31
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+103744
+</FONT></P></TD>
+
+<TD WIDTH="10%"VALIGN="center"><FONT FACE="Times New Roman"SIZE=2><P>
+
+6.0.81.69
+</FONT></P></TD>
+
+</TR>
+
+</TABLE>
+
+</BODY></HTML>
+

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>左部</title>
+</head>
+<body>
+	<span class="side_btn2" onclick="LeftModel.sidebtn(this)"></span>
+	<div class="left_allmenu">
+		<div class="left_title">
+			<a href="/Index.aspx">
+				<div class="left_icon"><img src="/Images/icons/home.png" /></div>
+				<div class="left_text" style="padding-right:70px;">系统首页</div>
+			</a>
+			<div class="shrinkage"><a href="javascript:LeftModel.sidebtn('.side_btn2')"></a></div>
+		</div>
+		<!-- ko foreach: {data:menus,as:'menu',afterRender:perform} -->
+		<div class="left_title">
+			<div class="left_icon" data-bind="attr:{'style':'background-image:url(\''+(menu.Icon==null ? '/Images/icons/unknown.png':menu.Icon)+'\');'}"></div>
+			<div class="left_text" data-bind="text:menu.Name"></div>
+			<div class="shrinkUnder"><a href="javascript:;"></a></div>
+		</div>
+		<div class="left_item">
+			<ul data-bind="foreach: { data: menu.Child, as: 'child'  }">
+				<li><a data-bind="attr: { 'href': child.Url,'class':location.pathname ==child.Url?'selected':'' },text:child.Name"></a></li>
+			</ul>
+		</div>
+		<!-- /ko -->
+	</div>
+</body>
+</html>

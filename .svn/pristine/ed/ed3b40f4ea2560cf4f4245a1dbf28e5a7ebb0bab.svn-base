@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>顶部</title>
+</head>
+<body>
+	<img style="margin-top:16px; margin-left:20px;" src="/images/title.png" />
+	<div class="tool">
+		<span data-bind="text: UserName"></span>，你好！&nbsp;&nbsp;
+		<a href="javascript:TopModel.close();" class="btn3 btnexit">注销</a>
+		<a href="javascript:TopModel.updatePassword();" class="btn3 btnupdate">修改口令</a>
+	</div>
+	<!--弹出层修改口令-->
+
+	<div id="divEditPass" class="layer" style="width: 300px;">
+		<table style="height:120px;">
+			<tr>
+				<td class="w15 tdr">旧密码：</td>
+				<td class="w35">
+					<input type="password" class="w80" id="txtOldPass" />
+				</td>
+			</tr>
+			<tr>
+				<td class="w15 tdr">新密码：</td>
+				<td class="w35">
+					<input type="password" class="w80" id="txtNewPass" />
+				</td>
+			</tr>
+			<tr>
+				<td class="w15 tdr">确认新密码：</td>
+				<td class="w35">
+					<input type="password" class="w80" id="txtIsNewPass" />
+				</td>
+			</tr>
+		</table>
+		<div class="btns">
+			<a href="javascript:TopModel.savePassword();" class="btn1 btnsave">保存</a>&nbsp;&nbsp;&nbsp;
+			<a href="javascript:;" class="btn1 btncancel">取消</a>
+		</div>
+	</div>
+</body>
+</html>

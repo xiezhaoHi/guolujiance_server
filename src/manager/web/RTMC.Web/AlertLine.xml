@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppSetting>
+  <!--中英文对比-->
+  <EnglishToChinese>
+    <add English="SulfurDioxide" Chinese="二氧化硫" />
+    <add English="NitricOxide" Chinese="一氧化氮" />
+    <add English="CarbonMonoxide" Chinese="一氧化碳" />
+    <add English="Hydrogen" Chinese="氮氧化物" />
+		<add English="Oxygen" Chinese="氧气" />
+		<add English="CarbonDioxide" Chinese="二氧化碳" />
+  </EnglishToChinese>
+  <!--设备1-->
+	<AlertLine99A1164C-A364-3673-7B8A-9C87087E1E99>
+    <add key="SulfurDioxideAlertLineCeiling" value="490" />
+    <add key="SulfurDioxideAlertLineFloor" value="400" />
+    <add key="NitricOxideAlertLineCeiling" value="510" />
+    <add key="NitricOxideAlertLineFloor" value="410" />
+    <add key="CarbonMonoxideAlertLineCeiling" value="520" />
+    <add key="CarbonMonoxideAlertLineFloor" value="420" />
+    <add key="HydrogenAlertLineCeiling" value="500" />
+    <add key="HydrogenAlertLineFloor" value="480" />
+		<add key="OxygenAlertLineCeiling" value="75" />
+		<add key="OxygenAlertLineFloor" value="55" />
+		<add key="CarbonDioxideAlertLineCeiling" value="70" />
+		<add key="CarbonDioxideAlertLineFloor" value="45" />
+  </AlertLine99A1164C-A364-3673-7B8A-9C87087E1E99>
+  <!--设备1的数据名称-->
+	<Name99A1164C-A364-3673-7B8A-9C87087E1E99>
+    <add name="SulfurDioxide" />
+    <add name="NitricOxide" />
+    <add name="CarbonMonoxide" />
+    <add name="Hydrogen" />
+		<add name="Oxygen" />
+		<add name="CarbonDioxide" />
+  </Name99A1164C-A364-3673-7B8A-9C87087E1E99>
+</AppSetting>
