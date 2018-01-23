@@ -75,6 +75,9 @@ public:
 
     // 采集设备连接断开
     void HandleDeviceSessionClosed(tcp_session_ptr session);
+
+	// 新协议处理函数
+	int HandleDeviceUploadData(tcp_session_ptr session, message_ptr sessionMessageIn);
 private:
 
     CBusinessHandleService();

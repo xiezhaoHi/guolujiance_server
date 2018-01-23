@@ -10,7 +10,10 @@
 #include <boost/bind.hpp>
 
 int CTcpSession::headerBufLen = sizeof(T_MESSAGE_HEADER);
+int CTcpSession::headerBufLen_two = 3; //6B 标识(1byte) + 数据长度(2byte)
 U8 CTcpSession::frame_header = 0x5A;
+U8 CTcpSession::frame_header_two_1 = 0x6A;
+U8 CTcpSession::frame_header_two_2 = 0x6B;
 U8 CTcpSession::frame_tail[2] = {0x0D, 0x0A};
 
 
@@ -87,7 +90,7 @@ void CTcpSession::do_read_header()
 {
     if (!socket_.is_open()) {
         CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
-        return;
+        return; 
     }
 
     memset(m_pMessageHeaderBuf, 0x00, headerBufLen);
@@ -128,6 +131,66 @@ void CTcpSession::do_read_header()
         }
     });
 }
+
+//20180122 新增协议2 读头的函数
+void CTcpSession::do_read_header_two()
+{
+	if (!socket_.is_open()) {
+		CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+		return;
+	}
+
+	memset(m_pMessageHeaderBuf, 0x00, headerBufLen_two);
+	//  LOG_DEBUG() << QStringLiteral("WAIT TO READ HEADER. SESSION[%1:%2] ")
+	//      .arg(socket_.remote_endpoint().address().to_string().c_str()).arg(socket_.remote_endpoint().port());
+	auto self(shared_from_this());
+	boost::asio::async_read(socket_,
+		boost::asio::buffer(m_pMessageHeaderBuf, headerBufLen_two),
+		[this, self](boost::system::error_code ec, std::size_t /*length*/)
+	{
+		if (!ec)
+		{
+
+			m_pMessageRead = std::make_shared<CMessage>();// 产生的消息在消费完之后释放
+			
+
+			InputByteArray      InputArray;
+			InputArray.AppendBytes(QByteArray((char *)m_pMessageHeaderBuf
+				, headerBufLen_two));
+			U8 head = InputArray.ReadU8();
+			U16 length = InputArray.ReadU16();
+
+			//设置包 头结构信息
+			//长度为数据长度.  帧数-最后数据包
+			m_pMessageRead->SetCMDToHead(length-headerBufLen_two-sizeof(frame_tail));
+
+			if (head != frame_header_two_2 ) {// 头部数据无效，需要主动断开连接
+												   // 主动断开连接
+				LOG_WARING() << QStringLiteral("消息头部数据无效,主动关闭连接. SESSION[%1:%2] HEADER[%3]")
+					.arg(socket_.remote_endpoint().address().to_string().c_str())
+					.arg(socket_.remote_endpoint().port()).arg(m_pMessageRead->ToString());
+				CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+			}
+			else if (length > 0) {
+				do_read_body_two();
+			}
+			else if (length == 0) {
+				do_read_frame_tail();
+			}
+			else {
+				Q_ASSERT(false);// 不可能走到的分支
+			}
+		}
+		else
+		{
+			LOG_WARING() << QStringLiteral("读取消息头部失败. SESSION[%1:%2] ERROR[%3]")
+				.arg(socket_.remote_endpoint().address().to_string().c_str())
+				.arg(socket_.remote_endpoint().port()).arg(ec.value());
+			CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+		}
+	});
+}
+
 
 void CTcpSession::do_read_body()
 {
@@ -174,6 +237,57 @@ void CTcpSession::do_read_body()
         }
     });
 }
+
+//20180122 新增
+void CTcpSession::do_read_body_two()
+{
+	if (m_pMessageBodyBuf) {
+		delete[] m_pMessageBodyBuf;
+		m_pMessageBodyBuf = NULL;
+	}
+
+	if (!socket_.is_open()) {
+		CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+		return;
+	}
+
+	m_pMessageBodyBuf = new U8[m_pMessageRead->m_header.m_struct.bodyLength];
+	memset(m_pMessageBodyBuf, 0x00, m_pMessageRead->m_header.m_struct.bodyLength);
+	// LOG_DEBUG() << QStringLiteral("WAIT TO READ BODY. SESSION[%1:%2]. [%3] BYTES")
+	//    .arg(socket_.remote_endpoint().address().to_string().c_str())
+	//   .arg(socket_.remote_endpoint().port())
+	//   .arg(m_pMessageRead->m_header.m_struct.bodyLength);
+	auto self(shared_from_this());
+	boost::asio::async_read(socket_,
+		boost::asio::buffer(m_pMessageBodyBuf, m_pMessageRead->m_header.m_struct.bodyLength),
+		[this, self](boost::system::error_code ec, std::size_t length)
+	{
+		// LOG_DEBUG() << "READ BODY. WANT " << m_pMessageRead->m_header.m_struct.bodyLength
+		//      << " BYTES. RECVED " << length << "BYTES";
+		if (!ec) {
+			
+			if (m_pMessageRead->AppendInputByteArray(m_pMessageBodyBuf
+				, m_pMessageRead->m_header.m_struct.bodyLength)) {
+				do_read_frame_tail();
+				//LOG_WARING() << QStringLiteral("body数据:%1")
+				//	.arg(m_pMessageRead->ToString());
+			}
+			else {
+				// 关闭连接
+				LOG_WARING() << QStringLiteral("解析消息体失败,主动关闭连接. SESSION[%1:%2] MSG[%3]")
+					.arg(socket_.remote_endpoint().address().to_string().c_str())
+					.arg(socket_.remote_endpoint().port())
+					.arg(m_pMessageRead->ToString());
+				CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+			}
+		}
+		else {
+			LOG_WARING() << QStringLiteral("读取消息体失败. ERROR[%1]").arg(ec.value());
+			CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+		}
+	});
+}
+
 
 void CTcpSession::do_write()
 {
@@ -266,7 +380,13 @@ void CTcpSession::do_read_frame_header()
         {
             if (m_frameHeaderBuf == frame_header) {
                 do_read_header();
-            } else {
+            } 
+			else if(m_frameHeaderBuf == frame_header_two_1)
+			{
+				//新增一种上传的数据协议 协议开头标识 不一样
+				do_read_header_two();
+			}
+			else {
                 // 帧头字符无效，关闭连接
                 LOG_WARING() << QStringLiteral("帧开始符[%1]无效,主动关闭连接. SESSION[%2:%3]")
                     .arg(m_frameHeaderBuf)

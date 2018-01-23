@@ -203,6 +203,8 @@ void CConfigrationService::LoadConfiguration()
         ba = QByteArray::fromBase64(m_qstrDBPassword.toLocal8Bit());
         m_qstrDBPassword = QString(ba);
     }
+
+	InitDataConfigMap();
 }
 
 void CConfigrationService::SetLogLevel(E_LOG_LEVEL level)
@@ -216,4 +218,44 @@ void CConfigrationService::SetLogLevel(E_LOG_LEVEL level)
         setting.setValue("/" + SECTION_LOG_OPTIONS + "/" + KEY_LOG_LEVEL, (int)level);
     }
     this->m_eLogLevel = level;
+}
+
+//20180122 新增对于 协议2 读取 config中的 气体信息 存入map中
+void	CConfigrationService::InitDataConfigMap()
+{
+	QString titleName = "DataConfig";
+	QString dataName = "Data";
+	m_configMap.clear();
+	QSettings setting(QStringLiteral("H2SMonitorServer.ini"), QSettings::IniFormat);
+	
+	int configMax = setting.value(QString("/DataConfig_max/Config_num"),-1).toInt();
+	
+	if (configMax > 0) //配置有效
+	{
+		int iMax = 0;
+		int iTemp = -1;
+		QString strTemp;
+		for (int index = 0; index < configMax; ++index)
+		{
+			iMax = setting.value(QString("/%1_%2/%3_max").arg(titleName)
+					.arg(index).arg(dataName), 0).toInt();
+			for (int indexName = 0; indexName < iMax; ++indexName)
+			{
+				iTemp = setting.value(QString("/%1_%2/%3_%4").arg(titleName)
+					.arg(index).arg(dataName).arg(indexName), -1).toInt();
+				strTemp = setting.value(QString("/%1_%2_name/%3_%4").arg(titleName)
+					.arg(index).arg(dataName).arg(indexName), "").toString();
+				if (iTemp != -1 && !strTemp.isEmpty()) //数据有效
+				{
+					m_configMap[iTemp] = strTemp;
+				}
+			}
+		}
+	}
+	
+}
+
+QMap<int, QString>&  CConfigrationService::GetDataConfigMap()
+{
+	return m_configMap;
 }

@@ -65,8 +65,13 @@ private:
 
     void do_read_header();
 
+	//20180122 新增 
+	void do_read_header_two();
+
     void do_read_body();
 
+	//20180122 新增
+	void do_read_body_two();
     // 读取帧尾结构符 0x0D 0x0A
     void do_read_frame_tail();
 
@@ -100,7 +105,10 @@ private:
     quint64                 m_u64LatestRecvTime;// 最近一次接收数据时间
 
     static int              headerBufLen; // 包头长度固定
+	static int              headerBufLen_two; // 包头长度固定
     static U8               frame_header; // 帧开始符 0x5A
+	static U8               frame_header_two_1;//第二种开始符号
+	static U8               frame_header_two_2;
     static U8               frame_tail[2];// 帧结构符 0x0D 0x0A
 };
 

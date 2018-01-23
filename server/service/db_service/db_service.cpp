@@ -1101,7 +1101,7 @@ bool CDBService::IsExistTable(const QString & tableName)
 //
 //** 其它说明：
 //******************************************************
-bool CDBService::CreateDataTable(const QString & tableName)
+bool CDBService::CreateDataTable(const QString & tableName, int flag )
 {
     Q_ASSERT(tableName.length() > 0);
 	 LOG_DEBUG() << QStringLiteral("开始创建数据表0>>>>>>>>>>>>>>>>>>>>>");
@@ -1114,7 +1114,11 @@ bool CDBService::CreateDataTable(const QString & tableName)
     QSqlQuery query(*(con->pDB));
     //QString qstrSQLFormat(QStringLiteral("CREATE TABLE %1 (ID INT IDENTITY (1, 1) NOT NULL,DeviceID VARCHAR (50) NOT NULL,ChannelNo INT NOT NULL,DataType INT NOT NULL,TIMESTAMP BIGINT NOT NULL,Longitude DOUBLE PRECISION NOT NULL,Latitude DOUBLE PRECISION NOT NULL,Concentration DECIMAL(12,6) NOT NULL,MeasurementUnit INT NOT NULL)"));
     LOG_DEBUG() << QStringLiteral("开始创建数据表1>>>>>>>>>>>>>>>>>>>>>");
-	QString qstrSQLFormat(QStringLiteral("CREATE TABLE %1 (\
+	
+	QString qstrSQLFormat;
+	if (0 == flag)
+	{
+		qstrSQLFormat = QStringLiteral("CREATE TABLE %1 (\
 										 DeviceId uniqueidentifier NOT NULL,\
 										 CompanyName nvarchar(50) NULL,\
 										 Address nvarchar(255) NULL,\
@@ -1127,7 +1131,23 @@ bool CDBService::CreateDataTable(const QString & tableName)
 										 Oxygen DECIMAL(4,2) NOT NULL,\
 										 CarbonDioxide DECIMAL(4,2) NOT NULL,\
 										 CurrentTime datetime NOT NULL,\
-										 BoilerId uniqueidentifier NULL)"));
+										 BoilerId uniqueidentifier NULL)");
+	}
+	else
+	{
+		qstrSQLFormat = QStringLiteral("CREATE TABLE  %1 (\
+										 DeviceId uniqueidentifier NOT NULL,\
+										 CompanyName nvarchar(50) NULL,\
+										 Address nvarchar(255) NULL,\
+										 Longitude DECIMAL(9,6) NOT NULL,\
+										 Latitude DECIMAL(9,6) NOT NULL,\
+										 Data nvarchar(MAX) NOT NULL,\
+										 CurrentTime datetime NOT NULL,\
+										 BoilerId uniqueidentifier NULL)");
+	}
+
+	
+
     QString qstrSQL = qstrSQLFormat.arg(tableName);
     if (!query.prepare(qstrSQL)) {
         LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
@@ -1221,6 +1241,7 @@ bool CDBService::InsertDataTable(const QString & tableName, const QString device
 // 
 //     con->Release();
 //     return ret;
+	return false;
 }
 
 //******************************************************
@@ -1297,101 +1318,123 @@ string string_To_UTF8(const string & str)
 
 bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA> & lst)
 {
-    if (lst.size() == 0) {
-        return true;
-    }
+	if (lst.size() == 0) {
+		return true;
+	}
 
-    QVariantList lstDeviceID;
+	QVariantList lstDeviceID;
 	QVariantList lstCompanyName;
 	QVariantList lstAddress;
-    QVariantList lstLongitude;
-    QVariantList lstLatitude;
+	QVariantList lstLongitude;
+	QVariantList lstLatitude;
 	QVariantList lstTimestamp;
 	QVariantList lstBoilerId;
+
+	QVariantList SulfurDioxide;//二氧化硫
+	QVariantList NitricOxide;//一氧化氮
+	QVariantList CarbonMonoxide;//一氧化碳
+	QVariantList NitrogenHioxide;//二氧化氮
+	QVariantList Oxygen;//氧气
+	QVariantList CarbonDioxide;//二氧化碳
+
 	double concentration;
-	char sz[12] = {0};
+	char sz[12] = { 0 };
 	UINT16 maskOfData = 0;
 	bool ret = false;
 
 	LOG_DEBUG() << QStringLiteral("开始解析数据>>>>>>>>>>>>>>>>>>>>>");
 
-	for (T_DEVICE_DATA data : lst) {
-	
-			QString CompanyNameS;// = QString::fromLocal8Bit("勃克啤酒厂");
-			QString AddressS;// = QString::fromLocal8Bit("清马路1198号");
+	//说明  虽然参数是List 实际 只有一个值, 是为了不改原来的代码
+	T_DEVICE_DATA data = (*(lst.begin()));
+
+	{
+	QString CompanyNameS;// = QString::fromLocal8Bit("勃克啤酒厂");
+	QString AddressS;// = QString::fromLocal8Bit("清马路1198号");
 
 
-							 //get the current time  
-			CTime t = CTime::GetCurrentTime();
-			string mytime = inttostring(t.GetYear()) + "-" + inttostring(t.GetMonth()) + "-" + inttostring(t.GetDay())
-				+ " " + inttostring(t.GetHour()) + ":" + inttostring(t.GetMinute()) + ":" + inttostring(t.GetSecond());
+					 //get the current time  
+	CTime t = CTime::GetCurrentTime();
+	string mytime = inttostring(t.GetYear()) + "-" + inttostring(t.GetMonth()) + "-" + inttostring(t.GetDay())
+		+ " " + inttostring(t.GetHour()) + ":" + inttostring(t.GetMinute()) + ":" + inttostring(t.GetSecond());
 
-			lstTimestamp << mytime.c_str();
+	lstTimestamp << mytime.c_str();
 
-			lstDeviceID << data.qstrDeviceID;
-			
-			if (m_deviceMsgMap.contains(data.qstrDeviceID))
-			{
-				lstCompanyName << m_deviceMsgMap[data.qstrDeviceID].m_companyName;
-				lstLongitude << m_deviceMsgMap[data.qstrDeviceID].m_longitude;
-				lstLatitude << m_deviceMsgMap[data.qstrDeviceID].m_latitude;
-				lstBoilerId << m_deviceMsgMap[data.qstrDeviceID].m_boilerId;
-				lstAddress << m_deviceMsgMap[data.qstrDeviceID].m_address;
-				LOG_DEBUG() << QStringLiteral("设备信息已缓存,直接使用!");
-			}
-			else
-			{
-				db_con_ptr conDef = GetDBConnection(DB_CON_READONLY);
-				if (!conDef) {
-					return false;
-				}
+	lstDeviceID << data.qstrDeviceID;
 
-				conDef->AcquireWrite();
-				QSqlQuery queryDef(*(conDef->pDB));
-				//QString qstrSQL = QStringLiteral("SELECT ID FROM Rig_DeviceInfo WHERE Code = ?");
-				QString qstrSQL = QStringLiteral("SELECT Name,Longitude,Latitude,BoilerId,AreaName FROM Device WHERE ID = ?");
+	if (m_deviceMsgMap.contains(data.qstrDeviceID))
+	{
+		lstCompanyName << m_deviceMsgMap[data.qstrDeviceID].m_companyName;
+		lstLongitude << m_deviceMsgMap[data.qstrDeviceID].m_longitude;
+		lstLatitude << m_deviceMsgMap[data.qstrDeviceID].m_latitude;
+		lstBoilerId << m_deviceMsgMap[data.qstrDeviceID].m_boilerId;
+		lstAddress << m_deviceMsgMap[data.qstrDeviceID].m_address;
+		LOG_DEBUG() << QStringLiteral("设备[%1]信息已缓存,直接使用!").arg(data.qstrDeviceID);
+	}
+	else
+	{
+		db_con_ptr conDef = GetDBConnection(DB_CON_READONLY);
+		if (!conDef) {
+			return false;
+		}
 
-				if (!queryDef.prepare(qstrSQL)) {
-					LOG_WARING() << "SQLQuery prepare failed. error:" << conDef->pDB->lastError().text()
-						<< " sql:" << qstrSQL;
-					conDef->Release();
-					return false;
-				}
+		conDef->AcquireWrite();
+		QSqlQuery queryDef(*(conDef->pDB));
+		//QString qstrSQL = QStringLiteral("SELECT ID FROM Rig_DeviceInfo WHERE Code = ?");
+		QString qstrSQL = QStringLiteral("SELECT Name,Longitude,Latitude,BoilerId,AreaName FROM Device WHERE ID = ?");
 
-				queryDef.bindValue(0, data.qstrDeviceID);
-				LOG_WARING() << "db_service.cpp 1364###" << data.qstrDeviceID;
-				if (!queryDef.exec()) {
-					LOG_WARING() << "SQLQuery exec failed. error:" << conDef->pDB->lastError().text()
-						<< " sql:" << qstrSQL;
-					conDef->Release();
-					return false;
-				}
+		if (!queryDef.prepare(qstrSQL)) {
+			LOG_WARING() << "SQLQuery prepare failed. error:" << conDef->pDB->lastError().text()
+				<< " sql:" << qstrSQL;
+			conDef->Release();
+			return false;
+		}
+
+		queryDef.bindValue(0, data.qstrDeviceID);
+		LOG_WARING() << "db_service.cpp 1364###" << data.qstrDeviceID;
+		if (!queryDef.exec()) {
+			LOG_WARING() << "SQLQuery exec failed. error:" << conDef->pDB->lastError().text()
+				<< " sql:" << qstrSQL;
+			conDef->Release();
+			return false;
+		}
 
 
 
-				bool ret = queryDef.next();
-				if (ret) {
-					lstCompanyName << queryDef.value(0).toString();
-					lstLongitude << queryDef.value(1).toString();
-					lstLatitude << queryDef.value(2).toString();
-					lstBoilerId << queryDef.value(3).toString();
-					lstAddress << queryDef.value(4).toString();
+		bool ret = queryDef.next();
+		if (ret) {
+			lstCompanyName << queryDef.value(0).toString();
+			lstLongitude << queryDef.value(1).toString();
+			lstLatitude << queryDef.value(2).toString();
+			lstBoilerId << queryDef.value(3).toString();
+			lstAddress << queryDef.value(4).toString();
 
-					m_deviceMsgMap[data.qstrDeviceID].m_companyName = queryDef.value(0).toString();
-					m_deviceMsgMap[data.qstrDeviceID].m_longitude = queryDef.value(1).toString();
-					m_deviceMsgMap[data.qstrDeviceID].m_latitude = queryDef.value(2).toString();
-					m_deviceMsgMap[data.qstrDeviceID].m_boilerId = queryDef.value(3).toString();
-					m_deviceMsgMap[data.qstrDeviceID].m_address = queryDef.value(4).toString();
-					LOG_DEBUG() << QStringLiteral("设备第一次登陆,成功获取设备信息并缓存!");
-				}
-				conDef->Release();
-			}
-			
-		
+			m_deviceMsgMap[data.qstrDeviceID].m_companyName = queryDef.value(0).toString();
+			m_deviceMsgMap[data.qstrDeviceID].m_longitude = queryDef.value(1).toString();
+			m_deviceMsgMap[data.qstrDeviceID].m_latitude = queryDef.value(2).toString();
+			m_deviceMsgMap[data.qstrDeviceID].m_boilerId = queryDef.value(3).toString();
+			m_deviceMsgMap[data.qstrDeviceID].m_address = queryDef.value(4).toString();
+			LOG_DEBUG() << QStringLiteral("设备第一次登陆,成功获取设备信息并缓存!");
+		}
+		conDef->Release();
 	}
 
 
+}
 
+	int flag; //标识 0 旧版 1新版
+	flag = data.m_flag;
+	QString qstrSQLFormat;
+	if (OLD_TYPE== flag) //旧版
+	{
+		//                                                    设备ID        公司名        地址       经度        纬度       二氧化硫      一氧化氮       一氧化碳        二氧化氮   氧气       二氧化碳      时间           锅炉ID
+		qstrSQLFormat = QStringLiteral("INSERT INTO %1 ([DeviceId],[CompanyName],[Address],[Longitude],[Latitude],[SulfurDioxide],[NitricOxide],[CarbonMonoxide],[Hydrogen],[Oxygen],[CarbonDioxide],[CurrentTime],[BoilerId]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+	}
+	else if(NEW_TYPE == flag)// 新版
+		qstrSQLFormat = QStringLiteral("INSERT INTO %1  VALUES (?,?,?,?,?,?,?,?)");
+
+
+	
+	
 	// 批量插入数据
 	db_con_ptr con = GetDBConnection(DB_CON_READWRITE);
 	if (!con) {
@@ -1401,10 +1444,7 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 	con->AcquireWrite();
 	QSqlQuery query(*(con->pDB));
 
-	//                                                    设备ID        公司名        地址       经度        纬度       二氧化硫      一氧化氮       一氧化碳        二氧化氮   氧气       二氧化碳      时间           锅炉ID
-	//QString qstrSQLFormat(QStringLiteral("INSERT INTO %1 ([DeviceId],[CompanyName],[Address],[Longitude],[Latitude],[SulfurDioxide],[NitricOxide],[CarbonMonoxide],[Hydrogen],[Oxygen],[CarbonDioxide],[CurrentTime],[BoilerId]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"));
-	QString qstrSQLFormat(QStringLiteral("INSERT INTO %1 ([DeviceId],[CompanyName],[Address],[Longitude],[Latitude],[CurrentTime],[BoilerId],[DeviceData]) VALUES (?,?,?,?,?,?,?,?)"));
-
+	
 	QString qstrSQL = qstrSQLFormat.arg(tableName);
 
 	if (!query.prepare(qstrSQL)) {
@@ -1414,27 +1454,12 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 		return false;
 	}
 
-	QVariantList listDeviceData;
+
 	//遍历数据链表
-	for (T_DEVICE_DATA data : lst) {
-
-		QString strData; //保存每组数据生成的json字符串
-		//遍历每组数据 中的数据表
-
-		QJsonObject json;
-// 		json.insert("name", QString("Qt"));
-// 		json.insert("version", 5);
-// 		json.insert("windows", true);
-
-		QJsonDocument document;
-// 		document.setObject(json);
-// 		QByteArray byte_array = document.toJson(QJsonDocument::Compact);
-// 		QString json_str(byte_array);
-		
-		for (message_device_realtime_data_ptr realData:data.m_vectorData)
-		{
-			//数据有效 数据类型已定义 
-			if (realData->m_struct.channelNo < MAMOS_ID)
+	if(OLD_TYPE== flag)
+	{
+		for (message_device_realtime_data_ptr realData : data.m_vectorData) {
+			if (realData->m_struct.channelNo != MAMOS_ID)
 			{
 				U8 buf[8];
 				U8 * pData = (U8 *)&(realData->m_struct.data_);
@@ -1446,60 +1471,186 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 				{
 					concentration = 0;
 				}
-				//一些特殊类型 数据 做些特殊处理
-				
-
-				if (realData->m_struct.channelNo == MAMOS_O2)
-				{
-					//lstBoilerId << "dfeff938-d00d-4ee8-aad3-39d21a637665";
-					/*
-					* date:20170918
-					* data:过滤氧气大于20.0%的数据
-					*/
-					if (concentration >= 20.0)
-					{
-						LOG_INFO() << QStringLiteral("##氧气含量为[%1]>=20.0%,过滤!##").arg(concentration);
-						con->Release();
-						return true;
-					}
-
-					LOG_DEBUG() << QStringLiteral("氧气(%)：%1，").arg(concentration);
-				}
-
-				//写入 json数据
-				json.insert(gMamosKey[realData->m_struct.channelNo], concentration);
-
-
 			}
-			
+
+
+			switch (realData->m_struct.channelNo)
+			{
+			case MAMOS_O2:
+			{
+
+				Oxygen << concentration;
+				LOG_DEBUG() << QStringLiteral("氧气(%)：%1，").arg(concentration);
+
+				maskOfData += MAMOS_O2;
+			}
+
+			break;
+			case MAMOS_CO:
+				if (concentration>60000)
+				{
+					concentration = 60000;
+				}
+				CarbonMonoxide << concentration;
+				LOG_DEBUG() << QStringLiteral("一氧化碳(ppm)：%1，").arg(concentration);
+
+				maskOfData += MAMOS_CO;
+				break;
+			case MAMOS_NO:
+				if (concentration>60000)
+				{
+					concentration = 60000;
+				}
+				NitricOxide << concentration;
+				LOG_DEBUG() << QStringLiteral("一氧化氮(ppm)：%1，").arg(concentration);
+
+				maskOfData += MAMOS_NO;
+				break;
+			case MAMOS_SO2:
+				if (concentration>60000)
+				{
+					concentration = 60000;
+				}
+				SulfurDioxide << concentration;
+				LOG_DEBUG() << QStringLiteral("二氧化硫(ppm)：%1，").arg(concentration);
+				maskOfData += MAMOS_SO2;
+				break;
+			case MAMOS_NO2:
+				if (concentration>60000)
+				{
+					concentration = 60000;
+				}
+				NitrogenHioxide << concentration;
+				LOG_DEBUG() << QStringLiteral("二氧化氮(ppm)：%1，").arg(concentration);
+				maskOfData += MAMOS_NO2;
+				break;
+			case MAMOS_CO2:
+				if (concentration>99.99)
+				{
+					concentration = 99.99;
+				}
+				CarbonDioxide << concentration;
+				LOG_DEBUG() << QStringLiteral("二氧化碳(%)：%1，").arg(concentration);
+				maskOfData += MAMOS_CO2;
+				break;
+			default:
+				break;
+			}
 		}
-		//一组数据写完,记录到list
-		document.setObject(json);
-		QByteArray byte_array = document.toJson(QJsonDocument::Compact);
-		QString json_str(byte_array);
-		listDeviceData << json_str;
-    }
-
-
-	{
-		LOG_DEBUG() << QStringLiteral("解析数据完成,开始入表>>>>>>>>>>>>>>>>>>>>>");
-
 		query.addBindValue(lstDeviceID);
 		query.addBindValue(lstCompanyName);
 		query.addBindValue(lstAddress);
 		query.addBindValue(lstLongitude);
 		query.addBindValue(lstLatitude);
+		query.addBindValue(SulfurDioxide);//二氧化硫
+		query.addBindValue(NitricOxide);//一氧化氮
+		query.addBindValue(CarbonMonoxide);//一氧化碳
+		query.addBindValue(NitrogenHioxide);//二氧化氮
+		query.addBindValue(Oxygen);//氧气
+		query.addBindValue(CarbonDioxide);//二氧化碳
 		query.addBindValue(lstTimestamp);
 		query.addBindValue(lstBoilerId);
-		query.addBindValue(listDeviceData);
+
 		ret = query.execBatch();
 		if (!ret) {
 			LOG_INFO() << "SQLQuery execBatch failed. error:" << con->pDB->lastError().text()
-				<< " sql:"  << qstrSQL;
+				<< " sql:" << qstrSQL;
 			con->Release();
 			return false;
 		}
 	}
+	else if(NEW_TYPE == flag)
+	{
+		QVariantList listDeviceData;
+		QString strData; //保存每组数据生成的json字符串
+						 //遍历每组数据 中的数据表
+
+		QJsonObject json;
+		// 		json.insert("name", QString("Qt"));
+		// 		json.insert("version", 5);
+		// 		json.insert("windows", true);
+
+		QJsonDocument document;
+		// 		document.setObject(json);
+		// 		QByteArray byte_array = document.toJson(QJsonDocument::Compact);
+		// 		QString json_str(byte_array);
+
+// 		for (message_device_realtime_data_ptr realData : data.m_vectorData)
+// 		{
+// 			//数据有效 数据类型已定义 
+// 			if (realData->m_struct.channelNo < MAMOS_ID)
+// 			{
+// 				U8 buf[8];
+// 				U8 * pData = (U8 *)&(realData->m_struct.data_);
+// 				memcpy(buf, pData, 7);
+// 
+// 				concentration = Convert7ByteDataToD64(buf);
+// 				//不会小于0，仅用于防错
+// 				if (concentration < 0)
+// 				{
+// 					concentration = 0;
+// 				}
+// 				//一些特殊类型 数据 做些特殊处理
+// 
+// 
+// 				if (realData->m_struct.channelNo == MAMOS_O2)
+// 				{
+// 					//lstBoilerId << "dfeff938-d00d-4ee8-aad3-39d21a637665";
+// 					/*
+// 					* date:20170918
+// 					* data:过滤氧气大于20.0%的数据
+// 					*/
+// 					if (concentration >= 20.0)
+// 					{
+// 						LOG_INFO() << QStringLiteral("##氧气含量为[%1]>=20.0%,过滤!##").arg(concentration);
+// 						con->Release();
+// 						return true;
+// 					}
+// 
+// 					LOG_DEBUG() << QStringLiteral("氧气(%)：%1，").arg(concentration);
+// 				}
+// 
+// 				//写入 json数据
+// 				json.insert(gMamosKey[realData->m_struct.channelNo], concentration);
+// 
+// 
+// 			}
+// 
+// 		}
+		//一组数据写完,记录到list
+
+		for (NEW_DEVICE_DATA realData : data.m_vectorDataNew)
+		{
+			json.insert(realData.m_strFlag, (int)realData.m_data);
+		}
+
+		document.setObject(json);
+		QByteArray byte_array = document.toJson(QJsonDocument::Compact);
+		QString json_str(byte_array);
+		listDeviceData << json_str;
+
+		{
+			LOG_DEBUG() << QStringLiteral("解析数据完成,开始入表>>>>>>>>>>>>>>>>>>>>>");
+
+			query.addBindValue(lstDeviceID);
+			query.addBindValue(lstCompanyName);
+			query.addBindValue(lstAddress);
+			query.addBindValue(lstLongitude);
+			query.addBindValue(lstLatitude);
+			query.addBindValue(listDeviceData);
+			query.addBindValue(lstTimestamp);
+			query.addBindValue(lstBoilerId);
+
+			ret = query.execBatch();
+			if (!ret) {
+				LOG_INFO() << "SQLQuery execBatch failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrSQL;
+				con->Release();
+				return false;
+			}
+		}
+	}
+		
     con->Release();
     return ret;
 }
@@ -1522,12 +1673,21 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 //** 其它说明：
 //******************************************************
 bool CDBService::DataQueuePushBack(const QString & deviceID, 
-                                   const REALTIME_DATA& data)
+                                   const REALTIME_DATA& data, unsigned char flag)
 {
     Q_ASSERT(!deviceID.isEmpty());
 
-    m_dataQueue.Push(T_DEVICE_DATA(deviceID, data));
+    m_dataQueue.Push(T_DEVICE_DATA(deviceID, data, flag));
     return true;
+}
+
+bool CDBService::DataQueuePushBack(const QString & deviceID,
+	const REALTIME_DATA_NEW& data, unsigned char flag)
+{
+	Q_ASSERT(!deviceID.isEmpty());
+
+	m_dataQueue.Push(T_DEVICE_DATA(deviceID, data, flag));
+	return true;
 }
 
 //******************************************************
@@ -2061,18 +2221,30 @@ void CDBHandleTask::run()
 	{
 		while (!CDBService::GetInstance()->m_dataQueue.Empty()) {
 
-			//2017/6/14 增加一个 队列数据 限制
-			T_DEVICE_DATA fontData = CDBService::GetInstance()->DataQueueFront();
 			
+			T_DEVICE_DATA& fontData = CDBService::GetInstance()->DataQueueFront();
+			int flag = fontData.m_flag;
 			QList<T_DEVICE_DATA> listData;
 			listData.append(fontData);
 
-			QString batchTableName = (QStringLiteral("DeviceData_%1")).
-				arg(QDateTime::currentDateTime().toString("yyyyMMdd"));
+
+			QString batchTableName;
+			if (OLD_TYPE == flag) //老式表结构
+			{
+				batchTableName = (QStringLiteral("DeviceData_%1")).
+					arg(QDateTime::currentDateTime().toString("yyyyMMdd"));
+			}
+			else if(NEW_TYPE == flag)
+			{
+				batchTableName = (QStringLiteral("test_%1")).
+					arg(QDateTime::currentDateTime().toString("yyyyMMdd"));
+			}
+
+		
 
 				bool ret = CDBService::GetInstance()->IsExistTable(batchTableName);
 				if (!ret) {
-					ret = CDBService::GetInstance()->CreateDataTable(batchTableName);
+					ret = CDBService::GetInstance()->CreateDataTable(batchTableName,flag);
 					if (!ret) {
 						break;// 建表失败
 					}

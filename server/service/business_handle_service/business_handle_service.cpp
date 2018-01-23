@@ -1,4 +1,4 @@
-#include "business_handle_service.h"
+ï»¿#include "business_handle_service.h"
 #include "service/business_handle_service/business_model/business_model.h"
 #include "service/business_handle_service/business_model/oil_field.h"
 #include "service/business_handle_service/business_model/rig.h"
@@ -8,6 +8,8 @@
 #include "service/socket_service/tcp_session.h"
 #include "service/socket_service/tcp_session_message_handler_hub.h"
 #include "service/log_service/log_service.h"
+#include "service/configuration_service/configuration_service.h"
+
 #include "message/message_login.h"
 #include "message/message_login_rep.h"
 #include "message/message_error_info.h"
@@ -71,56 +73,62 @@ void CBusinessHandleService::DestroyInstance()
 int CBusinessHandleService::StartInternalService()
 {
     //////////////////////////////////////////////////////////////////////////
-    // ´¦ÀíPC¿Í»§¶ËÃüÁî
+    // å¤„ç†PCå®¢æˆ·ç«¯å‘½ä»¤
 
-    // ´¦ÀíµÇÂ¼ÏûÏ¢µÄ»Ø¸´
+    // å¤„ç†ç™»å½•æ¶ˆæ¯çš„å›å¤
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_LOGIN, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientLogin));
-    // »ñÈ¡Éè±¸ÁĞ±í
+    // è·å–è®¾å¤‡åˆ—è¡¨
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_GET_DEVICE_LIST, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientGetDeviceList));
-    // »ñÈ¡Éè±¸ÏêÇé
+    // è·å–è®¾å¤‡è¯¦æƒ…
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_GET_DEVICE_INFO, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientGetDeviceInfo));
-    // ¿Í»§¶ËÍË³ö
+    // å®¢æˆ·ç«¯é€€å‡º
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_EXIT, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessage>(&CBusinessHandleService::HandlePCClientExit));
-    // ÉèÖÃÉè±¸²ÎÊı
+    // è®¾ç½®è®¾å¤‡å‚æ•°
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_SET_DEVICE_PARAM, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientSetDeviceParam));
-    // »ñÈ¡Éè±¸ÔÚÏß×´Ì¬
+    // è·å–è®¾å¤‡åœ¨çº¿çŠ¶æ€
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_GET_DEVICE_STATUS, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus));
-    // ¿Í»§¶ËĞÄÌø
+    // å®¢æˆ·ç«¯å¿ƒè·³
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_SEND_HEARTBEAT, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientSendHeartbeat));
-    // ¿Í»§¶ËÇëÇó»ñÈ¡ÀúÊ·Êı¾İµÄÌõÊı
+    // å®¢æˆ·ç«¯è¯·æ±‚è·å–å†å²æ•°æ®çš„æ¡æ•°
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_GET_HISTORY_DEVICE_DATA_COUNT, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount));
-    // ¿Í»§¶ËÇëÇó»ñÈ¡ÀúÊ·Êı¾İ
+    // å®¢æˆ·ç«¯è¯·æ±‚è·å–å†å²æ•°æ®
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(PC_CLIENT_CMD_GET_HISTORY_DEVICE_DATA, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandlePCClientGetHistoryDeviceData));
 
     //////////////////////////////////////////////////////////////////////////
-    // ´¦ÀíÉè±¸ÃüÁî
+    // å¤„ç†è®¾å¤‡å‘½ä»¤
 
-    // Éè±¸µÇÂ¼
+    // è®¾å¤‡ç™»å½•
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_LOGIN, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandleDeviceLogin));
-    // Éè±¸ÉÏ´«ÊµÊ±²É¼¯Êı¾İ
+    // è®¾å¤‡ä¸Šä¼ å®æ—¶é‡‡é›†æ•°æ®
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_REALTIME_DATA, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessage>(&CBusinessHandleService::HandleDeviceRealTimeData));
-    // Éè±¸ÅúÁ¿ÉÏ´«ÊµÊ±²É¼¯Êı¾İ
+    // è®¾å¤‡æ‰¹é‡ä¸Šä¼ å®æ—¶é‡‡é›†æ•°æ®
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_REALTIME_BATCHED_DATA, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandleDeviceRealTimeBatchedData));
-    // Éè±¸ÍË³ö
+    // è®¾å¤‡é€€å‡º
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_EXIT, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessage>(&CBusinessHandleService::HandleDeviceExit));
-    // Éè±¸ĞÄÌø£¬»ñÈ¡·şÎñÆ÷Ê±¼ä
+    // è®¾å¤‡å¿ƒè·³ï¼Œè·å–æœåŠ¡å™¨æ—¶é—´
     CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_SEND_HEARTBEAT, this, 
         static_cast<ITcpSessionMessageHandler::HandleSessionMessageV2>(&CBusinessHandleService::HandleDeviceSendHeartbeat));
 
-    CBusinessModel::GetInstance();// ÒµÎñÄ£ĞÍÀà
+	//20180122 æ–°å¢  
+	CTcpSessionMessageHandlerHub::GetInstance()->RegisterSessionMessageHandler(DEVICE_CMD_REALTIME_BATCHED_DATA_NEW, this,
+		static_cast<ITcpSessionMessageHandler::HandleSessionMessage>(&CBusinessHandleService::HandleDeviceUploadData));
+
+	
+
+    CBusinessModel::GetInstance();// ä¸šåŠ¡æ¨¡å‹ç±»
 
     return 0;
 }
@@ -145,27 +153,27 @@ QString CBusinessHandleService::GetServiceName()
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleMessageLogin
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíPC¿Í»§¶ËµÇÂ¼ÏûÏ¢
-//** ÊäÈë²ÎÊı: 
-//   CMessage * sessionMessageIn:ÇëÇóÏûÏ¢
-//   CMessage & responseMessageOut:»Ø¸´ÏûÏ¢
+//** å‡½æ•°å:   HandleMessageLogin
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†PCå®¢æˆ·ç«¯ç™»å½•æ¶ˆæ¯
+//** è¾“å…¥å‚æ•°: 
+//   CMessage * sessionMessageIn:è¯·æ±‚æ¶ˆæ¯
+//   CMessage & responseMessageOut:å›å¤æ¶ˆæ¯
 //
-//** ·µ»ØÖµ: 
-//   int:³É¹¦Ê±·µ»ØERR_NONE£¬·ñÔò·µ»ØÏàÓ¦µÄ´íÎóÂë
+//** è¿”å›å€¼: 
+//   int:æˆåŠŸæ—¶è¿”å›ERR_NONEï¼Œå¦åˆ™è¿”å›ç›¸åº”çš„é”™è¯¯ç 
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/26
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/26
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session, 
                                                 message_ptr sessionMessageIn,
                                                 message_ptr responseMessageOut)
 {
-    // Èí¼şÊÚÈ¨ÑéÖ¤
+    // è½¯ä»¶æˆæƒéªŒè¯
     IS_REGISTED(ERR_INVALID_LICENSE);
 
     Q_ASSERT(sessionMessageIn);
@@ -184,28 +192,28 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
     if (!ret) {
         ret = CDBService::GetInstance()->IsValidUser(pMessageLogin->m_qstrAccount);
         if (!ret) { 
-            retVal = ERR_INVALID_ACCOUNT;// ÓÃ»§Ãû²»´æÔÚ
+            retVal = ERR_INVALID_ACCOUNT;// ç”¨æˆ·åä¸å­˜åœ¨
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ÓÃ»§Ãû²»´æÔÚ");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ç”¨æˆ·åä¸å­˜åœ¨");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         } else {
-            retVal = ERR_UNMATCHED_ACCOUNT;// ÓÃ»§Ãû¡¢ÃÜÂë²»Æ¥Åä
+            retVal = ERR_UNMATCHED_ACCOUNT;// ç”¨æˆ·åã€å¯†ç ä¸åŒ¹é…
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ÓÃ»§Ãû¡¢ÃÜÂë²»Æ¥Åä");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ç”¨æˆ·åã€å¯†ç ä¸åŒ¹é…");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         }
     } else {
-        QString accountID;// ÓÃ»§ID
+        QString accountID;// ç”¨æˆ·ID
         ret = CDBService::GetInstance()->GetAccountID(pMessageLogin->m_qstrAccount, accountID);
         if (!ret || accountID.isEmpty()) {
-            retVal = ERR_DB_ERROR;// Êı¾İ¿â¼ÇÂ¼´íÎó
+            retVal = ERR_DB_ERROR;// æ•°æ®åº“è®°å½•é”™è¯¯
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("Êı¾İ¿â¼ÇÂ¼´íÎó");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ•°æ®åº“è®°å½•é”™è¯¯");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         } else {
-            // ÓÃ»§µÇÂ¼³É¹¦ºó£¬ÉèÖÃtcpÁ¬½ÓÎªÒÑÑéÖ¤×´Ì¬£¬½«ÓÃ»§ÓëËùÊô¾®¶Ó°ó¶¨
+            // ç”¨æˆ·ç™»å½•æˆåŠŸåï¼Œè®¾ç½®tcpè¿æ¥ä¸ºå·²éªŒè¯çŠ¶æ€ï¼Œå°†ç”¨æˆ·ä¸æ‰€å±äº•é˜Ÿç»‘å®š
 
-            // »ñÈ¡ÓÃ»§ËùÊô¾®¶Ó¡¢ËùÊôÓÍÌï
+            // è·å–ç”¨æˆ·æ‰€å±äº•é˜Ÿã€æ‰€å±æ²¹ç”°
             oil_field_ptr pOilField = NULL;
             rig_ptr pRig = NULL;
             user_ptr pUser = NULL;
@@ -216,7 +224,7 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
                 QString qstrOilFieldID;
                 ret = CDBService::GetInstance()->GetOilFieldIDByRigID(qstrRigID, qstrOilFieldID);
                 if (ret) {
-                    // »ñÈ¡ÓÍÌï¶ÔÏó
+                    // è·å–æ²¹ç”°å¯¹è±¡
                     pOilField = CBusinessModel::GetInstance()->FindOilFieldByID(qstrOilFieldID);
                     if (!pOilField) {
                         pOilField = CBusinessModel::GetInstance()->GetOrCreateOilField(qstrOilFieldID);
@@ -224,7 +232,7 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
 
                     Q_ASSERT(pOilField);
 
-                    // »ñÈ¡¾®¶Ó¶ÔÏó
+                    // è·å–äº•é˜Ÿå¯¹è±¡
                     pRig = pOilField->FindRigByID(qstrRigID);
                     if (!pRig) {
                         pRig = pOilField->GetOrCreateRig(qstrRigID);
@@ -232,7 +240,7 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
 
                     Q_ASSERT(pRig);
 
-                    // »ñÈ¡ÓÃ»§¶ÔÏó
+                    // è·å–ç”¨æˆ·å¯¹è±¡
                     pUser = pRig->FindUserByID(accountID);
                     if (!pUser) {
                         pUser = pRig->GetOrCreateUser(accountID);
@@ -241,26 +249,26 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
 
                     Q_ASSERT(pUser);
 
-                    pUser->SetSession(session);// ÉèÖÃ¿Í»§¶Ë»á»°£¬ÄÚ²¿×Ô¶¯½«Æä¼ÓÈë¾®¶ÓµÄÔÚÏß¿Í»§¶ËÁĞ±í
-                    // ¼ÇÂ¼ÓÃ»§µÇÂ¼Ê±¼ä
+                    pUser->SetSession(session);// è®¾ç½®å®¢æˆ·ç«¯ä¼šè¯ï¼Œå†…éƒ¨è‡ªåŠ¨å°†å…¶åŠ å…¥äº•é˜Ÿçš„åœ¨çº¿å®¢æˆ·ç«¯åˆ—è¡¨
+                    // è®°å½•ç”¨æˆ·ç™»å½•æ—¶é—´
                     pUser->SetLoginTime(std::make_shared<QDateTime>(QDateTime::currentDateTime()));
 
-                    // ÉèÖÃ»Ø¸´ÏûÏ¢
+                    // è®¾ç½®å›å¤æ¶ˆæ¯
                     CMessageLoginRep * pResponse = new CMessageLoginRep();
-                    // »ñÈ¡µ±Ç°·şÎñÆ÷Ê±¼ä£¬²¢ÉèÖÃ
+                    // è·å–å½“å‰æœåŠ¡å™¨æ—¶é—´ï¼Œå¹¶è®¾ç½®
                     pResponse->m_struct.serverTime = QDateTime::currentDateTime().toMSecsSinceEpoch();
                     responseMessageOut->SetMessageBody(pResponse);
 
                     LOG_WARING() << pRig->GetDevicesOnlineStatusDisplayText();
-                    LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÔÚÏßÓÃ»§").arg(pRig->GetDisplayText())
+                    LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„åœ¨çº¿ç”¨æˆ·").arg(pRig->GetDisplayText())
                         << pRig->GetOnlineUsersDisplayText();
                 }
             }
             else
             {
-                retVal = ERR_INVALID_ACCOUNT;// ÓÃ»§Ãû²»´æÔÚ
+                retVal = ERR_INVALID_ACCOUNT;// ç”¨æˆ·åä¸å­˜åœ¨
                 pRepErrorInfo = new CMessageErrorInfo();
-                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ÓÃ»§·ÇÈÎºÎ¾®¶ÓÈËÔ±");
+                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ç”¨æˆ·éä»»ä½•äº•é˜Ÿäººå‘˜");
                 responseMessageOut->SetMessageBody(pRepErrorInfo);
             }
         }
@@ -269,14 +277,14 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
     if (retVal != ERR_NONE) {
         Q_ASSERT(pRepErrorInfo);
 
-        LOG_WARING() << QStringLiteral("PC¿Í»§¶ËµÇÂ¼Ê§°Ü ´íÎó£º") << pRepErrorInfo->m_qstrErrorInfo
-            << QStringLiteral("{µÇÂ¼Ãû:") << pMessageLogin->m_qstrAccount
-            << QStringLiteral(", ÃÜÂë:") << pMessageLogin->m_qstrPassword 
+        LOG_WARING() << QStringLiteral("PCå®¢æˆ·ç«¯ç™»å½•å¤±è´¥ é”™è¯¯ï¼š") << pRepErrorInfo->m_qstrErrorInfo
+            << QStringLiteral("{ç™»å½•å:") << pMessageLogin->m_qstrAccount
+            << QStringLiteral(", å¯†ç :") << pMessageLogin->m_qstrPassword 
             << QStringLiteral("}");
     } else  {
-        LOG_INFO() << QStringLiteral("PC¿Í»§¶ËµÇÂ¼³É¹¦ ")
-            << QStringLiteral("{µÇÂ¼Ãû:") << pMessageLogin->m_qstrAccount
-            << QStringLiteral(", ÃÜÂë:") << pMessageLogin->m_qstrPassword 
+        LOG_INFO() << QStringLiteral("PCå®¢æˆ·ç«¯ç™»å½•æˆåŠŸ ")
+            << QStringLiteral("{ç™»å½•å:") << pMessageLogin->m_qstrAccount
+            << QStringLiteral(", å¯†ç :") << pMessageLogin->m_qstrPassword 
             << QStringLiteral("}");
     }
 
@@ -286,21 +294,21 @@ int CBusinessHandleService::HandlePCClientLogin(tcp_session_ptr session,
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientGetDeviceList
-//** ¹¦ÄÜ¼òÊö: ·µ»ØËùÓĞÉè±¸IDÁĞ±í
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientGetDeviceList
+//** åŠŸèƒ½ç®€è¿°: è¿”å›æ‰€æœ‰è®¾å¤‡IDåˆ—è¡¨
+//** è¾“å…¥å‚æ•°: 
 //   CMessage * sessionMessageIn:
 //   CMessage & responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/27
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/27
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientGetDeviceList(tcp_session_ptr session, 
                                                         message_ptr sessionMessageIn, 
@@ -322,24 +330,24 @@ int CBusinessHandleService::HandlePCClientGetDeviceList(tcp_session_ptr session,
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾ø·Ç¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë»ñÈ¡Éè±¸ÁĞ±í");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»éç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯è·å–è®¾å¤‡åˆ—è¡¨");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-    } else {// ÔÙÓÉÓÃ»§ID»ñÈ¡µ½ÓÃ»§ÄÜ·ÃÎÊµÄËùÓĞÉè±¸ID
+    } else {// å†ç”±ç”¨æˆ·IDè·å–åˆ°ç”¨æˆ·èƒ½è®¿é—®çš„æ‰€æœ‰è®¾å¤‡ID
         Q_ASSERT(pUser);
-        QString qstrUserID = pUser->id;// ÓÉsession»ñÈ¡µ½ÓÃ»§ID
+        QString qstrUserID = pUser->id;// ç”±sessionè·å–åˆ°ç”¨æˆ·ID
 
-        // »ñÈ¡±¾ÕËºÅËùÔÚ¾®¶ÓµÄH2SÉè±¸IDÁĞ±í
+        // è·å–æœ¬è´¦å·æ‰€åœ¨äº•é˜Ÿçš„H2Sè®¾å¤‡IDåˆ—è¡¨
         bool ret = CDBService::GetInstance()->GetH2SDeviceListByPersonID(qstrUserID, lstDeviceItems);
         if (!ret) {
             retVal = ERR_INVALID_ACCOUNT;
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¸ù¾İÓÃ»§ÃûÕÒ²»µ½¿ÉÒÔÊ¹ÓÃµÄÉè±¸ÁĞ±í");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ ¹æ®ç”¨æˆ·åæ‰¾ä¸åˆ°å¯ä»¥ä½¿ç”¨çš„è®¾å¤‡åˆ—è¡¨");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         } else {
             pRig = pUser->GetRig();
             Q_ASSERT(pRig);
 
-            // ¸üĞÂÒµÎñÊµÌåÄ£ĞÍÀïµÄÉè±¸ĞÅÏ¢
+            // æ›´æ–°ä¸šåŠ¡å®ä½“æ¨¡å‹é‡Œçš„è®¾å¤‡ä¿¡æ¯
             for (CMessageDevicesListItem * pItem : lstDeviceItems) {
                 QString qstrDeviceID = QString::fromLocal8Bit(((char *)pItem->m_struct.deviceId), sizeof(pItem->m_struct.deviceId)).trimmed();
                 device_ptr pDevice = pRig->FindDeviceByID(qstrDeviceID);
@@ -359,11 +367,11 @@ int CBusinessHandleService::HandlePCClientGetDeviceList(tcp_session_ptr session,
                 emit pRig->rigDeviceUpdated();
             }
 
-            // ÓÃCMessageGetDeviceListRep·µ»Ø½á¹û
+            // ç”¨CMessageGetDeviceListRepè¿”å›ç»“æœ
             CMessageGetDeviceListRep * pResponse = new CMessageGetDeviceListRep();
             pResponse->m_lstDevices = lstDeviceItems;
             pResponse->m_struct.deviceCount = lstDeviceItems.count();
-            // ÉèÖÃ»Ø¸´ÏûÏ¢ÄÚÈİ
+            // è®¾ç½®å›å¤æ¶ˆæ¯å†…å®¹
             responseMessageOut->SetMessageBody(pResponse);
         }
     }
@@ -372,15 +380,15 @@ int CBusinessHandleService::HandlePCClientGetDeviceList(tcp_session_ptr session,
         Q_ASSERT(pRepErrorInfo);
 
         if (pUser) {
-            LOG_WARING() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸ÁĞ±íÊ§°Ü,´íÎóĞÅÏ¢£º%2")
+            LOG_WARING() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡åˆ—è¡¨å¤±è´¥,é”™è¯¯ä¿¡æ¯ï¼š%2")
                 .arg(pUser->GetDisplayText()).arg(pRepErrorInfo->m_qstrErrorInfo);
         } else {
-            LOG_WARING() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸ÁĞ±íÊ§°Ü,´íÎóĞÅÏ¢£º%2")
+            LOG_WARING() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡åˆ—è¡¨å¤±è´¥,é”™è¯¯ä¿¡æ¯ï¼š%2")
                 .arg(session->get_display_text())<< pRepErrorInfo->m_qstrErrorInfo;
         }
     } else  {
         Q_ASSERT(pUser);
-        LOG_INFO() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸ÁĞ±í³É¹¦,¹²·µ»Ø[%2]ÌõÉè±¸ĞÅÏ¢")
+        LOG_INFO() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡åˆ—è¡¨æˆåŠŸ,å…±è¿”å›[%2]æ¡è®¾å¤‡ä¿¡æ¯")
             .arg(pUser->GetDisplayText()).arg(lstDeviceItems.size());
     }
 
@@ -388,21 +396,21 @@ int CBusinessHandleService::HandlePCClientGetDeviceList(tcp_session_ptr session,
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientGetDeviceInfo
-//** ¹¦ÄÜ¼òÊö: ·µ»Ø¸ø¶¨Éè±¸ID¼¯ºÏ¶ÔÓ¦µÄÉè±¸ÏêÇé
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientGetDeviceInfo
+//** åŠŸèƒ½ç®€è¿°: è¿”å›ç»™å®šè®¾å¤‡IDé›†åˆå¯¹åº”çš„è®¾å¤‡è¯¦æƒ…
+//** è¾“å…¥å‚æ•°: 
 //   CMessage * sessionMessageIn:
 //   CMessage & responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/27
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/27
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session, 
                                                         message_ptr sessionMessageIn,
@@ -427,13 +435,13 @@ int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session,
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë»ñÈ¡Éè±¸ÏêÏ¸ĞÅÏ¢");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯è·å–è®¾å¤‡è¯¦ç»†ä¿¡æ¯");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
     } else {
         Q_ASSERT(pUser);
-        // ÓÃCMessageGetDeviceListRep·µ»Ø½á¹û
+        // ç”¨CMessageGetDeviceListRepè¿”å›ç»“æœ
         CMessageGetDevicesInfoRep * pResponse = new CMessageGetDevicesInfoRep();
-        QString qstrUserID = pUser->id;// ÓÉsession»ñÈ¡µ½Éè±¸ID
+        QString qstrUserID = pUser->id;// ç”±sessionè·å–åˆ°è®¾å¤‡ID
         
         bool ret = true;
         for (int i = 0; i < pRequest->m_struct.deviceCount; i++) {
@@ -443,9 +451,9 @@ int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session,
             CMessageDeviceItemInfo * pDeviceInfo = new CMessageDeviceItemInfo();
             ret = CDBService::GetInstance()->GetDeviceInfoByDeviceID(qstrDeviceID, pDeviceInfo);
             if (!ret) {
-                retVal = ERR_INVALID_ID;// ÎŞĞ§µÄÉè±¸ID
+                retVal = ERR_INVALID_ID;// æ— æ•ˆçš„è®¾å¤‡ID
                 pRepErrorInfo = new CMessageErrorInfo();
-                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¸ù¾İÉè±¸±àºÅ[%1]ÕÒ²»µ½Éè±¸ÏêÏ¸ĞÅÏ¢").arg(qstrDeviceID);
+                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ ¹æ®è®¾å¤‡ç¼–å·[%1]æ‰¾ä¸åˆ°è®¾å¤‡è¯¦ç»†ä¿¡æ¯").arg(qstrDeviceID);
                 responseMessageOut->SetMessageBody(pRepErrorInfo);
                 break;
             } else {
@@ -454,7 +462,7 @@ int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session,
         }
 
         if (ret) {
-            // ÉèÖÃ»Ø¸´ÏûÏ¢ÄÚÈİ
+            // è®¾ç½®å›å¤æ¶ˆæ¯å†…å®¹
             responseMessageOut->SetMessageBody(pResponse);
         } else {
             delete pResponse;
@@ -465,15 +473,15 @@ int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session,
         Q_ASSERT(pRepErrorInfo);
 
         if (pUser) {
-            LOG_WARING() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸[%2]ĞÅÏ¢Ê§°Ü,´íÎóĞÅÏ¢£º%3")
+            LOG_WARING() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡[%2]ä¿¡æ¯å¤±è´¥,é”™è¯¯ä¿¡æ¯ï¼š%3")
                 .arg(pUser->GetDisplayText()).arg(qstrDeviceID)
                 .arg(pRepErrorInfo->m_qstrErrorInfo);
         } else {
-            LOG_WARING() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸ĞÅÏ¢Ê§°Ü,´íÎóĞÅÏ¢£º%3")
+            LOG_WARING() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡ä¿¡æ¯å¤±è´¥,é”™è¯¯ä¿¡æ¯ï¼š%3")
                 .arg(session->get_display_text()).arg(pRepErrorInfo->m_qstrErrorInfo);
         }
     } else {
-        LOG_INFO() << QStringLiteral("PC¿Í»§¶Ë[%1]²éÑ¯Éè±¸[%2]ĞÅÏ¢³É¹¦ ")
+        LOG_INFO() << QStringLiteral("PCå®¢æˆ·ç«¯[%1]æŸ¥è¯¢è®¾å¤‡[%2]ä¿¡æ¯æˆåŠŸ ")
             .arg(pUser->GetDisplayText()).arg(qstrDeviceID);
     }
 
@@ -481,20 +489,20 @@ int CBusinessHandleService::HandlePCClientGetDeviceInfo(tcp_session_ptr session,
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientExit
-//** ¹¦ÄÜ¼òÊö: PC¿Í»§¶ËÍË³ö
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientExit
+//** åŠŸèƒ½ç®€è¿°: PCå®¢æˆ·ç«¯é€€å‡º
+//** è¾“å…¥å‚æ•°: 
 //   CMessage * sessionMessageIn:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/27
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/27
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientExit(tcp_session_ptr session, 
                                                message_ptr sessionMessageIn)
@@ -513,11 +521,11 @@ int CBusinessHandleService::HandlePCClientExit(tcp_session_ptr session,
     rig_ptr pRig = std::static_pointer_cast<CRig>(pUser->GetRig());
     Q_ASSERT(pRig);
 
-    LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÍË³ö,¹Ø±ÕÁ¬½Ó[%3]")
+    LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]é€€å‡º,å…³é—­è¿æ¥[%3]")
         .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
         .arg(session->get_display_text());
 
-    // ½«µ±Ç°»á»°ÒÆ³ı³ö¾®¶ÓµÄ¿Í»§¶Ë»á»°×é,²¢¹Ø±ÕÁ¬½Ó
+    // å°†å½“å‰ä¼šè¯ç§»é™¤å‡ºäº•é˜Ÿçš„å®¢æˆ·ç«¯ä¼šè¯ç»„,å¹¶å…³é—­è¿æ¥
     pRig->RemoveClientSession(session);
     session->stop();
     session->set_entity(NULL);
@@ -528,22 +536,22 @@ int CBusinessHandleService::HandlePCClientExit(tcp_session_ptr session,
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientGetDeviceOnlineStatus
-//** ¹¦ÄÜ¼òÊö: 
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientGetDeviceOnlineStatus
+//** åŠŸèƒ½ç®€è¿°: 
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/08/05
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/08/05
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus(tcp_session_ptr session,
                                                                 message_ptr sessionMessageIn, 
@@ -557,19 +565,19 @@ int CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus(tcp_session_ptr 
     user_ptr pUser = std::static_pointer_cast<CUser>(session->m_entity);
     rig_ptr pRig;
 
-    if (!pUser) {// ¿Í»§¶ËÎ´µÇÂ¼
+    if (!pUser) {// å®¢æˆ·ç«¯æœªç™»å½•
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë»ñÈ¡Éè±¸ÔÚÏß×´Ì¬");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯è·å–è®¾å¤‡åœ¨çº¿çŠ¶æ€");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
     } else {
         CMessageGetDeviceOnlineStatus * pReq = static_cast<CMessageGetDeviceOnlineStatus *>(sessionMessageIn->m_pBody);
         Q_ASSERT(pReq);
 
-        if (pReq->m_lstDeviceIDs.empty()) {// ÇëÇóÖĞµÄÉè±¸IDÁĞ±íÎª¿Õ
+        if (pReq->m_lstDeviceIDs.empty()) {// è¯·æ±‚ä¸­çš„è®¾å¤‡IDåˆ—è¡¨ä¸ºç©º
             retVal = ERR_INVALID_ID;
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¿Í»§¶ËÇëÇó»ñÈ¡ÔÚÏß×´Ì¬µÄÉè±¸IDÁĞ±íÎª¿Õ");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("å®¢æˆ·ç«¯è¯·æ±‚è·å–åœ¨çº¿çŠ¶æ€çš„è®¾å¤‡IDåˆ—è¡¨ä¸ºç©º");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         } else {
             CMessageGetDeviceOnlineStatusRep * pRep = new CMessageGetDeviceOnlineStatusRep();
@@ -580,7 +588,7 @@ int CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus(tcp_session_ptr 
 
                 QString qstrDeviceID = QString::fromLocal8Bit((char *)(pDeviceID->m_struct.deviceID), sizeof(pDeviceID->m_struct.deviceID)).trimmed();
                 device_ptr pDevice = pRig->FindDeviceByID(qstrDeviceID);
-                if (!pDevice) {// Î´²éÕÒµ½¶ÔÓ¦IDµÄÉè±¸
+                if (!pDevice) {// æœªæŸ¥æ‰¾åˆ°å¯¹åº”IDçš„è®¾å¤‡
                     pStatusItem->m_struct.deviceOnlineStatus = DEVICE_ONLINE_STATUS_INVALID_DEVICE;
                 } else {
                     pStatusItem->m_struct.deviceOnlineStatus = (pDevice->IsDeviceOnline()) ?
@@ -596,15 +604,15 @@ int CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus(tcp_session_ptr 
 
     if (ERR_NONE != retVal) {
         if (!pUser) {
-            LOG_WARING() << QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[%1]»ñÈ¡Éè±¸ÔÚÏß×´Ì¬")
+            LOG_WARING() << QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[%1]è·å–è®¾å¤‡åœ¨çº¿çŠ¶æ€")
                 .arg(session->get_display_text());
         } else {
-            LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]»ñÈ¡Éè±¸ÔÚÏß×´Ì¬Ê§°Ü,´íÎóĞÅÏ¢[%3]")
+            LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è·å–è®¾å¤‡åœ¨çº¿çŠ¶æ€å¤±è´¥,é”™è¯¯ä¿¡æ¯[%3]")
                 .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
                 .arg(pRepErrorInfo->m_qstrErrorInfo);
         }
     } else {
-        LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]»ñÈ¡Éè±¸ÔÚÏß×´Ì¬³É¹¦,¹²·µ»Ø[%3]ÌõÔÚÏß×´Ì¬ĞÅÏ¢")
+        LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è·å–è®¾å¤‡åœ¨çº¿çŠ¶æ€æˆåŠŸ,å…±è¿”å›[%3]æ¡åœ¨çº¿çŠ¶æ€ä¿¡æ¯")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText()).arg(3);// TODO 
     }
 
@@ -613,28 +621,28 @@ int CBusinessHandleService::HandlePCClientGetDeviceOnlineStatus(tcp_session_ptr 
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceLogin
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíÏÂÎ»»úµÇÂ¼ÏûÏ¢
-//** ÊäÈë²ÎÊı: 
-//   CMessage * sessionMessageIn:ÇëÇóÏûÏ¢
-//   CMessage & responseMessageOut:»Ø¸´ÏûÏ¢
+//** å‡½æ•°å:   HandleDeviceLogin
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†ä¸‹ä½æœºç™»å½•æ¶ˆæ¯
+//** è¾“å…¥å‚æ•°: 
+//   CMessage * sessionMessageIn:è¯·æ±‚æ¶ˆæ¯
+//   CMessage & responseMessageOut:å›å¤æ¶ˆæ¯
 //
-//** ·µ»ØÖµ: 
-//   int:³É¹¦Ê±·µ»ØERR_NONE£¬·ñÔò·µ»ØÏàÓ¦µÄ´íÎóÂë
+//** è¿”å›å€¼: 
+//   int:æˆåŠŸæ—¶è¿”å›ERR_NONEï¼Œå¦åˆ™è¿”å›ç›¸åº”çš„é”™è¯¯ç 
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/26
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/26
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session, 
                                               message_ptr sessionMessageIn,
                                               message_ptr responseMessageOut)
 {
 	//return ERR_NONE;
-    // Èí¼şÊÚÈ¨ÑéÖ¤
+    // è½¯ä»¶æˆæƒéªŒè¯
     IS_REGISTED(ERR_INVALID_LICENSE);
 
     Q_ASSERT(sessionMessageIn);
@@ -649,35 +657,35 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
     device_ptr pDevice;
     CMessageErrorInfo * pResponse = NULL;
     CMessageLogin * pMessageLogin = static_cast<CMessageLogin *>(sessionMessageIn->m_pBody);
-	LOG_WARING() << QStringLiteral("Éè±¸µÇÂ¼_number#") << pMessageLogin->m_qstrAccount;
+	LOG_WARING() << QStringLiteral("è®¾å¤‡ç™»å½•_number#") << pMessageLogin->m_qstrAccount;
     bool ret = CDBService::GetInstance()->IsExistedDevice(pMessageLogin->m_qstrAccount, pMessageLogin->m_qstrPassword);
     if (!ret) {
-        retVal = ERR_INVALID_ACCOUNT;// Éè±¸Î´×¢²á
+        retVal = ERR_INVALID_ACCOUNT;// è®¾å¤‡æœªæ³¨å†Œ
         CMessageErrorInfo * pResponse = new CMessageErrorInfo();
-        pResponse->m_qstrErrorInfo = QStringLiteral("Î´×¢²áµÄÉè±¸ID");
+        pResponse->m_qstrErrorInfo = QStringLiteral("æœªæ³¨å†Œçš„è®¾å¤‡ID");
         responseMessageOut->SetMessageBody(pResponse);
     } else {
-        // Éè±¸µÇÂ¼³É¹¦ºó£¬ÉèÖÃtcpÁ¬½ÓÎªÒÑÑéÖ¤×´Ì¬£¬ÉèÖÃÁ¬½ÓµÄÓÃ»§ĞÅÏ¢
-        // »ñÈ¡Éè±¸ID
+        // è®¾å¤‡ç™»å½•æˆåŠŸåï¼Œè®¾ç½®tcpè¿æ¥ä¸ºå·²éªŒè¯çŠ¶æ€ï¼Œè®¾ç½®è¿æ¥çš„ç”¨æˆ·ä¿¡æ¯
+        // è·å–è®¾å¤‡ID
         QString qstrDeviceID;
         ret = CDBService::GetInstance()->GetDeviceIDByDeviceCode(pMessageLogin->m_qstrAccount, qstrDeviceID);
 		LOG_WARING() << "business_handle_service.cpp 664 __id#" << session->get_display_text()  << "#" <<qstrDeviceID;
         if (!ret) {
             pResponse = new CMessageErrorInfo();
-            pResponse->m_qstrErrorInfo = QStringLiteral("Êı¾İ¿â¼ÇÂ¼´íÎó");
+            pResponse->m_qstrErrorInfo = QStringLiteral("æ•°æ®åº“è®°å½•é”™è¯¯");
             responseMessageOut->SetMessageBody(pResponse);
             retVal = ERR_DB_ERROR;
 		}
 		else {
-#ifndef RIGID //¾®¶Ó ÓÍÌï Ã»ÓĞ°¡,ÏÈ×¢ÊÍµô 2017/6/9
-			// ¹¹½¨ÄÚ´æÀïµÄÊµÌåÒµÎñÄ£ĞÍ£¬»ñÈ¡ÓÃ»§ËùÊô¾®¶Ó¡¢ËùÊôÓÍÌï
+#ifndef RIGID //äº•é˜Ÿ æ²¹ç”° æ²¡æœ‰å•Š,å…ˆæ³¨é‡Šæ‰ 2017/6/9
+			// æ„å»ºå†…å­˜é‡Œçš„å®ä½“ä¸šåŠ¡æ¨¡å‹ï¼Œè·å–ç”¨æˆ·æ‰€å±äº•é˜Ÿã€æ‰€å±æ²¹ç”°
 			QString qstrRigID;
 			ret = CDBService::GetInstance()->GetRigIDByDeviceID(qstrDeviceID, qstrRigID);
 			if (ret) {
 				QString qstrOilFieldID;
 				ret = CDBService::GetInstance()->GetOilFieldIDByRigID(qstrRigID, qstrOilFieldID);
 				if (ret) {
-					// »ñÈ¡ÓÍÌï¶ÔÏó
+					// è·å–æ²¹ç”°å¯¹è±¡
 					pOilField = CBusinessModel::GetInstance()->FindOilFieldByID(qstrOilFieldID);
 					if (!pOilField) {
 						pOilField = CBusinessModel::GetInstance()->GetOrCreateOilField(qstrOilFieldID);
@@ -685,7 +693,7 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
 
 					Q_ASSERT(pOilField);
 
-					// »ñÈ¡¾®¶Ó¶ÔÏó
+					// è·å–äº•é˜Ÿå¯¹è±¡
 					pRig = pOilField->FindRigByID(qstrRigID);
 					if (!pRig) {
 						pRig = pOilField->GetOrCreateRig(qstrRigID);
@@ -693,7 +701,7 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
 
 					Q_ASSERT(pRig);
 #endif
-					// »ñÈ¡Éè±¸¶ÔÏó
+					// è·å–è®¾å¤‡å¯¹è±¡
 					pDevice = pRig->FindDeviceByID(qstrDeviceID);
 					if (!pDevice) {
 						pDevice = pRig->GetOrCreateDevice(qstrDeviceID);
@@ -703,31 +711,31 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
 
 					if (pDevice->GetSession()
 						&& session->get_display_text() != pDevice->GetSession()->get_display_text()) {
-						// ¶¥µôÒÑµÇÂ¼µÄÏàÍ¬IDµÄÉè±¸ tangqiao 2016/05/17
-						//retVal = ERR_INVALID_SESSION;// ÏàÍ¬IDµÄÉè±¸ÒÑµÇÂ¼
+						// é¡¶æ‰å·²ç™»å½•çš„ç›¸åŒIDçš„è®¾å¤‡ tangqiao 2016/05/17
+						//retVal = ERR_INVALID_SESSION;// ç›¸åŒIDçš„è®¾å¤‡å·²ç™»å½•
 						//pResponse = new CMessageErrorInfo();
-						//pResponse->m_qstrErrorInfo = QStringLiteral("ÏàÍ¬±àºÅµÄÉè±¸ÒÑµÇÂ¼·şÎñÆ÷");
+						//pResponse->m_qstrErrorInfo = QStringLiteral("ç›¸åŒç¼–å·çš„è®¾å¤‡å·²ç™»å½•æœåŠ¡å™¨");
 						//responseMessageOut->SetMessageBody(pResponse);
-						LOG_WARING() << QStringLiteral("±àºÅ[%1]µÄÉè±¸ÒÑµÇÂ¼·şÎñÆ÷£¬ĞÂÁ¬½Ó[%2]¶¥µô¾ÉÁ¬½Ó[%3]")
+						LOG_WARING() << QStringLiteral("ç¼–å·[%1]çš„è®¾å¤‡å·²ç™»å½•æœåŠ¡å™¨ï¼Œæ–°è¿æ¥[%2]é¡¶æ‰æ—§è¿æ¥[%3]")
 							.arg(qstrDeviceID).arg(session->get_display_text())
 							.arg(pDevice->GetSession()->get_display_text());
 
-						pDevice->SetSession(session);// ÉèÖÃÉè±¸»á»°£¬ÄÚ²¿×Ô¶¯½«Æä¼ÓÈë¾®¶ÓµÄÔÚÏßÉè±¸ÁĞ±í
+						pDevice->SetSession(session);// è®¾ç½®è®¾å¤‡ä¼šè¯ï¼Œå†…éƒ¨è‡ªåŠ¨å°†å…¶åŠ å…¥äº•é˜Ÿçš„åœ¨çº¿è®¾å¤‡åˆ—è¡¨
 
-						// ÉèÖÃ»Ø¸´ÏûÏ¢
+						// è®¾ç½®å›å¤æ¶ˆæ¯
 						CMessageLoginRep * pResponse = new CMessageLoginRep();
-						// »ñÈ¡µ±Ç°·şÎñÆ÷Ê±¼ä
+						// è·å–å½“å‰æœåŠ¡å™¨æ—¶é—´
 						pResponse->m_struct.serverTime = QDateTime::currentDateTime().toMSecsSinceEpoch();
 						responseMessageOut->SetMessageBody(pResponse);
 
 						LOG_WARING() << pRig->GetDevicesOnlineStatusDisplayText();
 					}
 					else {
-						pDevice->SetSession(session);// ÉèÖÃÉè±¸»á»°£¬ÄÚ²¿×Ô¶¯½«Æä¼ÓÈë¾®¶ÓµÄÔÚÏßÉè±¸ÁĞ±í
+						pDevice->SetSession(session);// è®¾ç½®è®¾å¤‡ä¼šè¯ï¼Œå†…éƒ¨è‡ªåŠ¨å°†å…¶åŠ å…¥äº•é˜Ÿçš„åœ¨çº¿è®¾å¤‡åˆ—è¡¨
 
-						// ÉèÖÃ»Ø¸´ÏûÏ¢
+						// è®¾ç½®å›å¤æ¶ˆæ¯
 						CMessageLoginRep * pResponse = new CMessageLoginRep();
-						// »ñÈ¡µ±Ç°·şÎñÆ÷Ê±¼ä
+						// è·å–å½“å‰æœåŠ¡å™¨æ—¶é—´
 						pResponse->m_struct.serverTime = QDateTime::currentDateTime().toMSecsSinceEpoch();
 						responseMessageOut->SetMessageBody(pResponse);
 
@@ -742,13 +750,13 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
 
 	return retVal;
 
-    QString format = QStringLiteral("Éè±¸[%1]µÇÂ¼");
+    QString format = QStringLiteral("è®¾å¤‡[%1]ç™»å½•");
     if (retVal == ERR_NONE) {
-        LOG_INFO() << format.arg(pMessageLogin->m_qstrAccount) << QStringLiteral("business_handle_service.cpp_744_³É¹¦");
+        LOG_INFO() << format.arg(pMessageLogin->m_qstrAccount) << QStringLiteral("business_handle_service.cpp_744_æˆåŠŸ");
 
         pDevice->SetLoginTime(std::make_shared<QDateTime>(QDateTime::currentDateTime()));
 
-        // ¹ã²¥Éè±¸ÉÏÏßµÄÍ¨Öªµ½¾®¶ÓµÄËùÓĞµÇÂ¼¿Í»§¶Ë
+        // å¹¿æ’­è®¾å¤‡ä¸Šçº¿çš„é€šçŸ¥åˆ°äº•é˜Ÿçš„æ‰€æœ‰ç™»å½•å®¢æˆ·ç«¯
         CMessageBroadcastDeviceOnlineStatus * pBroadcastMsg = new CMessageBroadcastDeviceOnlineStatus();
         CMessageGetDeviceOnlineStatusRepItem * pStatusItem = new CMessageGetDeviceOnlineStatusRepItem();
         memcpy_s((char *)(pStatusItem->m_struct.deviceID), sizeof(pStatusItem->m_struct.deviceID), pDevice->id.toLocal8Bit(), pDevice->id.toLocal8Bit().length());
@@ -759,10 +767,10 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
         message_ptr broadcast_msg = std::make_shared<CMessage>();
         broadcast_msg->m_header.m_struct.cmd = PC_SERVER_CMD_BROADCAST_DEVICE_STATUS;
         broadcast_msg->SetMessageBody(pBroadcastMsg);
-        pDevice->BroadcastToPCClients(broadcast_msg);// ·¢ËÍ¹ã²¥
+        pDevice->BroadcastToPCClients(broadcast_msg);// å‘é€å¹¿æ’­
 		
     } else {
-        LOG_WARING() << format.arg(pMessageLogin->m_qstrAccount) << QStringLiteral("Ê§°Ü£¬´íÎó£º")
+        LOG_WARING() << format.arg(pMessageLogin->m_qstrAccount) << QStringLiteral("å¤±è´¥ï¼Œé”™è¯¯ï¼š")
             << pResponse->m_qstrErrorInfo;
     }
 
@@ -770,20 +778,20 @@ int CBusinessHandleService::HandleDeviceLogin(tcp_session_ptr session,
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceRealTimeData
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíÉè±¸ÉÏ´«µÄÊµÊ±²É¼¯Êı¾İ
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleDeviceRealTimeData
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†è®¾å¤‡ä¸Šä¼ çš„å®æ—¶é‡‡é›†æ•°æ®
+//** è¾“å…¥å‚æ•°: 
 //   CMessage * sessionMessageIn:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/27
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/27
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session, 
                                                      message_ptr sessionMessageIn)
@@ -791,22 +799,22 @@ int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session,
 	
     Q_ASSERT(sessionMessageIn);
 	
-	LOG_WARING() << QStringLiteral("Éè±¸ÊµÊ±ÉÏ´«(µ¥ÌõÊı¾İ)DEVICE_CMD_REALTIME_DATA_%1 ### cmd_%2##").arg(DEVICE_CMD_REALTIME_DATA)
+	LOG_WARING() << QStringLiteral("è®¾å¤‡å®æ—¶ä¸Šä¼ (å•æ¡æ•°æ®)DEVICE_CMD_REALTIME_DATA_%1 ### cmd_%2##").arg(DEVICE_CMD_REALTIME_DATA)
 		.arg(sessionMessageIn->m_header.m_struct.cmd) << GetCurrentThreadId();
     if (sessionMessageIn->m_header.m_struct.cmd != DEVICE_CMD_REALTIME_DATA) {
         return ERR_UNMATCHED_CMD;
     }
     int retVal = ERR_NONE;
 
-    // Éè±¸ÉÏ´«µÄÊµÊ±Êı¾İ
+    // è®¾å¤‡ä¸Šä¼ çš„å®æ—¶æ•°æ®
     CMessageDeviceRealtimeData * pMessageData = static_cast<CMessageDeviceRealtimeData *>(sessionMessageIn->m_pBody);
 
-    // »ñÈ¡¶ÔÓ¦µÄÉè±¸¶ÔÏó
+    // è·å–å¯¹åº”çš„è®¾å¤‡å¯¹è±¡
     device_ptr pDevice = std::static_pointer_cast<CDevice>(session->m_entity);
     if (!pDevice)
     {
         CMessageErrorInfo * pResponse = new CMessageErrorInfo();
-        pResponse->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄÉè±¸ÉÏ´«ÊµÊ±Êı¾İ");
+        pResponse->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„è®¾å¤‡ä¸Šä¼ å®æ—¶æ•°æ®");
         LOG_WARING() << pResponse->m_qstrErrorInfo;
 
         message_ptr pMessageOut = std::make_shared<CMessage>();
@@ -825,7 +833,7 @@ int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session,
     }
     Q_ASSERT(pDevice);
 
-    // ĞŞÕıÊı¾İÉÏ´«Ê±¼ä
+    // ä¿®æ­£æ•°æ®ä¸Šä¼ æ—¶é—´
     pMessageData->m_struct.timestamp = QDateTime::currentMSecsSinceEpoch();
 
     D64 data = 0;
@@ -834,7 +842,7 @@ int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session,
         U8 * pData = (U8 *)&(pMessageData->m_struct.data_);
         memcpy(buf, pData, 7);
 
-        LOG_DEBUG() << QStringLiteral("²É¼¯Êı¾İ{¹¤×÷×´Ì¬[%1];ÊµÊ±Å¨¶È[%2 %3 %4];Ğ¡ÊıµãÎ»[%5];ÆøÌåÃû³Æ[%6];²âÁ¿µ¥Î»[%7]}")
+        LOG_DEBUG() << QStringLiteral("é‡‡é›†æ•°æ®{å·¥ä½œçŠ¶æ€[%1];å®æ—¶æµ“åº¦[%2 %3 %4];å°æ•°ç‚¹ä½[%5];æ°”ä½“åç§°[%6];æµ‹é‡å•ä½[%7]}")
             .arg(buf[0])
             .arg(buf[1]).arg(buf[2]).arg(buf[3])
             .arg(buf[4])
@@ -843,16 +851,16 @@ int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session,
         data = Convert7ByteDataToD64(buf);
     }
 
-    // »ñÈ¡Éè±¸ËùÊô¾®¶Ó
+    // è·å–è®¾å¤‡æ‰€å±äº•é˜Ÿ
     rig_ptr pRig = pDevice->GetRig();
     Q_ASSERT(pRig);
 
     QString qstrOnlineUsers = pRig->GetOnlineUsersDisplayText();
     if (qstrOnlineUsers.isEmpty()) {
-        LOG_INFO() << QStringLiteral("ÊÕµ½¾®¶Ó[%1]µÄH2S¼ì²âÉè±¸[%2]µÄÊµÊ±²É¼¯Êı¾İ")
+        LOG_INFO() << QStringLiteral("æ”¶åˆ°äº•é˜Ÿ[%1]çš„H2Sæ£€æµ‹è®¾å¤‡[%2]çš„å®æ—¶é‡‡é›†æ•°æ®")
             .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText());
     } else {
-        // ¹¹Ôì¹ã²¥ÏûÏ¢
+        // æ„é€ å¹¿æ’­æ¶ˆæ¯
         CMessageBroadcastDeviceRealtimeData * pBroadcastData = new CMessageBroadcastDeviceRealtimeData();
         int size = sizeof(pBroadcastData->m_struct.rigId);
         memcpy_s((char *)(pBroadcastData->m_struct.rigId), sizeof(pBroadcastData->m_struct.rigId), (char *)(pRig->id.toLocal8Bit().data()), pRig->id.toLocal8Bit().length());
@@ -867,41 +875,41 @@ int CBusinessHandleService::HandleDeviceRealTimeData(tcp_session_ptr session,
         pMessageBroadcast->m_header.m_struct.messageNo = 0;
         pMessageBroadcast->m_header.m_struct.cmdResult = 0;
         pMessageBroadcast->SetMessageBody(pBroadcastData);
-        // Ïò¾®¶ÓµÄÔÚÏß¿Í»§¶Ë¹ã²¥ÏûÏ¢
+        // å‘äº•é˜Ÿçš„åœ¨çº¿å®¢æˆ·ç«¯å¹¿æ’­æ¶ˆæ¯
         pDevice->BroadcastToPCClients(pMessageBroadcast);
 
-        LOG_INFO() << QStringLiteral("ÊÕµ½¾®¶Ó[%1]µÄH2S¼ì²âÉè±¸[%2]µÄÊµÊ±²É¼¯Êı¾İ,Ïò¾®¶ÓµÄÔÚÏßÓÃ»§[%3]¹ã²¥ÊµÊ±²É¼¯Êı¾İ")
+        LOG_INFO() << QStringLiteral("æ”¶åˆ°äº•é˜Ÿ[%1]çš„H2Sæ£€æµ‹è®¾å¤‡[%2]çš„å®æ—¶é‡‡é›†æ•°æ®,å‘äº•é˜Ÿçš„åœ¨çº¿ç”¨æˆ·[%3]å¹¿æ’­å®æ—¶é‡‡é›†æ•°æ®")
             .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText())
             .arg(qstrOnlineUsers);
 		
     }
 	LOG_INFO() << "business_handle_service.cpp 872##" << pDevice->GetDisplayText() << "#" <<  pDevice->id;
-    // ÊµÊ±Êı¾İÈë¿â
+    // å®æ—¶æ•°æ®å…¥åº“
 	bool ret;// = CDBService::GetInstance()->DataQueuePushBack(pDevice->id, *pMessageData);
     if (!ret) {
-        retVal = ERR_DB_ERROR;// Éè±¸Î´×¢²á
-        // Êı¾İ½øÈë´¦Àí¶ÓÁĞÊ§°Ü
+        retVal = ERR_DB_ERROR;// è®¾å¤‡æœªæ³¨å†Œ
+        // æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—å¤±è´¥
     } else {
-        // Êı¾İ½øÈë´¦Àí¶ÓÁĞ³É¹¦
+        // æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—æˆåŠŸ
     }
     return retVal;
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceExit
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíÉè±¸ÍË³ö
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleDeviceExit
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†è®¾å¤‡é€€å‡º
+//** è¾“å…¥å‚æ•°: 
 //   CMessage * sessionMessageIn:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/07/27
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/07/27
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandleDeviceExit(tcp_session_ptr session, 
                                              message_ptr sessionMessageIn)
@@ -915,7 +923,7 @@ int CBusinessHandleService::HandleDeviceExit(tcp_session_ptr session,
 
     device_ptr pDevice = std::static_pointer_cast<CDevice>(session->m_entity);
     if (!pDevice) {
-        LOG_WARING() << QStringLiteral("¾Ü¾øÎ´µÇÂ¼µÄÉè±¸[%1]·¢ËÍÍË³öÃüÁî")
+        LOG_WARING() << QStringLiteral("æ‹’ç»æœªç™»å½•çš„è®¾å¤‡[%1]å‘é€é€€å‡ºå‘½ä»¤")
             .arg(session->get_display_text());
         return ERR_NONE;
     }
@@ -925,8 +933,8 @@ int CBusinessHandleService::HandleDeviceExit(tcp_session_ptr session,
     rig_ptr pRig =  pDevice->GetRig();
     Q_ASSERT(pRig);
 
-    // ¹Ø±ÕÏÂÎ»»úµÄÍ¨ĞÅ»á»°
-    LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄH2S¼ì²âÉè±¸[%2]ÍË³ö,¹Ø±Õ»á»°[%3]")
+    // å…³é—­ä¸‹ä½æœºçš„é€šä¿¡ä¼šè¯
+    LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„H2Sæ£€æµ‹è®¾å¤‡[%2]é€€å‡º,å…³é—­ä¼šè¯[%3]")
         .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText())
         .arg(session->get_display_text());
     pRig->RemoveDeviceSession(session);
@@ -934,16 +942,16 @@ int CBusinessHandleService::HandleDeviceExit(tcp_session_ptr session,
     session->set_entity(NULL);
     pDevice->SetSession(NULL);
 
-    // Í¨Öª¾®¶ÓµÄËùÓĞ¿Í»§¶Ë£¬µ±Ç°ÏÂÎ»»úµÄ×´Ì¬
+    // é€šçŸ¥äº•é˜Ÿçš„æ‰€æœ‰å®¢æˆ·ç«¯ï¼Œå½“å‰ä¸‹ä½æœºçš„çŠ¶æ€
     QString qstrOnlineUsers = pRig->GetOnlineUsersDisplayText();
     if (!qstrOnlineUsers.isEmpty()) {
-        LOG_INFO() << QStringLiteral("Ïò¾®¶Ó[%1]µÄÔÚÏßÓÃ»§[%2]·¢ËÍ¹ã²¥Í¨Öª,²É¼¯Éè±¸[%3]ÒÑÍË³ö")
+        LOG_INFO() << QStringLiteral("å‘äº•é˜Ÿ[%1]çš„åœ¨çº¿ç”¨æˆ·[%2]å‘é€å¹¿æ’­é€šçŸ¥,é‡‡é›†è®¾å¤‡[%3]å·²é€€å‡º")
             .arg(pRig->GetDisplayText()).arg(qstrOnlineUsers).arg(pDevice->GetDisplayText());
         
         CMessageBroadcastDeviceOnlineStatus * pBroadcastMsg = new CMessageBroadcastDeviceOnlineStatus();
         CMessageGetDeviceOnlineStatusRepItem * pStatusItem = new CMessageGetDeviceOnlineStatusRepItem();
         memcpy_s((char *)(pStatusItem->m_struct.deviceID), sizeof(pStatusItem->m_struct.deviceID), pDevice->id.toLocal8Bit(), pDevice->id.toLocal8Bit().length());
-        pStatusItem->m_struct.deviceOnlineStatus = DEVICE_ONLINE_STATUS_OFFLINE;// Éè±¸ÏÂÏß
+        pStatusItem->m_struct.deviceOnlineStatus = DEVICE_ONLINE_STATUS_OFFLINE;// è®¾å¤‡ä¸‹çº¿
         pBroadcastMsg->m_struct.itemCount = 0;
         pBroadcastMsg->m_lstDeviceIDs.push_back(pStatusItem);
 
@@ -957,22 +965,22 @@ int CBusinessHandleService::HandleDeviceExit(tcp_session_ptr session,
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceSendHeartbeat
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíÏÂÎ»»ú·¢ËÍĞÄÌø£¬·şÎñÆ÷·µ»Øµ±Ç°Ê±¼ä
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleDeviceSendHeartbeat
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†ä¸‹ä½æœºå‘é€å¿ƒè·³ï¼ŒæœåŠ¡å™¨è¿”å›å½“å‰æ—¶é—´
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/12/29
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/12/29
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandleDeviceSendHeartbeat(tcp_session_ptr session, 
                                                       message_ptr sessionMessageIn, 
@@ -980,8 +988,8 @@ int CBusinessHandleService::HandleDeviceSendHeartbeat(tcp_session_ptr session,
 {
     Q_ASSERT(session);
 
-    // ÊÕµ½Éè±¸ĞÄÌøÊ±·µ»Ø·şÎñÆ÷Ê±¼äµÄ±±¾©Ê±¼ä±íÊ¾£¬ÄêÔÂÈÕÊ±·ÖÃë
-    QDateTime current = QDateTime::currentDateTime();// È¡µÃµÄÊ±¼äÎªµ±Ç°Ê±ÇøµÄÊ±¼ä
+    // æ”¶åˆ°è®¾å¤‡å¿ƒè·³æ—¶è¿”å›æœåŠ¡å™¨æ—¶é—´çš„åŒ—äº¬æ—¶é—´è¡¨ç¤ºï¼Œå¹´æœˆæ—¥æ—¶åˆ†ç§’
+    QDateTime current = QDateTime::currentDateTime();// å–å¾—çš„æ—¶é—´ä¸ºå½“å‰æ—¶åŒºçš„æ—¶é—´
     CMessageServerTimeBeiJing * serverTime = new CMessageServerTimeBeiJing();
     serverTime->m_struct.year = U16toBCD((U16)current.date().year());
     serverTime->m_struct.month = U8toBCD((U8)current.date().month());
@@ -996,17 +1004,17 @@ int CBusinessHandleService::HandleDeviceSendHeartbeat(tcp_session_ptr session,
     {
         rig_ptr pRig =  pDevice->GetRig();
         Q_ASSERT(pRig);
-        LOG_INFO() << QStringLiteral("½ÓÊÕµ½À´×Ô¾®¶Ó[%1]Éè±¸[%2]µÄĞÄÌø£¬ÏòÆä·µ»Ø·şÎñÆ÷µ±Ç°Ê±¼ä")
+        LOG_INFO() << QStringLiteral("æ¥æ”¶åˆ°æ¥è‡ªäº•é˜Ÿ[%1]è®¾å¤‡[%2]çš„å¿ƒè·³ï¼Œå‘å…¶è¿”å›æœåŠ¡å™¨å½“å‰æ—¶é—´")
             .arg(pRig->GetDisplayText())
             .arg(pDevice->GetDisplayText());
 
         LOG_WARING() << pRig->GetDevicesOnlineStatusDisplayText();
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÔÚÏßÓÃ»§").arg(pRig->GetDisplayText())
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„åœ¨çº¿ç”¨æˆ·").arg(pRig->GetDisplayText())
             << pRig->GetOnlineUsersDisplayText();
     }
     else
     {
-        LOG_WARING() << QStringLiteral("½ÓÊÕµ½Î´µÇÂ¼Éè±¸[%1]µÄĞÄÌø£¬ÏòÆä·µ»Ø·şÎñÆ÷µ±Ç°Ê±¼ä").arg(session->get_display_text());
+        LOG_WARING() << QStringLiteral("æ¥æ”¶åˆ°æœªç™»å½•è®¾å¤‡[%1]çš„å¿ƒè·³ï¼Œå‘å…¶è¿”å›æœåŠ¡å™¨å½“å‰æ—¶é—´").arg(session->get_display_text());
     }
 
     return ERR_NONE;
@@ -1014,43 +1022,43 @@ int CBusinessHandleService::HandleDeviceSendHeartbeat(tcp_session_ptr session,
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceRealTimeBatchedData
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíÉè±¸ÅúÁ¿ÉÏ´«²É¼¯Êı¾İ
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleDeviceRealTimeBatchedData
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†è®¾å¤‡æ‰¹é‡ä¸Šä¼ é‡‡é›†æ•°æ®
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2016/1/11
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2016/1/11
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr session, 
                                                             message_ptr sessionMessageIn, 
                                                             message_ptr responseMessageOut)
 {
     Q_ASSERT(sessionMessageIn);
-	//LOG_WARING() << QStringLiteral("Éè±¸ÅúÁ¿ÉÏ´«_DEVICE_CMD_REALTIME_BATCHED_DATA_%1 ### cmd_%2###").arg(DEVICE_CMD_REALTIME_BATCHED_DATA)
+	//LOG_WARING() << QStringLiteral("è®¾å¤‡æ‰¹é‡ä¸Šä¼ _DEVICE_CMD_REALTIME_BATCHED_DATA_%1 ### cmd_%2###").arg(DEVICE_CMD_REALTIME_BATCHED_DATA)
 	//	.arg(sessionMessageIn->m_header.m_struct.cmd) << GetCurrentThreadId();
     if (sessionMessageIn->m_header.m_struct.cmd != DEVICE_CMD_REALTIME_BATCHED_DATA) {
         return ERR_UNMATCHED_CMD;
     }
     int retVal = ERR_NONE;
 
-    // Éè±¸ÉÏ´«µÄÊµÊ±Êı¾İ
+    // è®¾å¤‡ä¸Šä¼ çš„å®æ—¶æ•°æ®
     CMessageDeviceRealtimeBatchedData * pMessageData = static_cast<CMessageDeviceRealtimeBatchedData *>(sessionMessageIn->m_pBody);
 
-    // »ñÈ¡¶ÔÓ¦µÄÉè±¸¶ÔÏó
+    // è·å–å¯¹åº”çš„è®¾å¤‡å¯¹è±¡
     device_ptr pDevice = std::static_pointer_cast<CDevice>(session->m_entity);
     if (!pDevice)
     {
         CMessageErrorInfo * pResponse = new CMessageErrorInfo();
-        pResponse->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄÉè±¸ÅúÁ¿ÉÏ´«ÊµÊ±Êı¾İ");
+        pResponse->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„è®¾å¤‡æ‰¹é‡ä¸Šä¼ å®æ—¶æ•°æ®");
         LOG_WARING() << pResponse->m_qstrErrorInfo;
 
         message_ptr pMessageOut = std::make_shared<CMessage>();
@@ -1070,35 +1078,40 @@ int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr sess
 	LOG_WARING() << session->get_display_text() << "business_handle_service.cpp__1064##" << pDevice->id;
     Q_ASSERT(pDevice);
 
-    // ĞŞÕıÊı¾İÉÏ´«Ê±¼ä
+    // ä¿®æ­£æ•°æ®ä¸Šä¼ æ—¶é—´
     pMessageData->m_struct.timestamp = QDateTime::currentMSecsSinceEpoch();
 
-    QVector<message_device_realtime_data_ptr> vec;
+	REALTIME_DATA vec;
     pMessageData->SplitBatchedMessage(vec);
 
-	LOG_DEBUG() << QStringLiteral("%1Éè±¸ÅúÁ¿ÉÏ´«Êı¾İ!").arg(pDevice->id);
+	if (vec.isEmpty())
+	{
+		return -1;
+	}
 
-	// ÊµÊ±Êı¾İÈë¿â
+	LOG_DEBUG() << QStringLiteral("%1è®¾å¤‡æ‰¹é‡ä¸Šä¼ æ•°æ®!").arg(pDevice->id);
+
+	// å®æ—¶æ•°æ®å…¥åº“
 	bool ret = CDBService::GetInstance()->DataQueuePushBack(pDevice->id, vec);
 
 
 #ifdef RIG_TEXT
-   //  »ñÈ¡Éè±¸ËùÊô¾®¶Ó
+   //  è·å–è®¾å¤‡æ‰€å±äº•é˜Ÿ
     rig_ptr pRig = pDevice->GetRig();
     Q_ASSERT(pRig);
 
-    LOG_DEBUG() << QStringLiteral("ÊÕµ½¾®¶Ó[%1]µÄH2S¼ì²âÉè±¸[%2]ÅúÁ¿ÉÏ´«µÄÊµÊ±²É¼¯Êı¾İ[%3]")
+    LOG_DEBUG() << QStringLiteral("æ”¶åˆ°äº•é˜Ÿ[%1]çš„H2Sæ£€æµ‹è®¾å¤‡[%2]æ‰¹é‡ä¸Šä¼ çš„å®æ—¶é‡‡é›†æ•°æ®[%3]")
         .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText())
         .arg(pMessageData->ToString());
 
     QString qstrOnlineUsers = pRig->GetOnlineUsersDisplayText();
     if (!qstrOnlineUsers.isEmpty()) {
-        // ½«ÅúÁ¿ÉÏ´«µÄÊı¾İ²ğ·Ö³É¶à¸öÍ¨Öª
+        // å°†æ‰¹é‡ä¸Šä¼ çš„æ•°æ®æ‹†åˆ†æˆå¤šä¸ªé€šçŸ¥
         for (message_device_realtime_data_ptr pRealtimeData : vec)
         {
             D64 data = Convert7ByteDataToD64(pRealtimeData->m_struct.data_);
 
-            // ¹¹Ôì¹ã²¥ÏûÏ¢
+            // æ„é€ å¹¿æ’­æ¶ˆæ¯
             CMessageBroadcastDeviceRealtimeData * pBroadcastData = new CMessageBroadcastDeviceRealtimeData();
             int size = sizeof(pBroadcastData->m_struct.rigId);
             memcpy_s((char *)(pBroadcastData->m_struct.rigId), sizeof(pBroadcastData->m_struct.rigId), (char *)(pRig->id.toLocal8Bit().data()), pRig->id.toLocal8Bit().length());
@@ -1113,10 +1126,10 @@ int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr sess
             pMessageBroadcast->m_header.m_struct.messageNo = 0;
             pMessageBroadcast->m_header.m_struct.cmdResult = 0;
             pMessageBroadcast->SetMessageBody(pBroadcastData);
-            // Ïò¾®¶ÓµÄÔÚÏß¿Í»§¶Ë¹ã²¥ÏûÏ¢
+            // å‘äº•é˜Ÿçš„åœ¨çº¿å®¢æˆ·ç«¯å¹¿æ’­æ¶ˆæ¯
             pDevice->BroadcastToPCClients(pMessageBroadcast);
 
-            LOG_INFO() << QStringLiteral("½«¾®¶Ó[%1]µÄH2S¼ì²âÉè±¸[%2]ÊµÊ±²É¼¯µÄÊı¾İ,Ïò¾®¶ÓµÄÔÚÏßÓÃ»§[%3]¹ã²¥")
+            LOG_INFO() << QStringLiteral("å°†äº•é˜Ÿ[%1]çš„H2Sæ£€æµ‹è®¾å¤‡[%2]å®æ—¶é‡‡é›†çš„æ•°æ®,å‘äº•é˜Ÿçš„åœ¨çº¿ç”¨æˆ·[%3]å¹¿æ’­")
                 .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText())
                 .arg(qstrOnlineUsers);
         }
@@ -1131,7 +1144,7 @@ int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr sess
         U8 * pData = (U8 *)&(pRealtimeData->m_struct.data_);
         memcpy(buf, pData, 7);
 
-        LOG_DEBUG() << QStringLiteral("²É¼¯Êı¾İ{¹¤×÷×´Ì¬[%1];ÊµÊ±Å¨¶È[%2 %3 %4];Ğ¡ÊıµãÎ»[%5];ÆøÌåÃû³Æ[%6];²âÁ¿µ¥Î»[%7]}")
+        LOG_DEBUG() << QStringLiteral("é‡‡é›†æ•°æ®{å·¥ä½œçŠ¶æ€[%1];å®æ—¶æµ“åº¦[%2 %3 %4];å°æ•°ç‚¹ä½[%5];æ°”ä½“åç§°[%6];æµ‹é‡å•ä½[%7]}")
             .arg(buf[0])
             .arg(buf[1]).arg(buf[2]).arg(buf[3])
             .arg(buf[4])
@@ -1140,15 +1153,15 @@ int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr sess
         data = Convert7ByteDataToD64(buf);
     }
 
-        // ÊµÊ±Êı¾İÈë¿â
+        // å®æ—¶æ•°æ®å…¥åº“
         bool ret = CDBService::GetInstance()->DataQueuePushBack(pDevice->id, *pRealtimeData);
         if (!ret) {
-            retVal = ERR_DB_ERROR;// Éè±¸Î´×¢²á
-			//LOG_DEBUG() << QStringLiteral("Êı¾İ½øÈë´¦Àí¶ÓÁĞÊ§°Ü");
-            // Êı¾İ½øÈë´¦Àí¶ÓÁĞÊ§°Ü
+            retVal = ERR_DB_ERROR;// è®¾å¤‡æœªæ³¨å†Œ
+			//LOG_DEBUG() << QStringLiteral("æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—å¤±è´¥");
+            // æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—å¤±è´¥
         } else {
-            // Êı¾İ½øÈë´¦Àí¶ÓÁĞ³É¹¦
-			//LOG_DEBUG() << QStringLiteral("Êı¾İ½øÈë´¦Àí¶ÓÁĞ³É¹¦");
+            // æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—æˆåŠŸ
+			//LOG_DEBUG() << QStringLiteral("æ•°æ®è¿›å…¥å¤„ç†é˜Ÿåˆ—æˆåŠŸ");
         }
     }
 #endif 
@@ -1156,22 +1169,22 @@ int CBusinessHandleService::HandleDeviceRealTimeBatchedData(tcp_session_ptr sess
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientSetDeviceParam
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíPC¿Í»§¶ËÉèÖÃÉè±¸²ÎÊı 
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientSetDeviceParam
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†PCå®¢æˆ·ç«¯è®¾ç½®è®¾å¤‡å‚æ•° 
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/08/04
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/08/04
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientSetDeviceParam(tcp_session_ptr session, 
                                                          message_ptr sessionMessageIn, 
@@ -1190,7 +1203,7 @@ int CBusinessHandleService::HandlePCClientSetDeviceParam(tcp_session_ptr session
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[ÉèÖÃÉè±¸²ÎÊı");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[è®¾ç½®è®¾å¤‡å‚æ•°");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
     } else {
         pRig = static_pointer_cast<CRig>(pUser->GetRig());
@@ -1205,23 +1218,23 @@ int CBusinessHandleService::HandlePCClientSetDeviceParam(tcp_session_ptr session
         if (!pDevice) {
             retVal = ERR_INVALID_ID;
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("Éè±¸IDÎŞĞ§");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("è®¾å¤‡IDæ— æ•ˆ");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
         } else {
-            // ¸üĞÂÉè±¸Ãû
+            // æ›´æ–°è®¾å¤‡å
             bool updateDeviceNameSucceed = CDBService::GetInstance()->SetDeviceName(qstrDeviceID, pParam->GetDeviceName());
             if (!updateDeviceNameSucceed) {
                 retVal = ERR_DB_ERROR;
                 pRepErrorInfo = new CMessageErrorInfo();
-                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("Êı¾İ¿â¸üĞÂÉè±¸Ãû³Æ³ö´í");
+                pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ•°æ®åº“æ›´æ–°è®¾å¤‡åç§°å‡ºé”™");
                 responseMessageOut->SetMessageBody(pRepErrorInfo);
             } else {
-                // ¸üĞÂÊı¾İ¿âÖĞÖ¸¶¨Éè±¸µÄÉè±¸²ÎÊı
+                // æ›´æ–°æ•°æ®åº“ä¸­æŒ‡å®šè®¾å¤‡çš„è®¾å¤‡å‚æ•°
                 bool ret = CDBService::GetInstance()->SetDeviceParam(pDevice->deviceType, qstrDeviceID, *pParam);
                 if (!ret) {
                     retVal = ERR_DB_ERROR;
                     pRepErrorInfo = new CMessageErrorInfo();
-                    pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("Êı¾İ¿â¸üĞÂÉè±¸²ÎÊı³ö´í");
+                    pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ•°æ®åº“æ›´æ–°è®¾å¤‡å‚æ•°å‡ºé”™");
                     responseMessageOut->SetMessageBody(pRepErrorInfo);
                 } else {
                     pDevice->warningLine1st = QString::fromLocal8Bit((char *)(pParam->m_struct.warningLine1st), strlen((char *)pParam->m_struct.warningLine1st));
@@ -1238,11 +1251,11 @@ int CBusinessHandleService::HandlePCClientSetDeviceParam(tcp_session_ptr session
     }
 
     if (ERR_NONE != retVal && pRig && pUser) {
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÉèÖÃÉè±¸²ÎÊıÊ§°Ü,´íÎóĞÅÏ¢[%3]")
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è®¾ç½®è®¾å¤‡å‚æ•°å¤±è´¥,é”™è¯¯ä¿¡æ¯[%3]")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
             .arg(pRepErrorInfo->m_qstrErrorInfo);
     } else {
-        LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÉèÖÃH2S¼ì²âÉè±¸[%3]µÄ²ÎÊı³É¹¦£¬²ÎÊıÄÚÈİ[%4]")
+        LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è®¾ç½®H2Sæ£€æµ‹è®¾å¤‡[%3]çš„å‚æ•°æˆåŠŸï¼Œå‚æ•°å†…å®¹[%4]")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
             .arg(pDevice->GetDisplayText()).arg(pParam->ToString());
     }
@@ -1252,22 +1265,22 @@ int CBusinessHandleService::HandlePCClientSetDeviceParam(tcp_session_ptr session
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientSendHeartbeat
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíPC¿Í»§¶Ë·¢ËÍĞÄÌø
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientSendHeartbeat
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†PCå®¢æˆ·ç«¯å‘é€å¿ƒè·³
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2015/12/28
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/12/28
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientSendHeartbeat(tcp_session_ptr session, 
                                                         message_ptr sessionMessageIn, 
@@ -1282,14 +1295,14 @@ int CBusinessHandleService::HandlePCClientSendHeartbeat(tcp_session_ptr session,
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[·¢ËÍĞÄÌø]");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[å‘é€å¿ƒè·³]");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[%1][·¢ËÍĞÄÌø]").arg(session->get_display_text());
+        LOG_WARING() << QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[%1][å‘é€å¿ƒè·³]").arg(session->get_display_text());
     } else {
         CMessageHeartbeat * heartbeat = new CMessageHeartbeat();
         heartbeat->m_struct.heartbeatTime = QDateTime::currentMSecsSinceEpoch();
         responseMessageOut->SetMessageBody(heartbeat);
-        LOG_INFO() << QStringLiteral("ÓÃ»§[%2]·¢ËÍĞÄÌø").arg(pUser->GetDisplayText());
+        LOG_INFO() << QStringLiteral("ç”¨æˆ·[%2]å‘é€å¿ƒè·³").arg(pUser->GetDisplayText());
     }
 
     return retVal;
@@ -1297,22 +1310,22 @@ int CBusinessHandleService::HandlePCClientSendHeartbeat(tcp_session_ptr session,
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientGetHistoryDeviceDataCount
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíPCÏò¿Í»§¶Ë»ñÈ¡ÀúÊ·Éè±¸Êı¾İÌõÊı
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientGetHistoryDeviceDataCount
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†PCå‘å®¢æˆ·ç«¯è·å–å†å²è®¾å¤‡æ•°æ®æ¡æ•°
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2016/1/4
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2016/1/4
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount(tcp_session_ptr session, 
                                                                     message_ptr sessionMessageIn, 
@@ -1329,9 +1342,9 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount(tcp_session_
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë»ñÈ¡ÀúÊ·Êı¾İÌõÊı");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯è·å–å†å²æ•°æ®æ¡æ•°");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[%1]»ñÈ¡ÀúÊ·Êı¾İÌõÊı").arg(session->get_display_text());
+        LOG_WARING() << QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[%1]è·å–å†å²æ•°æ®æ¡æ•°").arg(session->get_display_text());
         return retVal;
     } else {
         pRig = static_pointer_cast<CRig>(pUser->GetRig());
@@ -1342,25 +1355,25 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount(tcp_session_
 
         QDateTime begin = QDateTime::fromMSecsSinceEpoch(pReq->m_struct.begin);
         QDateTime end = QDateTime::fromMSecsSinceEpoch(pReq->m_struct.end);
-        if (begin.date() != end.date()) {// ¼ì²éÆğÖ¹Ê±¼äÊÇ·ñÎªÍ¬Ò»Ìì
+        if (begin.date() != end.date()) {// æ£€æŸ¥èµ·æ­¢æ—¶é—´æ˜¯å¦ä¸ºåŒä¸€å¤©
             retVal = ERR_INVALID_PERIOD;
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¿ªÊ¼Ê±¼äÓë½áÊøÊ±¼ä²»ÔÚÍ¬Ò»Ìì");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("å¼€å§‹æ—¶é—´ä¸ç»“æŸæ—¶é—´ä¸åœ¨åŒä¸€å¤©");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
-            LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İÌõÊı£¬¿ªÊ¼Ê±¼ä[%2]Óë½áÊøÊ±¼ä[%2]²»ÔÚÍ¬Ò»Ìì")
+            LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®æ¡æ•°ï¼Œå¼€å§‹æ—¶é—´[%2]ä¸ç»“æŸæ—¶é—´[%2]ä¸åœ¨åŒä¸€å¤©")
                 .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
                 .arg(begin.toString("yyyy-MM-dd HH:mm:ss.zzz"))
                 .arg(end.toString("yyyy-MM-dd HH:mm:ss.zzz"));
             return retVal;
         }
 
-        // ¼ì²éÊÇ·ñÎª²éÑ¯ËùÓĞÉè±¸µÄÊı¾İ
+        // æ£€æŸ¥æ˜¯å¦ä¸ºæŸ¥è¯¢æ‰€æœ‰è®¾å¤‡çš„æ•°æ®
         QString qstrDeviceID = pReq->GetDeviceID();
         QVector<QString> vecDeviceIDs;
         if (!qstrDeviceID.isEmpty()) {
             vecDeviceIDs.push_back(qstrDeviceID);
         } else {
-            // Î´Ö¸¶¨Éè±¸ID£¬Ôò²éÑ¯¾®¶ÓÀïËùÓĞÉè±¸µÄÀúÊ·Êı¾İ
+            // æœªæŒ‡å®šè®¾å¤‡IDï¼Œåˆ™æŸ¥è¯¢äº•é˜Ÿé‡Œæ‰€æœ‰è®¾å¤‡çš„å†å²æ•°æ®
             QList<CDeviceInfo> lst;
             bool ret = CDBService::GetInstance()->GetDeviceListByRigID(pRig->id, lst);
             if (ret) {
@@ -1375,16 +1388,16 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount(tcp_session_
         if (!ret) {
             retVal = ERR_DB_ERROR;
             pRepErrorInfo = new CMessageErrorInfo();
-            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("·şÎñÆ÷Êı¾İ¿â²Ù×÷´íÎó");
+            pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æœåŠ¡å™¨æ•°æ®åº“æ“ä½œé”™è¯¯");
             responseMessageOut->SetMessageBody(pRepErrorInfo);
-            LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İÌõÊı£¬´ÓÊı¾İ¿â»ñÈ¡Êı¾İÊ±³ö´í")
+            LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®æ¡æ•°ï¼Œä»æ•°æ®åº“è·å–æ•°æ®æ—¶å‡ºé”™")
                 .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText());
             return retVal;
         } else {
             CMessageGetDeviceDataCountRep * pRep = new CMessageGetDeviceDataCountRep();
             pRep->m_struct.deivceDataCount = count;
             responseMessageOut->SetMessageBody(pRep);
-            LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡[%3 ÖÁ %4]Ö®¼äµÄÀúÊ·Êı¾İÌõÊı£¬´ÓÊı¾İ¿â²éÑ¯µ½[%5]Ìõ")
+            LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–[%3 è‡³ %4]ä¹‹é—´çš„å†å²æ•°æ®æ¡æ•°ï¼Œä»æ•°æ®åº“æŸ¥è¯¢åˆ°[%5]æ¡")
                 .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
                 .arg(begin.toString("yyyy-MM-dd HH:mm:ss.zzz")).arg(end.toString("yyyy-MM-dd HH:mm:ss.zzz"))
                 .arg(count);
@@ -1396,22 +1409,22 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceDataCount(tcp_session_
 
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientGetHistoryDeviceData
-//** ¹¦ÄÜ¼òÊö: ´¦ÀíPC¿Í»§¶Ë»ñÈ¡ÀúÊ·Éè±¸Êı¾İ
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientGetHistoryDeviceData
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†PCå®¢æˆ·ç«¯è·å–å†å²è®¾å¤‡æ•°æ®
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //   message_ptr sessionMessageIn:
 //   message_ptr responseMessageOut:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   int:
 //
-//** ´´½¨ÈÕÆÚ£º2016/1/4
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2016/1/4
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr session, 
                                                                message_ptr sessionMessageIn, 
@@ -1428,9 +1441,9 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr s
     if (!pUser) {
         retVal = ERR_INVALID_SESSION;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë»ñÈ¡ÀúÊ·Êı¾İ");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯è·å–å†å²æ•°æ®");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾Ü¾øÎ´¾­¹ıµÇÂ¼ÑéÖ¤µÄ¿Í»§¶Ë[%1]»ñÈ¡ÀúÊ·Êı¾İ").arg(session->get_display_text());
+        LOG_WARING() << QStringLiteral("æ‹’ç»æœªç»è¿‡ç™»å½•éªŒè¯çš„å®¢æˆ·ç«¯[%1]è·å–å†å²æ•°æ®").arg(session->get_display_text());
         return retVal;
     }
 
@@ -1440,50 +1453,50 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr s
     pReq = static_cast<CMessageGetDeviceDataReq *>(sessionMessageIn->m_pBody);
     Q_ASSERT(pReq);
 
-    // »ñÈ¡Êı¾İµÄÊ±¼ä¶Î±ØĞëÔÚÍ¬Ò»ÌìÄÚ
+    // è·å–æ•°æ®çš„æ—¶é—´æ®µå¿…é¡»åœ¨åŒä¸€å¤©å†…
     QDateTime begin = QDateTime::fromMSecsSinceEpoch(pReq->m_struct.begin);
     QDateTime end = QDateTime::fromMSecsSinceEpoch(pReq->m_struct.end);
     if (begin.date() != end.date()) {
         retVal = ERR_INVALID_PERIOD;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("¿ªÊ¼Ê±¼äÓë½áÊøÊ±¼ä²»ÔÚÍ¬Ò»Ìì");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("å¼€å§‹æ—¶é—´ä¸ç»“æŸæ—¶é—´ä¸åœ¨åŒä¸€å¤©");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İ£¬¿ªÊ¼Ê±¼ä[%2]Óë½áÊøÊ±¼ä[%2]²»ÔÚÍ¬Ò»Ìì")
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®ï¼Œå¼€å§‹æ—¶é—´[%2]ä¸ç»“æŸæ—¶é—´[%2]ä¸åœ¨åŒä¸€å¤©")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
             .arg(begin.toString("yyyy-MM-dd HH:mm:ss.zzz"))
             .arg(end.toString("yyyy-MM-dd HH:mm:ss.zzz"));
         return retVal;
     }
 
-    // ¼ì²é·ÖÒ³ºÅÊÇ·ñÎª0
+    // æ£€æŸ¥åˆ†é¡µå·æ˜¯å¦ä¸º0
     if (pReq->m_struct.pageIndex == 0) {
         retVal = ERR_INVALID_PARAM;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("ÇëÇó·ÖÒ³ºÅ²»ÄÜÎª0");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("è¯·æ±‚åˆ†é¡µå·ä¸èƒ½ä¸º0");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İ£¬·ÖÒ³ºÅÎª0")
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®ï¼Œåˆ†é¡µå·ä¸º0")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText());
         return retVal;
     }
 
-    // ¼ì²éÃ¿Ò³µÄ¼ÇÂ¼ÊıÊÇ·ñÎª0
+    // æ£€æŸ¥æ¯é¡µçš„è®°å½•æ•°æ˜¯å¦ä¸º0
     if (pReq->m_struct.rowsOfPerPage == 0) {
         retVal = ERR_INVALID_PARAM;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("Ã¿Ò³µÄ¼ÇÂ¼Êı²»ÄÜÖ¸¶¨Îª0");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æ¯é¡µçš„è®°å½•æ•°ä¸èƒ½æŒ‡å®šä¸º0");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İ£¬Ö¸¶¨Ã¿Ò³·µ»Ø¼ÇÂ¼ÊıÎª0")
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®ï¼ŒæŒ‡å®šæ¯é¡µè¿”å›è®°å½•æ•°ä¸º0")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText());
         return retVal;
     }
 
-    // ¼ì²éÊÇ·ñÎª²éÑ¯ËùÓĞÉè±¸µÄÊı¾İ
+    // æ£€æŸ¥æ˜¯å¦ä¸ºæŸ¥è¯¢æ‰€æœ‰è®¾å¤‡çš„æ•°æ®
     QString qstrDeviceID = pReq->GetDeviceID();
     QVector<QString> vecDeviceIDs;
     if (!qstrDeviceID.isEmpty()) {
         vecDeviceIDs.push_back(qstrDeviceID);
     } else {
-        // Î´Ö¸¶¨Éè±¸ID£¬Ôò²éÑ¯¾®¶ÓÀïËùÓĞÉè±¸µÄÀúÊ·Êı¾İ
+        // æœªæŒ‡å®šè®¾å¤‡IDï¼Œåˆ™æŸ¥è¯¢äº•é˜Ÿé‡Œæ‰€æœ‰è®¾å¤‡çš„å†å²æ•°æ®
         QList<CDeviceInfo> lst;
         bool ret = CDBService::GetInstance()->GetDeviceListByRigID(pRig->id, lst);
         if (ret) {
@@ -1499,9 +1512,9 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr s
     if (!ret) {
         retVal = ERR_DB_ERROR;
         pRepErrorInfo = new CMessageErrorInfo();
-        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("·şÎñÆ÷Êı¾İ¿â²Ù×÷´íÎó");
+        pRepErrorInfo->m_qstrErrorInfo = QStringLiteral("æœåŠ¡å™¨æ•°æ®åº“æ“ä½œé”™è¯¯");
         responseMessageOut->SetMessageBody(pRepErrorInfo);
-        LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡ÀúÊ·Êı¾İ£¬´ÓÊı¾İ¿â»ñÈ¡Êı¾İÊ±³ö´í")
+        LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–å†å²æ•°æ®ï¼Œä»æ•°æ®åº“è·å–æ•°æ®æ—¶å‡ºé”™")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText());
         return retVal;
     } else {
@@ -1510,7 +1523,7 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr s
         pRep->m_struct.pageIndex = pReq->m_struct.pageIndex;
         pRep->m_struct.rowsOfCurrentPage = lst.count();
         responseMessageOut->SetMessageBody(pRep);
-        LOG_INFO() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]ÇëÇó»ñÈ¡[%3ÖÁ%4Ö®¼äµÄ]ÀúÊ·Êı¾İ£¬Ã¿Ò³[%5]Ìõ£¬»ñÈ¡µÚ[%6]Ò³µÄÊı¾İ£¬¹²·µ»Ø[%7]ÌõÊı¾İ")
+        LOG_INFO() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]è¯·æ±‚è·å–[%3è‡³%4ä¹‹é—´çš„]å†å²æ•°æ®ï¼Œæ¯é¡µ[%5]æ¡ï¼Œè·å–ç¬¬[%6]é¡µçš„æ•°æ®ï¼Œå…±è¿”å›[%7]æ¡æ•°æ®")
             .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText()).arg(begin.toString("yyyy-MM-dd HH:mm:ss.zzz"))
             .arg(end.toString("yyyy-MM-dd HH:mm:ss.zzz")).arg(pReq->m_struct.rowsOfPerPage).arg(pReq->m_struct.pageIndex)
             .arg(lst.count());
@@ -1520,20 +1533,20 @@ int CBusinessHandleService::HandlePCClientGetHistoryDeviceData(tcp_session_ptr s
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleTcpSessionClosed
-//** ¹¦ÄÜ¼òÊö: ´¦ÀísocketÁ¬½Ó¶Ï¿ª
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleTcpSessionClosed
+//** åŠŸèƒ½ç®€è¿°: å¤„ç†socketè¿æ¥æ–­å¼€
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   void:
 //
-//** ´´½¨ÈÕÆÚ£º2015/08/05
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/08/05
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 void CBusinessHandleService::HandleTcpSessionClosed(tcp_session_ptr session)
 {
@@ -1561,20 +1574,20 @@ void CBusinessHandleService::HandleTcpSessionClosed(tcp_session_ptr session)
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandlePCClientSessionClosed
-//** ¹¦ÄÜ¼òÊö: 
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandlePCClientSessionClosed
+//** åŠŸèƒ½ç®€è¿°: 
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   void:
 //
-//** ´´½¨ÈÕÆÚ£º2015/08/05
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/08/05
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 void CBusinessHandleService::HandlePCClientSessionClosed(tcp_session_ptr session)
 {
@@ -1587,34 +1600,34 @@ void CBusinessHandleService::HandlePCClientSessionClosed(tcp_session_ptr session
     rig_ptr pRig = std::static_pointer_cast<CRig>(pUser->GetRig());
     Q_ASSERT(pRig);
 
-    LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÓÃ»§[%2]Òì³£ÏÂÏß£¬×Ô¶¯ÊÍ·ÅÁ¬½Ó[%3]")
+    LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„ç”¨æˆ·[%2]å¼‚å¸¸ä¸‹çº¿ï¼Œè‡ªåŠ¨é‡Šæ”¾è¿æ¥[%3]")
         .arg(pRig->GetDisplayText()).arg(pUser->GetDisplayText())
         .arg(session->get_display_text());
 
-    // ¹Ø±Õsocket£¬½«socket´Ó¾®¶ÓµÄ¿Í»§¶Ë»á»°×éÀïÒÆ³ı
+    // å…³é—­socketï¼Œå°†socketä»äº•é˜Ÿçš„å®¢æˆ·ç«¯ä¼šè¯ç»„é‡Œç§»é™¤
     pRig->RemoveClientSession(session);
     pUser->SetSession(NULL);
 
     LOG_WARING() << pRig->GetDevicesOnlineStatusDisplayText();
-    LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄÔÚÏßÓÃ»§").arg(pRig->GetDisplayText())
+    LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„åœ¨çº¿ç”¨æˆ·").arg(pRig->GetDisplayText())
         << pRig->GetOnlineUsersDisplayText();
 }
 
 //******************************************************
-//** º¯ÊıÃû:   HandleDeviceSessionClosed
-//** ¹¦ÄÜ¼òÊö: 
-//** ÊäÈë²ÎÊı: 
+//** å‡½æ•°å:   HandleDeviceSessionClosed
+//** åŠŸèƒ½ç®€è¿°: 
+//** è¾“å…¥å‚æ•°: 
 //   tcp_session_ptr session:
 //
-//** ·µ»ØÖµ: 
+//** è¿”å›å€¼: 
 //   void:
 //
-//** ´´½¨ÈÕÆÚ£º2015/08/05
-//** ´´½¨ÈË£º  ÌÆÇÅ
-//** ĞŞ¸Ä¼ÇÂ¼£º
-//   ÈÕÆÚ        °æ±¾      ĞŞ¸ÄÈË    ĞŞ¸ÄÄÚÈİ
+//** åˆ›å»ºæ—¥æœŸï¼š2015/08/05
+//** åˆ›å»ºäººï¼š  å”æ¡¥
+//** ä¿®æ”¹è®°å½•ï¼š
+//   æ—¥æœŸ        ç‰ˆæœ¬      ä¿®æ”¹äºº    ä¿®æ”¹å†…å®¹
 //
-//** ÆäËüËµÃ÷£º
+//** å…¶å®ƒè¯´æ˜ï¼š
 //******************************************************
 void CBusinessHandleService::HandleDeviceSessionClosed(tcp_session_ptr session)
 {
@@ -1627,23 +1640,23 @@ void CBusinessHandleService::HandleDeviceSessionClosed(tcp_session_ptr session)
     rig_ptr pRig = std::static_pointer_cast<CRig>(pDevice->GetRig());
     Q_ASSERT(pRig);
 
-    LOG_WARING() << QStringLiteral("¾®¶Ó[%1]µÄ²É¼¯Éè±¸[%2]Òì³£ÏÂÏß£¬×Ô¶¯ÊÍ·ÅÁ¬½Ó[%3]")
+    LOG_WARING() << QStringLiteral("äº•é˜Ÿ[%1]çš„é‡‡é›†è®¾å¤‡[%2]å¼‚å¸¸ä¸‹çº¿ï¼Œè‡ªåŠ¨é‡Šæ”¾è¿æ¥[%3]")
         .arg(pRig->GetDisplayText()).arg(pDevice->GetDisplayText())
         .arg(session->get_display_text());
 
-    // ¹Ø±ÕsocketÁ¬½Ó ½«Éè±¸»á»°´Ó¾®¶ÓµÄÉè±¸»á»°×éÀïÒÆ³ı
+    // å…³é—­socketè¿æ¥ å°†è®¾å¤‡ä¼šè¯ä»äº•é˜Ÿçš„è®¾å¤‡ä¼šè¯ç»„é‡Œç§»é™¤
     pRig->RemoveDeviceSession(session);
     session->set_entity(NULL);
     pDevice->SetSession(NULL);
 
     QString qstrOnlineUsers = pRig->GetOnlineUsersDisplayText();
     if (!qstrOnlineUsers.isEmpty()) {
-        LOG_INFO() << QStringLiteral("Ïò¾®¶Ó[%1]µÄÔÚÏßÓÃ»§[%2]·¢ËÍÉè±¸[%3]Òì³£ÏÂÏßÍ¨Öª")
+        LOG_INFO() << QStringLiteral("å‘äº•é˜Ÿ[%1]çš„åœ¨çº¿ç”¨æˆ·[%2]å‘é€è®¾å¤‡[%3]å¼‚å¸¸ä¸‹çº¿é€šçŸ¥")
             .arg(pRig->GetDisplayText()).arg(qstrOnlineUsers).arg(pDevice->GetDisplayText());
         CMessageBroadcastDeviceOnlineStatus * pBroadcastMsg = new CMessageBroadcastDeviceOnlineStatus();
         CMessageGetDeviceOnlineStatusRepItem * pStatusItem = new CMessageGetDeviceOnlineStatusRepItem();
         memcpy_s((char *)(pStatusItem->m_struct.deviceID), sizeof(pStatusItem->m_struct.deviceID), pDevice->id.toLocal8Bit(), pDevice->id.toLocal8Bit().length());
-        pStatusItem->m_struct.deviceOnlineStatus = DEVICE_ONLINE_STATUS_OFFLINE;// Éè±¸ÏÂÏß
+        pStatusItem->m_struct.deviceOnlineStatus = DEVICE_ONLINE_STATUS_OFFLINE;// è®¾å¤‡ä¸‹çº¿
         pBroadcastMsg->m_struct.itemCount = 0;
         pBroadcastMsg->m_lstDeviceIDs.push_back(pStatusItem);
 
@@ -1655,8 +1668,76 @@ void CBusinessHandleService::HandleDeviceSessionClosed(tcp_session_ptr session)
 }
 
 
+//æ¯ç§æ•°æ® å çš„å­—èŠ‚æ•°
+static unsigned int gPackageSize = 6;
+//20180122 æ–°åè®®å¤„ç†å‡½æ•°
+int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
+	, message_ptr sessionMessageIn
+)
+{
+	Q_ASSERT(session);
+	Q_ASSERT(sessionMessageIn);
+	Q_ASSERT(sessionMessageIn->m_InputArray.Size() > 0);
+	Q_ASSERT(!CConfigrationService::GetInstance()->GetDataConfigMap().isEmpty());
+
+	//æ•°æ®åŒ…æ€»é•¿åº¦
+	int sizeMax = sessionMessageIn->m_InputArray.Size();
+
+	Q_ASSERT(sizeMax == sessionMessageIn->m_header.m_struct.bodyLength);
+
+	U16 dataCount = sessionMessageIn->m_InputArray.ReadU16();
+	Q_ASSERT(dataCount > 0);
+	Q_ASSERT((sizeMax - dataCount*dataCount) > 0);
+
+	QMap<int, QString> mapFlag = CConfigrationService::GetInstance()->GetDataConfigMap();
+
+	QString strID;
+	sessionMessageIn->m_InputArray.ReadUtf8String(sizeMax - dataCount*dataCount, strID);
 
 
+
+	QString qstrDeviceID;
+	bool ret = CDBService::GetInstance()->GetDeviceIDByDeviceCode(strID
+		, qstrDeviceID);
+	if (!ret)
+	{
+		LOG_DEBUG() << QString("æœªæ‰¾åˆ°[%1]è®¾å¤‡çš„ä¿¡æ¯,ä¸å†™å…¥æ•°æ®åº“!").arg(strID);
+		return -1;
+	}
+	//ä¿å­˜ æ–°åè®® æ•°æ®é“¾ æ•°æ®
+	REALTIME_DATA_NEW vec;
+
+	//ä¸€ä¸ªä¸ª å–å‡ºæ‰€æœ‰çš„ æ•°æ® ä¿å­˜æˆæ•°æ®ç»“æ„ å†å­˜å‚¨ æ•°æ®åº“
+	short flagTemp = -1;
+	int dataTemp = 0;
+	QString strLog;
+	for (int index = 0; index < sizeMax; ++index)
+	{
+		flagTemp = sessionMessageIn->m_InputArray.ReadU16();
+		dataTemp = sessionMessageIn->m_InputArray.ReadU32();
+		if (mapFlag.contains(flagTemp)) //æ•°æ®æœ‰æ•ˆ
+		{
+			strLog += QString("[%1::%2]").arg(mapFlag[flagTemp])
+				.arg(QString::number((uint)dataTemp, 16));
+			vec.push_back(NEW_DEVICE_DATA(flagTemp, dataTemp, mapFlag[flagTemp]));
+		}
+	}
+
+
+
+
+	LOG_DEBUG() << QStringLiteral("%1è®¾å¤‡æ‰¹é‡ä¸Šä¼ æ•°æ®\r\n{%1}!").arg(qstrDeviceID).arg(strLog);
+
+	// å®æ—¶æ•°æ®å…¥åº“
+	 ret = CDBService::GetInstance()->DataQueuePushBack(qstrDeviceID, vec);
+	if (!ret)
+	{
+		LOG_DEBUG() << QString("æ•°æ®æ’å…¥å¤±è´¥!_%1").arg(qstrDeviceID);
+		return -1;
+	}
+
+	return ERROR_SUCCESS;
+}
 
 
 

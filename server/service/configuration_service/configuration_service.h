@@ -56,6 +56,10 @@ public:
     // 获取固定式H2S检测仪的类型编码
     QString GetTypeCodeOfStaticH2SDetector();
 
+	//20180122 新增对于 协议2 读取 config中的 气体信息 存入map中
+	void	InitDataConfigMap();
+
+	QMap<int, QString>&  GetDataConfigMap();
 private:
 
     CConfigrationService();
@@ -64,6 +68,7 @@ private:
 
     // 从配置文件中加载配置
     void LoadConfiguration();
+
 
 private:
     static CConfigrationService * m_pInstance;
@@ -77,6 +82,8 @@ private:
     int                 m_nDBPort;      // 数据库连接端口
     QString             m_qstrTypeCodeOfPortableH2SDetector;// 便携式H2S检测仪设备类型码
     QString             m_qstrTypeCodeOfStaticH2SDetector;// 固定式H2S检查仪
+	//20180122 协议2 新增map结构  保存 气体标识 和气体对应的 名称
+	QMap<int, QString>	m_configMap; 
 };
 
 #endif//!_CONFIGURATION_SERVICE_H_
