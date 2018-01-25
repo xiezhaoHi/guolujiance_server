@@ -1316,11 +1316,12 @@ string string_To_UTF8(const string & str)
 	return retStr;  
 }  
 
-bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA> & lst)
+bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 {
-	if (lst.size() == 0) {
+	if (lst == nullptr) {
 		return true;
 	}
+	Q_ASSERT(lst != nullptr);
 
 	QVariantList lstDeviceID;
 	QVariantList lstCompanyName;
@@ -1345,7 +1346,7 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 	LOG_DEBUG() << QStringLiteral("开始解析数据>>>>>>>>>>>>>>>>>>>>>");
 
 	//说明  虽然参数是List 实际 只有一个值, 是为了不改原来的代码
-	T_DEVICE_DATA data = (*(lst.begin()));
+	T_DEVICE_DATA& data = lst;
 
 	{
 	QString CompanyNameS;// = QString::fromLocal8Bit("勃克啤酒厂");
@@ -1359,16 +1360,17 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 
 	lstTimestamp << mytime.c_str();
 
-	lstDeviceID << data.qstrDeviceID;
+	QString strDeviceID = data->qstrDeviceID;
+	lstDeviceID << strDeviceID;
 
-	if (m_deviceMsgMap.contains(data.qstrDeviceID))
+	if (m_deviceMsgMap.contains(strDeviceID))
 	{
-		lstCompanyName << m_deviceMsgMap[data.qstrDeviceID].m_companyName;
-		lstLongitude << m_deviceMsgMap[data.qstrDeviceID].m_longitude;
-		lstLatitude << m_deviceMsgMap[data.qstrDeviceID].m_latitude;
-		lstBoilerId << m_deviceMsgMap[data.qstrDeviceID].m_boilerId;
-		lstAddress << m_deviceMsgMap[data.qstrDeviceID].m_address;
-		LOG_DEBUG() << QStringLiteral("设备[%1]信息已缓存,直接使用!").arg(data.qstrDeviceID);
+		lstCompanyName << m_deviceMsgMap[strDeviceID].m_companyName;
+		lstLongitude << m_deviceMsgMap[strDeviceID].m_longitude;
+		lstLatitude << m_deviceMsgMap[strDeviceID].m_latitude;
+		lstBoilerId << m_deviceMsgMap[strDeviceID].m_boilerId;
+		lstAddress << m_deviceMsgMap[strDeviceID].m_address;
+		LOG_DEBUG() << QStringLiteral("设备[%1]信息已缓存,直接使用!").arg(strDeviceID);
 	}
 	else
 	{
@@ -1389,8 +1391,8 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 			return false;
 		}
 
-		queryDef.bindValue(0, data.qstrDeviceID);
-		LOG_WARING() << "db_service.cpp 1364###" << data.qstrDeviceID;
+		queryDef.bindValue(0, strDeviceID);
+		LOG_WARING() << "db_service.cpp 1364###" << strDeviceID;
 		if (!queryDef.exec()) {
 			LOG_WARING() << "SQLQuery exec failed. error:" << conDef->pDB->lastError().text()
 				<< " sql:" << qstrSQL;
@@ -1408,11 +1410,11 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 			lstBoilerId << queryDef.value(3).toString();
 			lstAddress << queryDef.value(4).toString();
 
-			m_deviceMsgMap[data.qstrDeviceID].m_companyName = queryDef.value(0).toString();
-			m_deviceMsgMap[data.qstrDeviceID].m_longitude = queryDef.value(1).toString();
-			m_deviceMsgMap[data.qstrDeviceID].m_latitude = queryDef.value(2).toString();
-			m_deviceMsgMap[data.qstrDeviceID].m_boilerId = queryDef.value(3).toString();
-			m_deviceMsgMap[data.qstrDeviceID].m_address = queryDef.value(4).toString();
+			m_deviceMsgMap[strDeviceID].m_companyName = queryDef.value(0).toString();
+			m_deviceMsgMap[strDeviceID].m_longitude = queryDef.value(1).toString();
+			m_deviceMsgMap[strDeviceID].m_latitude = queryDef.value(2).toString();
+			m_deviceMsgMap[strDeviceID].m_boilerId = queryDef.value(3).toString();
+			m_deviceMsgMap[strDeviceID].m_address = queryDef.value(4).toString();
 			LOG_DEBUG() << QStringLiteral("设备第一次登陆,成功获取设备信息并缓存!");
 		}
 		conDef->Release();
@@ -1422,7 +1424,7 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 }
 
 	int flag; //标识 0 旧版 1新版
-	flag = data.m_flag;
+	flag = data->m_flag;
 	QString qstrSQLFormat;
 	if (OLD_TYPE== flag) //旧版
 	{
@@ -1458,7 +1460,7 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 	//遍历数据链表
 	if(OLD_TYPE== flag)
 	{
-		for (message_device_realtime_data_ptr realData : data.m_vectorData) {
+		for (message_device_realtime_data_ptr realData : data->m_vectorData) {
 			if (realData->m_struct.channelNo != MAMOS_ID)
 			{
 				U8 buf[8];
@@ -1619,9 +1621,9 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 // 		}
 		//一组数据写完,记录到list
 
-		for (NEW_DEVICE_DATA realData : data.m_vectorDataNew)
+		for (std::shared_ptr<NEW_DEVICE_DATA> realData : data->m_vectorDataNew)
 		{
-			json.insert(realData.m_strFlag, (int)realData.m_data);
+			json.insert(realData->m_strFlag, (float)realData->m_data);
 		}
 
 		document.setObject(json);
@@ -1652,7 +1654,7 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 	}
 		
     con->Release();
-    return ret;
+    return true;
 }
 
 //******************************************************
@@ -1673,20 +1675,20 @@ bool CDBService::InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA>
 //** 其它说明：
 //******************************************************
 bool CDBService::DataQueuePushBack(const QString & deviceID, 
-                                   const REALTIME_DATA& data, unsigned char flag)
+                                   const REALTIME_DATA& data, int flag)
 {
     Q_ASSERT(!deviceID.isEmpty());
 
-    m_dataQueue.Push(T_DEVICE_DATA(deviceID, data, flag));
+    m_dataQueue.Push(std::make_shared<__T_DEVICE_DATA>(deviceID, data, flag));
     return true;
 }
 
 bool CDBService::DataQueuePushBack(const QString & deviceID,
-	const REALTIME_DATA_NEW& data, unsigned char flag)
+	const REALTIME_DATA_NEW& data, int flag)
 {
 	Q_ASSERT(!deviceID.isEmpty());
 
-	m_dataQueue.Push(T_DEVICE_DATA(deviceID, data, flag));
+	m_dataQueue.Push(std::make_shared<__T_DEVICE_DATA>(deviceID, data, flag));
 	return true;
 }
 
@@ -1824,7 +1826,7 @@ bool CDBService::SetDeviceName(const QString & deviceID, const QString & deviceN
     return ret;
 }
 
-T_DEVICE_DATA& CDBService::DataQueueFront()
+T_DEVICE_DATA CDBService::DataQueueFront()
 {
     return m_dataQueue.Front();
 }
@@ -2222,10 +2224,11 @@ void CDBHandleTask::run()
 		while (!CDBService::GetInstance()->m_dataQueue.Empty()) {
 
 			
-			T_DEVICE_DATA& fontData = CDBService::GetInstance()->DataQueueFront();
-			int flag = fontData.m_flag;
-			QList<T_DEVICE_DATA> listData;
-			listData.append(fontData);
+			T_DEVICE_DATA fontData = CDBService::GetInstance()->DataQueueFront();
+			int flag = fontData->m_flag;
+// 			QList<T_DEVICE_DATA> listData;
+// 			listData.clear();
+// 			listData.push_back(fontData);
 
 
 			QString batchTableName;
@@ -2252,8 +2255,9 @@ void CDBHandleTask::run()
 
 				// 批量插入数据
 				ret = CDBService::GetInstance()->InsertDataTable(batchTableName,
-					listData);
+					fontData);
 			
+				CDBService::GetInstance()->DataQueuePopFront();//弹出 首数据
 		}
 
 		CDBService::GetInstance()->m_dataQueue.Wait(1000);

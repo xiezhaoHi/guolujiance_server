@@ -162,7 +162,7 @@ void CTcpSession::do_read_header_two()
 
 			//设置包 头结构信息
 			//长度为数据长度.  帧数-最后数据包
-			m_pMessageRead->SetCMDToHead(length-headerBufLen_two-sizeof(frame_tail));
+			m_pMessageRead->SetCMDToHead(length-headerBufLen_two-sizeof(frame_tail)-1);
 
 			if (head != frame_header_two_2 ) {// 头部数据无效，需要主动断开连接
 												   // 主动断开连接

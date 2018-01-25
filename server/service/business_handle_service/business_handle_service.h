@@ -4,7 +4,7 @@
 #include "service/i_service.h"
 #include "service/socket_service/tcp_session.h"
 #include "service/socket_service/i_tcp_session_message_handler.h"
-
+#include <QMap>
 class CBusinessHandleService : public IInternalService, public ITcpSessionMessageHandler
 {
 public:
@@ -87,6 +87,7 @@ private:
 private:
     static CBusinessHandleService * m_pInstance;
 
+	
 
 };
 

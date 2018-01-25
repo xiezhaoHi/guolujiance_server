@@ -57,7 +57,8 @@ CBusinessHandleService * CBusinessHandleService::GetInstance()
 {
     if (!m_pInstance) {
         m_pInstance = new CBusinessHandleService();
-    }
+		
+	}
     return m_pInstance;
 }
 
@@ -1668,6 +1669,20 @@ void CBusinessHandleService::HandleDeviceSessionClosed(tcp_session_ptr session)
 }
 
 
+typedef union {
+	int i;
+	char c;
+}my_union;
+
+bool checkSystem1(void)
+{
+	my_union u;
+	u.i = 1;
+	return (u.i == u.c);
+}
+
+//20180123 新增 上传的设备ID 映射到 注册的ID
+static QMap<QString, QString>	m_strDeviceIDMap;
 //每种数据 占的字节数
 static unsigned int gPackageSize = 6;
 //20180122 新协议处理函数
@@ -1680,46 +1695,63 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	Q_ASSERT(sessionMessageIn->m_InputArray.Size() > 0);
 	Q_ASSERT(!CConfigrationService::GetInstance()->GetDataConfigMap().isEmpty());
 
+
+	bool little = checkSystem1();
+
 	//数据包总长度
 	int sizeMax = sessionMessageIn->m_InputArray.Size();
 
 	Q_ASSERT(sizeMax == sessionMessageIn->m_header.m_struct.bodyLength);
-
-	U16 dataCount = sessionMessageIn->m_InputArray.ReadU16();
+	U16 dataCount;
+	dataCount = sessionMessageIn->m_InputArray.ReadU16();
 	Q_ASSERT(dataCount > 0);
-	Q_ASSERT((sizeMax - dataCount*dataCount) > 0);
+	Q_ASSERT((sizeMax - dataCount*gPackageSize-2) > 0);
 
 	QMap<int, QString> mapFlag = CConfigrationService::GetInstance()->GetDataConfigMap();
 
 	QString strID;
-	sessionMessageIn->m_InputArray.ReadUtf8String(sizeMax - dataCount*dataCount, strID);
+	sessionMessageIn->m_InputArray.ReadUtf8String(sizeMax - dataCount*gPackageSize-2, strID);
 
 
 
 	QString qstrDeviceID;
-	bool ret = CDBService::GetInstance()->GetDeviceIDByDeviceCode(strID
-		, qstrDeviceID);
-	if (!ret)
+	bool ret = false;
+	if (m_strDeviceIDMap.contains(strID))
 	{
-		LOG_DEBUG() << QString("未找到[%1]设备的信息,不写入数据库!").arg(strID);
-		return -1;
+		qstrDeviceID = m_strDeviceIDMap[strID];
 	}
+	else
+	{
+		ret = CDBService::GetInstance()->GetDeviceIDByDeviceCode(strID
+			, qstrDeviceID);
+		if (!ret)
+		{
+			LOG_DEBUG() << QString("未找到[%1]设备的信息,不写入数据库!").arg(strID);
+			return -1;
+		}
+		m_strDeviceIDMap[strID] = qstrDeviceID;
+	}
+
 	//保存 新协议 数据链 数据
 	REALTIME_DATA_NEW vec;
 
 	//一个个 取出所有的 数据 保存成数据结构 再存储 数据库
-	short flagTemp = -1;
-	int dataTemp = 0;
+	U16 flagTemp = -1;
+	float dataTemp = 0;
 	QString strLog;
-	for (int index = 0; index < sizeMax; ++index)
+
+	
+
+	for (int index = 0; index < dataCount; ++index)
 	{
 		flagTemp = sessionMessageIn->m_InputArray.ReadU16();
-		dataTemp = sessionMessageIn->m_InputArray.ReadU32();
+		dataTemp = sessionMessageIn->m_InputArray.ReadF32();
+
 		if (mapFlag.contains(flagTemp)) //数据有效
 		{
 			strLog += QString("[%1::%2]").arg(mapFlag[flagTemp])
-				.arg(QString::number((uint)dataTemp, 16));
-			vec.push_back(NEW_DEVICE_DATA(flagTemp, dataTemp, mapFlag[flagTemp]));
+				.arg(dataTemp);
+			vec.push_back(std::make_shared<NEW_DEVICE_DATA>(flagTemp, dataTemp, mapFlag[flagTemp]));
 		}
 	}
 

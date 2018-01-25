@@ -91,12 +91,12 @@ typedef struct  _NEW_DEVICE_DATA
 {
 	U16 m_flag; //气体标识
 	QString m_strFlag;//字符串表示
-	U32 m_data; //气体值
-	_NEW_DEVICE_DATA(short flag, int data,QString strFlag) 
+	float m_data; //气体值
+	_NEW_DEVICE_DATA(short flag, float data,QString strFlag) 
 		:m_flag(flag), m_data(data),m_strFlag(strFlag)
 	{}
 }NEW_DEVICE_DATA;
-typedef QList<NEW_DEVICE_DATA> REALTIME_DATA_NEW;
+typedef QList<std::shared_ptr<NEW_DEVICE_DATA>> REALTIME_DATA_NEW;
 // 设备采集数据
 typedef struct _T_DEVICE_DATA
 {
@@ -105,7 +105,7 @@ typedef struct _T_DEVICE_DATA
 	REALTIME_DATA m_vectorData; //新版 2017 12 21
 	REALTIME_DATA_NEW m_vectorDataNew; //20180123 新增 保存新协议的数据链
 	//20180123 增加一个 版本标识  0老版本  1新版本
-	unsigned char  m_flag;
+	int  m_flag;
 
 	//默认是老版本
     _T_DEVICE_DATA(QString deviceID, const REALTIME_DATA& deviceData, unsigned char flag = OLD_TYPE)
@@ -119,8 +119,8 @@ typedef struct _T_DEVICE_DATA
 	{
 		this->m_vectorDataNew = deviceData;
 	}
-}T_DEVICE_DATA;
-
+}__T_DEVICE_DATA;
+typedef std::shared_ptr<__T_DEVICE_DATA> T_DEVICE_DATA;
 
 
 /*
@@ -227,20 +227,21 @@ public:
     bool InsertDataTable(const QString & tableName, const QString deviceID, const REALTIME_DATA & deviceData);
 
     // 在数据表中批量插入数据
-    bool InsertDataTable(const QString & tableName, QList<T_DEVICE_DATA> & lst);
+    bool InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst);
+
 
     //数据处理列队加入数据
 	//20180123 新增更改, 增加一个版本控制
     bool DataQueuePushBack(const QString & deviceID, const REALTIME_DATA& data
-		,unsigned char flag = OLD_TYPE);
+		, int flag = OLD_TYPE);
 	bool DataQueuePushBack(const QString & deviceID, const REALTIME_DATA_NEW& data
-		, unsigned char flag = NEW_TYPE);
+		, int flag = NEW_TYPE);
 
     // 数据处理列队排出数据
     T_DEVICE_DATA& DataQueuePopFront();
 
     // 获取数据处理队列队首元素
-    T_DEVICE_DATA& DataQueueFront();
+    T_DEVICE_DATA DataQueueFront();
 
 
 
