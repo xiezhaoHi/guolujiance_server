@@ -136,6 +136,23 @@ struct DEVICE_MSG
 	QString m_address;
 };
 
+//2018018 关心的设备信息
+typedef struct __DeviceInfo 
+{
+	QString	m_strID; //设备ID
+	QString m_strNumber; //设备标志
+	quint64 m_dateTime; //创建时间
+	float	m_strJD; //经度
+	float	m_strWD; //纬度
+	__DeviceInfo()
+	{
+		m_strWD = 0;
+		m_strJD = 0;
+		m_dateTime = 0;
+		m_strID = "";
+		m_strNumber = "";
+	}
+}DeviceInfo;
 
 class CDBService : public IInternalService
 {
@@ -236,6 +253,15 @@ public:
 		, int flag = OLD_TYPE);
 	bool DataQueuePushBack(const QString & deviceID, const REALTIME_DATA_NEW& data
 		, int flag = NEW_TYPE);
+
+
+	// 获取最近的指定设备number 的信息
+	bool GetDeviceDataByDeviceCode(const QString & deviceCode, DeviceInfo & deviceInfo);
+
+	//更新设备表
+	bool UpdateDeviceInfo(DeviceInfo &info);
+
+	/*******************************************************/
 
     // 数据处理列队排出数据
     T_DEVICE_DATA& DataQueuePopFront();

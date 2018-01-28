@@ -60,6 +60,9 @@ public:
 	void	InitDataConfigMap();
 
 	QMap<int, QString>&  GetDataConfigMap();
+
+	//经纬度 标志 获取
+	void GetDataConfigJDWD(int& jd, int& wd);
 private:
 
     CConfigrationService();
@@ -84,6 +87,8 @@ private:
     QString             m_qstrTypeCodeOfStaticH2SDetector;// 固定式H2S检查仪
 	//20180122 协议2 新增map结构  保存 气体标识 和气体对应的 名称
 	QMap<int, QString>	m_configMap; 
+	int					m_configJD; //经度
+	int					m_configWD; //纬度
 };
 
 #endif//!_CONFIGURATION_SERVICE_H_

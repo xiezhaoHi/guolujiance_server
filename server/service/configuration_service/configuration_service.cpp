@@ -253,9 +253,19 @@ void	CConfigrationService::InitDataConfigMap()
 		}
 	}
 	
+	
+	m_configJD= setting.value(QString("/DataConfig_jd_wd/Data_0"), -1).toInt(); //经度
+	m_configWD = setting.value(QString("/DataConfig_jd_wd/Data_1"), -1).toInt(); //纬度
 }
 
 QMap<int, QString>&  CConfigrationService::GetDataConfigMap()
 {
 	return m_configMap;
+}
+
+//经纬度 标志 获取
+void CConfigrationService::GetDataConfigJDWD(int& jd, int& wd)
+{
+	jd = m_configJD;
+	wd = m_configWD;
 }

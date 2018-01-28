@@ -37,7 +37,7 @@
 #include "registration/registration.h"
 #include <QDateTime>
 #include <QRegularExpression>
-
+#include <QUuid>  
 
 
 CBusinessHandleService * CBusinessHandleService::m_pInstance = NULL;
@@ -1681,11 +1681,63 @@ bool checkSystem1(void)
 	return (u.i == u.c);
 }
 
+
+
+#define PI 3.141592657  
+#define EARTH_RADIUS  6378137  
+static inline double  rad(double degree)
+{
+	return  PI * degree / 180.0;
+}
+static inline double haverSin(double x)
+{
+	double v = sin(x / 2.0);
+	return v * v;
+}
+//计算距离(单位 : m)  
+static double getDistance(double lon1, double lat1, double lon2, double lat2)
+{
+	double radlon1 = rad(lon1);
+	double radlat1 = rad(lat1);
+	double radlon2 = rad(lon2);
+	double radlat2 = rad(lat2);
+
+	double a = fabs(radlat1 - radlat2);
+	double b = fabs(radlon1 - radlon2);
+
+	double h = haverSin(b) + cos(lat1)*cos(lat2)*haverSin(a);
+	double distance = 2 * EARTH_RADIUS * asin(sqrt(h));
+	return  distance;
+}
+
+
+
+
 //20180123 新增 上传的设备ID 映射到 注册的ID
-static QMap<QString, QString>	m_strDeviceIDMap;
+static QMap<QString, DeviceInfo>	m_strDeviceIDMap;
 //每种数据 占的字节数
 static unsigned int gPackageSize = 6;
 //20180122 新协议处理函数
+
+static quint64 dateTimeJG = 30 * 60;
+/***********************************************/
+//新增处理 流程
+// 设备 上线 与 上次 上线  时间间隔  经纬度 比较, 看是否 新增设备
+//	1.间隔时间 小于等于 半小时  直接人为是上次的设备
+//	2.间隔时间 大于 半小时  看经纬度 差异, 在一定范围内 认为 是上次的设备.
+//		如果开始没有 上次经纬度,直接认为是新设备, 新增设备表信息, 等待 有经纬度 信息了
+//		再填设备表的经纬度信息.
+
+//设备上下线 判断.
+//	同一设备 默认 只有一个在上传数据
+//通过不断更新 上传数据的时间, 与上次时间 做差值, 若间隔 在半小时内
+//则认为 地点没有更改。若时间超过半小时,则查看  经纬度, 差距 在100m外 
+//则认为 换了地点。1.生成一个新设备ID  数据都入库新的设备ID下.
+//2.若上传的数据 中没有 经纬度,还是生成一个新设备,后面数据中有经纬度再上传.
+
+
+
+/***********************************************/
 int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	, message_ptr sessionMessageIn
 )
@@ -1695,8 +1747,8 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	Q_ASSERT(sessionMessageIn->m_InputArray.Size() > 0);
 	Q_ASSERT(!CConfigrationService::GetInstance()->GetDataConfigMap().isEmpty());
 
-
-	bool little = checkSystem1();
+	//大小端判断
+	//bool little = checkSystem1();
 
 	//数据包总长度
 	int sizeMax = sessionMessageIn->m_InputArray.Size();
@@ -1707,41 +1759,28 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	Q_ASSERT(dataCount > 0);
 	Q_ASSERT((sizeMax - dataCount*gPackageSize-2) > 0);
 
-	QMap<int, QString> mapFlag = CConfigrationService::GetInstance()->GetDataConfigMap();
+	QMap<int, QString>& mapFlag = CConfigrationService::GetInstance()->GetDataConfigMap();
+	int configJD, configWD;
+	CConfigrationService::GetInstance()->GetDataConfigJDWD(configJD, configWD);
+
+	//配置有误
+	if (mapFlag.isEmpty() || configJD == -1 || configWD == -1)
+	{
+		LOG_DEBUG() << QString("上传数据失败,配置有误!");
+		return -1;
+	}
 
 	QString strID;
 	sessionMessageIn->m_InputArray.ReadUtf8String(sizeMax - dataCount*gPackageSize-2, strID);
-
-
-
-	QString qstrDeviceID;
-	bool ret = false;
-	if (m_strDeviceIDMap.contains(strID))
-	{
-		qstrDeviceID = m_strDeviceIDMap[strID];
-	}
-	else
-	{
-		ret = CDBService::GetInstance()->GetDeviceIDByDeviceCode(strID
-			, qstrDeviceID);
-		if (!ret)
-		{
-			LOG_DEBUG() << QString("未找到[%1]设备的信息,不写入数据库!").arg(strID);
-			return -1;
-		}
-		m_strDeviceIDMap[strID] = qstrDeviceID;
-	}
 
 	//保存 新协议 数据链 数据
 	REALTIME_DATA_NEW vec;
 
 	//一个个 取出所有的 数据 保存成数据结构 再存储 数据库
-	U16 flagTemp = -1;
-	float dataTemp = 0;
+	U16 flagTemp = -1; //数据标志
+	float dataTemp = 0; //数据
 	QString strLog;
-
-	
-
+	float floatJD=0, floatWD=0; //经纬度
 	for (int index = 0; index < dataCount; ++index)
 	{
 		flagTemp = sessionMessageIn->m_InputArray.ReadU16();
@@ -1752,21 +1791,102 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			strLog += QString("[%1::%2]").arg(mapFlag[flagTemp])
 				.arg(dataTemp);
 			vec.push_back(std::make_shared<NEW_DEVICE_DATA>(flagTemp, dataTemp, mapFlag[flagTemp]));
+			if (configJD == flagTemp) //经度标识
+			{
+				floatJD = dataTemp;
+			}
+			if (configWD == flagTemp) //纬度
+			{
+				floatWD = flagTemp;
+			}
+		}
+	}
+	
+	//当前时间 s
+	quint64 elapsed = QDateTime::currentSecsSinceEpoch();
+
+	QString qstrDeviceID;
+	bool ret = false;
+	DeviceInfo info;
+	if (m_strDeviceIDMap.contains(strID))
+	{
+		info = m_strDeviceIDMap[strID];
+	}
+	else //第一次登陆
+	{
+		//秒
+		//数据库 查询 最近的设备信息
+		ret = CDBService::GetInstance()->GetDeviceDataByDeviceCode(strID
+			, info);
+		if (!ret)
+		{
+			LOG_DEBUG() << QString("未找到[%1]设备的信息,不写入数据库!").arg(strID);
+			return -1;
+		}
+		m_strDeviceIDMap[strID] = info;
+	}
+
+	//1.比较 时间
+	//2.比较 经纬度
+
+	//与上次 时间 间隔  
+	//大于间隔时间
+
+	//是否写Device表 创建新设备 flase不创建 true创建
+	bool flagDB = false;
+	if (elapsed - info.m_dateTime > dateTimeJG)
+	{
+		//经纬度有效
+		if (floatJD != 0 && floatWD != 0)
+		{
+			//比较 距离
+			double jg = getDistance(floatJD, floatWD, info.m_strJD, info.m_strWD);
+			if (jg >= -100 && jg <= 100) // [-100,100] m 内 上传数据地点 没变
+			{
+				qstrDeviceID = info.m_strID;
+			}
+			else
+			{
+				qstrDeviceID = QUuid::createUuid().toString();
+				flagDB = true;
+			}
+		}
+		else //上传的经纬度无效
+		{
+			qstrDeviceID = QUuid::createUuid().toString();
+			flagDB = true;
+		}
+		
+	}
+	else
+		qstrDeviceID = info.m_strID;
+
+
+	m_strDeviceIDMap[strID].m_strID = qstrDeviceID;
+	m_strDeviceIDMap[strID].m_dateTime = elapsed;
+	m_strDeviceIDMap[strID].m_strNumber = strID;
+
+	if (flagDB 
+		|| m_strDeviceIDMap[strID].m_strJD == 0 
+		|| m_strDeviceIDMap[strID].m_strWD == 0)
+	{
+		ret = CDBService::GetInstance()->UpdateDeviceInfo(m_strDeviceIDMap[strID]);
+		if (!ret)
+		{
+			LOG_DEBUG() << QString("数据插入Device失败!_%1").arg(strID);
+			return -1;
 		}
 	}
 
-
-
-
-	LOG_DEBUG() << QStringLiteral("%1设备批量上传数据\r\n{%1}!").arg(qstrDeviceID).arg(strLog);
 
 	// 实时数据入库
 	 ret = CDBService::GetInstance()->DataQueuePushBack(qstrDeviceID, vec);
 	if (!ret)
 	{
-		LOG_DEBUG() << QString("数据插入失败!_%1").arg(qstrDeviceID);
+		LOG_DEBUG() << QString("数据插入失败!_%1").arg(strID);
 		return -1;
 	}
+	LOG_DEBUG() << QStringLiteral("[[%1]-[%2]]设备批量上传数据{%3}!").arg(strID).arg(qstrDeviceID).arg(strLog);
 
 	return ERROR_SUCCESS;
 }

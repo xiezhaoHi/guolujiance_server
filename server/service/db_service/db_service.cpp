@@ -1435,6 +1435,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 		qstrSQLFormat = QStringLiteral("INSERT INTO %1  VALUES (?,?,?,?,?,?,?,?)");
 
 
+	Q_ASSERT(m_deviceMsgMap.contains(data->qstrDeviceID));
 	
 	
 	// 批量插入数据
@@ -2274,4 +2275,162 @@ void CDBHandleTask::run()
 			delete begin.value();
 	}
 	LOG_DEBUG() << "CDBHandleTask " << taskID << "exit";
+}
+
+
+
+// 获取最近的指定设备number 的信息
+bool CDBService::GetDeviceDataByDeviceCode(const QString & deviceCode
+	, DeviceInfo & deviceInfo)
+{
+
+	Q_ASSERT(deviceCode.length() > 0);
+
+	db_con_ptr con = GetDBConnection(DB_CON_READONLY);
+	if (!con) {
+		return false;
+	}
+
+	con->AcquireWrite();
+	QSqlQuery query(*(con->pDB));
+	//QString qstrSQL = QStringLiteral("SELECT ID FROM Rig_DeviceInfo WHERE Code = ?");
+	QString qstrSQL = QStringLiteral("SELECT ID,CreateDate,Longitude,Latitude FROM Device WHERE CreateDate in \
+(select MAX([CreateDate]) from [Device] where [Number] =?) ");
+
+	if (!query.prepare(qstrSQL)) {
+		LOG_WARING() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
+			<< " sql:" << qstrSQL;
+		con->Release();
+		return false;
+	}
+
+	query.bindValue(0, deviceCode);
+
+	if (!query.exec()) {
+		LOG_WARING() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
+			<< " sql:" << qstrSQL;
+		con->Release();
+		return false;
+	}
+
+	bool ret = query.next();
+	if (ret) {
+		
+		deviceInfo.m_strID = query.value(0).toString();
+		deviceInfo.m_dateTime = query.value(1).toDateTime().toSecsSinceEpoch();
+		deviceInfo.m_strJD = query.value(2).toFloat();
+		deviceInfo.m_strWD = query.value(3).toFloat();
+	}
+
+	con->Release();
+	return ret;
+}
+
+
+//更新设备表
+bool CDBService::UpdateDeviceInfo(DeviceInfo &info)
+{
+	//没有就创建,有就更新
+
+	LOG_DEBUG() << QStringLiteral("开始创建数据表0>>>>>>>>>>>>>>>>>>>>>");
+	db_con_ptr con = GetDBConnection(DB_CON_READONLY);
+	if (!con) {
+		return false;
+	}
+
+	con->AcquireWrite();
+	QSqlQuery query(*(con->pDB));
+	//QString qstrSQLFormat(QStringLiteral("CREATE TABLE %1 (ID INT IDENTITY (1, 1) NOT NULL,DeviceID VARCHAR (50) NOT NULL,ChannelNo INT NOT NULL,DataType INT NOT NULL,TIMESTAMP BIGINT NOT NULL,Longitude DOUBLE PRECISION NOT NULL,Latitude DOUBLE PRECISION NOT NULL,Concentration DECIMAL(12,6) NOT NULL,MeasurementUnit INT NOT NULL)"));
+	LOG_DEBUG() << QStringLiteral("更新Device表>>>>>>>>>>>>>>>>>>>>>");
+
+	QString qstrSelect,qstrUpdate,qstrInsert;
+	
+	qstrSelect = QString("select count(*) from Device where Id = '%1'");
+	qstrUpdate = QString("UPDATE Device set [CreateDate] =?, [Longitude] =?,[Latitude]=? where Id=? ");
+	qstrInsert = QString("Insert into Device ([Id],[Number],[Name],[State],[IsDelete],[CreateDate],[CreateUser],[Longitude],[Latitude]\
+				) values(");
+
+	QString strTime = (QDateTime::fromSecsSinceEpoch(info.m_dateTime).toString("yyyy-MM-dd hh:mm:ss:zzz"));
+	QString qstrSQL = qstrSelect.arg(info.m_strID);
+	if (!query.prepare(qstrSQL)) {
+		LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
+			<< " sql:" << qstrSQL;
+		con->Release();
+		return false;
+	}
+	if (!query.exec()) {
+		LOG_INFO() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
+			<< " sql:" << qstrSQL;
+		con->Release();
+		return false;
+	}
+
+	bool ret = query.next();
+	if (ret) { //有表 就更新
+		//qstrSQL = qstrUpdate.arg(QVariant(info.m_dateTime)).arg(info.m_strJD).arg(info.m_strWD).arg(info.m_strID);
+		int value = query.value(0).toInt();
+		if (value != 0) 
+		{
+			if (!query.prepare(qstrUpdate)) {
+				LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrUpdate;
+				con->Release();
+				return false;
+			}
+
+			query.addBindValue(QVariant(strTime));
+			query.addBindValue(QVariant(info.m_strJD));
+			query.addBindValue(QVariant(info.m_strWD));
+			query.addBindValue(QVariant(info.m_strID));
+			if (!query.exec()) {
+				LOG_INFO() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrUpdate;
+				con->Release();
+				return false;
+			}
+		}
+		else
+		{
+			qstrInsert += "'" + info.m_strID+"'";
+			qstrInsert += ",'" + info.m_strNumber + "'";
+			qstrInsert += ",'" + (info.m_strNumber) + "'";
+			qstrInsert += ",'" + QString("1") + "'";
+			qstrInsert += ",'" + QString("2") + "'";
+			qstrInsert += ",'" + strTime + "'";
+			qstrInsert += ",'" + info.m_strID + "'";
+			qstrInsert += ",'" + QString("%1").arg(info.m_strJD) + "'";
+			qstrInsert += ",'" + QString("%1").arg(info.m_strWD) + "')";
+			if (!query.prepare(qstrInsert)) {
+				LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrInsert;
+				con->Release();
+				return false;
+			}
+			//bind
+// 			query.addBindValue((info.m_strID));
+// 			query.addBindValue((info.m_strNumber));
+// 			query.addBindValue((info.m_strNumber));
+// 			query.addBindValue((1));
+// 			query.addBindValue((0));
+// 			query.addBindValue(strTime);
+// 			query.addBindValue((info.m_strID));
+// 			query.addBindValue((info.m_strJD));
+// 			query.addBindValue((info.m_strWD));
+		
+
+
+
+			if (!query.exec()) {
+				LOG_INFO() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrInsert;
+				con->Release();
+				return false;
+			}
+		}
+
+	}
+	
+
+	con->Release();
+	return ret;
 }
