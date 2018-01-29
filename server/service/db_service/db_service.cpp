@@ -1624,7 +1624,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 
 		for (std::shared_ptr<NEW_DEVICE_DATA> realData : data->m_vectorDataNew)
 		{
-			json.insert(realData->m_strFlag, (float)realData->m_data);
+			json.insert(realData->m_strFlag, realData->m_data);
 		}
 
 		document.setObject(json);
@@ -2346,7 +2346,7 @@ bool CDBService::UpdateDeviceInfo(DeviceInfo &info)
 	QString qstrSelect,qstrUpdate,qstrInsert;
 	
 	qstrSelect = QString("select count(*) from Device where Id = '%1'");
-	qstrUpdate = QString("UPDATE Device set [CreateDate] =?, [Longitude] =?,[Latitude]=? where Id=? ");
+	qstrUpdate = QString("UPDATE Device set [CreateDate] ='%1', [Longitude] ='%2',[Latitude]='%3' where Id='%4' ");
 	qstrInsert = QString("Insert into Device ([Id],[Number],[Name],[State],[IsDelete],[CreateDate],[CreateUser],[Longitude],[Latitude]\
 				) values(");
 
@@ -2371,17 +2371,23 @@ bool CDBService::UpdateDeviceInfo(DeviceInfo &info)
 		int value = query.value(0).toInt();
 		if (value != 0) 
 		{
+			qstrUpdate = qstrUpdate.arg(strTime).arg(info.m_strJD).arg(info.m_strWD).arg(info.m_strID);
 			if (!query.prepare(qstrUpdate)) {
 				LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
 					<< " sql:" << qstrUpdate;
 				con->Release();
 				return false;
 			}
-
-			query.addBindValue(QVariant(strTime));
-			query.addBindValue(QVariant(info.m_strJD));
-			query.addBindValue(QVariant(info.m_strWD));
-			query.addBindValue(QVariant(info.m_strID));
+			//更新插入表的 缓存结构
+			if (m_deviceMsgMap.contains(info.m_strID))
+			{
+				m_deviceMsgMap[info.m_strID].m_longitude = QString("%1").arg(info.m_strJD);
+				m_deviceMsgMap[info.m_strID].m_latitude = QString("%1").arg(info.m_strWD);
+			}
+// 			query.addBindValue(QVariant(strTime));
+// 			query.addBindValue(QVariant(info.m_strJD));
+// 			query.addBindValue(QVariant(info.m_strWD));
+// 			query.addBindValue(QVariant(info.m_strID));
 			if (!query.exec()) {
 				LOG_INFO() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
 					<< " sql:" << qstrUpdate;

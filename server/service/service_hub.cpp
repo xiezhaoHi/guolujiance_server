@@ -80,15 +80,22 @@ bool CServiceHub::StartServices()
     }
 
     // 数据库服务
-    ret = CDBService::GetInstance()->StartInternalService();
-    if (0 != ret) {
-        goto DESTROY_SERVICES;
-    } else {
-        process = DB_SERVICE;
-        LOG_INFO() << CDBService::GetInstance()->GetServiceName() 
-            << QStringLiteral("启动成功");
-    }
-
+	//20180129 新增 数据库连接 失败 等待半小时 继续重试
+	while (1)
+	{
+		ret = CDBService::GetInstance()->StartInternalService();
+		if (0 != ret) {
+			//goto DESTROY_SERVICES;
+			Sleep(30 * 60 * 1000);
+			continue;
+		}
+		else {
+			process = DB_SERVICE;
+			LOG_INFO() << CDBService::GetInstance()->GetServiceName()
+				<< QStringLiteral("启动成功");
+			break;
+		}
+	}
     // 业务处理服务
     ret = CBusinessHandleService::GetInstance()->StartInternalService();
     if (0 != ret) {
@@ -100,14 +107,18 @@ bool CServiceHub::StartServices()
     }
 
     // socket连接服务
-    ret = CSocketService::GetInstance()->StartInternalService();
-    if (0 != ret) {
-        goto DESTROY_SERVICES;
-    } else {
-        process = SOCKET_SERVICE;
-        LOG_INFO() << CSocketService::GetInstance()->GetServiceName() 
-            << QStringLiteral("启动成功");
-    }
+
+		ret = CSocketService::GetInstance()->StartInternalService();
+		if (0 != ret) {
+			goto DESTROY_SERVICES;
+		}
+		else {
+			process = SOCKET_SERVICE;
+			LOG_INFO() << CSocketService::GetInstance()->GetServiceName()
+				<< QStringLiteral("启动成功");
+		}
+	
+    
 
     LOG_INFO() << QStringLiteral("H2S监测服务器启动完成");
     m_bIsServicesRunning = true;

@@ -1797,7 +1797,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			}
 			if (configWD == flagTemp) //纬度
 			{
-				floatWD = flagTemp;
+				floatWD = dataTemp;
 			}
 		}
 	}
@@ -1848,6 +1848,8 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			else
 			{
 				qstrDeviceID = QUuid::createUuid().toString();
+				m_strDeviceIDMap[strID].m_strJD = floatJD;
+				m_strDeviceIDMap[strID].m_strWD = floatWD;
 				flagDB = true;
 			}
 		}
@@ -1855,20 +1857,21 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 		{
 			qstrDeviceID = QUuid::createUuid().toString();
 			flagDB = true;
+			m_strDeviceIDMap[strID].m_strJD = floatJD;
+			m_strDeviceIDMap[strID].m_strWD = floatWD;
 		}
 		
 	}
 	else
 		qstrDeviceID = info.m_strID;
 
-
 	m_strDeviceIDMap[strID].m_strID = qstrDeviceID;
 	m_strDeviceIDMap[strID].m_dateTime = elapsed;
 	m_strDeviceIDMap[strID].m_strNumber = strID;
 
-	if (flagDB 
-		|| m_strDeviceIDMap[strID].m_strJD == 0 
-		|| m_strDeviceIDMap[strID].m_strWD == 0)
+
+	//第一次 上次时
+	if (flagDB)
 	{
 		ret = CDBService::GetInstance()->UpdateDeviceInfo(m_strDeviceIDMap[strID]);
 		if (!ret)
@@ -1877,7 +1880,23 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			return -1;
 		}
 	}
-
+	//后续上传 补全坐标信息
+	if (
+		m_strDeviceIDMap[strID].m_strJD == 0
+		|| m_strDeviceIDMap[strID].m_strWD == 0)
+	{
+		if (floatJD != 0 && floatWD != 0)
+		{
+			m_strDeviceIDMap[strID].m_strJD = floatJD;
+			m_strDeviceIDMap[strID].m_strWD = floatWD;
+			ret = CDBService::GetInstance()->UpdateDeviceInfo(m_strDeviceIDMap[strID]);
+			if (!ret)
+			{
+				LOG_DEBUG() << QString("数据插入Device失败!_%1").arg(strID);
+				return -1;
+			}
+		}	
+	}
 
 	// 实时数据入库
 	 ret = CDBService::GetInstance()->DataQueuePushBack(qstrDeviceID, vec);
