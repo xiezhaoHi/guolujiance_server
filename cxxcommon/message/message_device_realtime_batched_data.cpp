@@ -83,7 +83,7 @@ IMessage * CMessageDeviceRealtimeBatchedData::CreateFromHeader(const CMessageHea
     return NULL;
 }
 
-void CMessageDeviceRealtimeBatchedData::SplitBatchedMessage(QVector<message_device_realtime_data_ptr> & vec)
+void CMessageDeviceRealtimeBatchedData::SplitBatchedMessage(REALTIME_DATA & vec)
 {
     // 将存放了批量数据的消息拆分为单个消息进行存储
     for (int i = 0; i < m_struct.dataItemCount; i++)

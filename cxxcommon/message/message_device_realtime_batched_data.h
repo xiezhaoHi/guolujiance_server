@@ -4,7 +4,7 @@
 
 #include "message/i_message.h"
 #include <QVector>
-
+#include <service/db_service/db_service.h>
 
 class CMessageDeviceRealtimeDataItem;
 typedef std::shared_ptr<CMessageDeviceRealtimeDataItem> message_device_realtime_data_item_ptr;
@@ -29,7 +29,7 @@ public:
 
     static IMessage * CreateFromHeader(const CMessageHeader & header);
 
-    void SplitBatchedMessage(QVector<message_device_realtime_data_ptr> & vec);
+    void SplitBatchedMessage(REALTIME_DATA & vec);
 
 public:
     T_MSG_DEVICE_REALTIME_BATCHED_DATA          m_struct;

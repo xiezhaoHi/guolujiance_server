@@ -1857,8 +1857,8 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 		{
 			qstrDeviceID = QUuid::createUuid().toString();
 			flagDB = true;
-			m_strDeviceIDMap[strID].m_strJD = floatJD;
-			m_strDeviceIDMap[strID].m_strWD = floatWD;
+			m_strDeviceIDMap[strID].m_strJD = 0;
+			m_strDeviceIDMap[strID].m_strWD = 0;
 		}
 		
 	}
@@ -1885,7 +1885,10 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 		m_strDeviceIDMap[strID].m_strJD == 0
 		|| m_strDeviceIDMap[strID].m_strWD == 0)
 	{
-		if (floatJD != 0 && floatWD != 0)
+		const float EPSINON = 0.00001;
+		if ( ((floatJD < -EPSINON) || (floatJD > EPSINON))
+			&& ((floatWD < -EPSINON) || (floatWD > EPSINON)))
+		//if (floatJD != 0 && floatWD != 0)
 		{
 			m_strDeviceIDMap[strID].m_strJD = floatJD;
 			m_strDeviceIDMap[strID].m_strWD = floatWD;

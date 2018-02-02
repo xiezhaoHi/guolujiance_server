@@ -1342,7 +1342,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 	char sz[12] = { 0 };
 	UINT16 maskOfData = 0;
 	bool ret = false;
-
+	bool  selectflag = false; //表示查询表无错
 	LOG_DEBUG() << QStringLiteral("开始解析数据>>>>>>>>>>>>>>>>>>>>>");
 
 	//说明  虽然参数是List 实际 只有一个值, 是为了不改原来的代码
@@ -1403,20 +1403,25 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 
 
 		bool ret = queryDef.next();
-		if (ret) {
-			lstCompanyName << queryDef.value(0).toString();
-			lstLongitude << queryDef.value(1).toString();
-			lstLatitude << queryDef.value(2).toString();
-			lstBoilerId << queryDef.value(3).toString();
-			lstAddress << queryDef.value(4).toString();
-
-			m_deviceMsgMap[strDeviceID].m_companyName = queryDef.value(0).toString();
-			m_deviceMsgMap[strDeviceID].m_longitude = queryDef.value(1).toString();
-			m_deviceMsgMap[strDeviceID].m_latitude = queryDef.value(2).toString();
-			m_deviceMsgMap[strDeviceID].m_boilerId = queryDef.value(3).toString();
-			m_deviceMsgMap[strDeviceID].m_address = queryDef.value(4).toString();
-			LOG_DEBUG() << QStringLiteral("设备第一次登陆,成功获取设备信息并缓存!");
+		if (!ret) {
+			LOG_WARING() << "SQLQuery exec failed. error:" << conDef->pDB->lastError().text()
+				<< " sql:" << qstrSQL;
+			conDef->Release();
+			return false;
 		}
+		lstCompanyName << queryDef.value(0).toString();
+		lstLongitude << queryDef.value(1).toString();
+		lstLatitude << queryDef.value(2).toString();
+		lstBoilerId << queryDef.value(3).toString();
+		lstAddress << queryDef.value(4).toString();
+
+		m_deviceMsgMap[strDeviceID].m_companyName = queryDef.value(0).toString();
+		m_deviceMsgMap[strDeviceID].m_longitude = queryDef.value(1).toString();
+		m_deviceMsgMap[strDeviceID].m_latitude = queryDef.value(2).toString();
+		m_deviceMsgMap[strDeviceID].m_boilerId = queryDef.value(3).toString();
+		m_deviceMsgMap[strDeviceID].m_address = queryDef.value(4).toString();
+		LOG_DEBUG() << QStringLiteral("设备第一次登陆,成功获取设备信息并缓存!");
+
 		conDef->Release();
 	}
 
@@ -2348,7 +2353,7 @@ bool CDBService::UpdateDeviceInfo(DeviceInfo &info)
 	qstrSelect = QString("select count(*) from Device where Id = '%1'");
 	qstrUpdate = QString("UPDATE Device set [CreateDate] ='%1', [Longitude] ='%2',[Latitude]='%3' where Id='%4' ");
 	qstrInsert = QString("Insert into Device ([Id],[Number],[Name],[State],[IsDelete],[CreateDate],[CreateUser],[Longitude],[Latitude]\
-				) values(");
+				,[Type]) values(");
 
 	QString strTime = (QDateTime::fromSecsSinceEpoch(info.m_dateTime).toString("yyyy-MM-dd hh:mm:ss:zzz"));
 	QString qstrSQL = qstrSelect.arg(info.m_strID);
@@ -2401,11 +2406,12 @@ bool CDBService::UpdateDeviceInfo(DeviceInfo &info)
 			qstrInsert += ",'" + info.m_strNumber + "'";
 			qstrInsert += ",'" + (info.m_strNumber) + "'";
 			qstrInsert += ",'" + QString("1") + "'";
-			qstrInsert += ",'" + QString("2") + "'";
+			qstrInsert += ",'" + QString("0") + "'";//isDelete 字段默认0
 			qstrInsert += ",'" + strTime + "'";
 			qstrInsert += ",'" + info.m_strID + "'";
 			qstrInsert += ",'" + QString("%1").arg(info.m_strJD) + "'";
-			qstrInsert += ",'" + QString("%1").arg(info.m_strWD) + "')";
+			qstrInsert += ",'" + QString("%1").arg(info.m_strWD) + "'";
+			qstrInsert += ",'" + QString("2") + "')"; //type字段 默认2
 			if (!query.prepare(qstrInsert)) {
 				LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
 					<< " sql:" << qstrInsert;

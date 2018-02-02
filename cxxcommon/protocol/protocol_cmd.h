@@ -83,6 +83,8 @@
 #define COMMON_CMD_GET_HISTORY_DEVICE_DATA_COUNT    0x0009 /* 含义:获取历史设备数据条数 发送端: PC客户端 发送结构:T_MSG_GET_DEVICE_DATA_COUNT_REQ 回复结构:T_MSG_GET_DEVICE_DATA_COUNT_REP */
 #define COMMON_CMD_GET_HISTORY_DEVICE_DATA          0x000A /* 含义:获取历史设备数据 发送端: PC客户端 发送结构:T_MSG_GET_DEVICE_DATA_REQ 回复结构:T_MSG_GET_DEVICE_DATA_REP */
 #define COMMON_CMD_REALTIME_BATCHED_DATA            0x000B /* 含义:批量发送 发送端: PC客户端 发送结构:T_MSG_GET_DEVICE_DATA_REQ 回复结构:T_MSG_GET_DEVICE_DATA_REP */
+//20180122 新增
+#define COMMON_CMD_REALTIME_BATCHED_DATA_NEW           0x000C /* 含义:批量发送 */
 
 //////////////////////////////////////////////////////////////////////////
 // PC客户端主动发出的请求命令
@@ -103,7 +105,8 @@
 #define DEVICE_CMD_REALTIME_DATA                        (SET_DEVICE_BIT(COMMON_CMD_REALTIME_DATA))/*设备上传实时采集数据*/
 #define DEVICE_CMD_SEND_HEARTBEAT                       (SET_DEVICE_BIT(COMMON_CMD_SEND_HEARTBEAT))/*设备发送心跳，服务器返回服务器时间*/
 #define DEVICE_CMD_REALTIME_BATCHED_DATA                (SET_DEVICE_BIT(COMMON_CMD_REALTIME_BATCHED_DATA))/*设备批量上传采集数据*/
-
+//20180122 新增
+#define DEVICE_CMD_REALTIME_BATCHED_DATA_NEW               (SET_DEVICE_BIT(COMMON_CMD_REALTIME_BATCHED_DATA_NEW))/*新协议设备批量上传采集数据*/
 //////////////////////////////////////////////////////////////////////////
 // PC服务端发出的命令
 #define PC_SERVER_CMD_LOGIN_REP                         (SET_PC_SERVER_CMD_BIT(SET_REP_BIT(COMMON_CMD_LOGIN)))              /*登录回复*/

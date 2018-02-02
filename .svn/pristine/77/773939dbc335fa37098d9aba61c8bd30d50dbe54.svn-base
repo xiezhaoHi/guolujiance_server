@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/qss">
-        <file alias="form_login.qss">Resources/qss/form_login.qss</file>
-        <file alias="main_window.qss">Resources/qss/client_main_window.qss</file>
-        <file alias="application_common_style.qss">Resources/qss/application_common_style.qss</file>
-    </qresource>
-    <qresource prefix="/images"/>
-</RCC>

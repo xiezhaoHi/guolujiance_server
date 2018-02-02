@@ -39,6 +39,13 @@ public:
 
     virtual QString ToString();
 
+	/******************************************************/
+	//20180122 新增 设置cmd 到head 
+
+	void SetCMDToHead(unsigned int length 
+		,unsigned int cmd = DEVICE_CMD_REALTIME_BATCHED_DATA_NEW);
+
+	//void ParseBody_two();
 private:
     // 创建消息体对象
     bool CreateMessageBody();

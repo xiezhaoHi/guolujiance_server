@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     boost::asio::io_service io_service;
 
     tcp::resolver resolver(io_service);
-    tcp::resolver::query query("192.168.1.115", "17024");
+    tcp::resolver::query query("127.0.0.1", "17024");
     auto endpoint_iterator = resolver.resolve(query);
     CTcpClient c(io_service, endpoint_iterator);
 
@@ -135,7 +135,7 @@ void Device(CTcpClient * pClient, QString & deviceCode)
 			message->SetMessageBody(deviceData);
 			tempData+=1;
 			qDebug() << tempData << QDateTime::fromMSecsSinceEpoch( deviceData->m_struct.timestamp).toString(" ___ hh:mm:ss");
-			//pClient->test_write(message);
+			pClient->test_write(message);
 
 		}
 		

@@ -44,7 +44,8 @@ public:
     D64 ReadD64();
 
     S64 ReadS64();
-
+	//从16进制表示到float
+	F32 ReadF32New();
     bool ReadBytes(int len, QByteArray &out);
 
     bool ReadUtf8String(int len, QString &out);
@@ -62,6 +63,7 @@ public:
 
     U8 * Data() const;
 
+	
 private:
     QByteArray  m_buf;
     int         m_offset;

@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QMessageBox>
 #include <QHBoxLayout>
+#include <QMap>
 transform::transform(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -31,11 +32,21 @@ transform::transform(QWidget *parent)
 	setCentralWidget(pCenter);
 }
 //   182.131.2.216,1335\\SQL2005
+#define  LOCAL
+#ifdef LOCAL
 static QString        QSTR_DB_CON_STR = QStringLiteral("DRIVER={SQL SERVER};SERVER=127.0.0.1;DATABASE=GasMonitor");
-static QString        QSTR_DB_USER = QStringLiteral("sa");
 static QString        QSTR_DB_PASSWORD = QStringLiteral("123456");
 static QString        QSTR_DB_HOSTNAME = QStringLiteral("127.0.0.1");
+static QString        QSTR_DB_USER = QStringLiteral("sa");
 static int            N_DB_PORT = 1433;
+#else
+static QString        QSTR_DB_CON_STR = QStringLiteral("DRIVER={SQL SERVER};SERVER=182.131.2.216,1433;DATABASE=GasMonitor");
+static QString        QSTR_DB_PASSWORD = QStringLiteral("rtmc@@508001");
+static QString        QSTR_DB_HOSTNAME = QStringLiteral("182.131.2.216");
+static QString        QSTR_DB_USER = QStringLiteral("sa");
+static int            N_DB_PORT = 1433;
+#endif
+
 QSqlDatabase CreateDBConnection()
 {
 	// 软件授权验证
@@ -81,22 +92,50 @@ QString strCreate = QStringLiteral("CREATE TABLE  %1 (\
 //,[SulfurDioxide],[NitricOxide],[CarbonMonoxide],[Hydrogen],[Oxygen],[CarbonDioxide],[CurrentTime],[BoilerId]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)"));
 enum mamos_ch_index
 {
-	MAMOS_O2 = 0,		// 20.95%
-	MAMOS_CO,			// 12ppm
-	MAMOS_NO,			// 24ppm
-	MAMOS_SO2,			// 56ppm
-	MAMOS_NO2,			// 888ppm
-	MAMOS_CO2,			// 23.13%
-	MAMOS_CH_NUM,
-	MAMOS_ID = MAMOS_CH_NUM // ID
+
+	V_PER_O2 = 0x00,    //O2含量        %
+	V_PER_CO2,          //CO2含量       %
+
+
+	V_PPM_CO ,			//CO含量        ppm
+	V_PPM_NO,           //NO含量        ppm
+	V_PPM_NO2,          //NO2含量       ppm
+	V_PPM_NOx,          //NOx含量       ppm
+	V_PPM_SO2,          //SO2含量       ppm
+
+	V_TMP_YAN = 0x200,  //烟温          ℃
+	V_TMP_SHI,          //室温          ℃
+
+	V_mbar_DP1 = 0x300, //△P1          mbar
+	V_mbar_DP2,         //△P2          mbar
+	V_mbar_DP,          //△P           mbar
+
+	V_mPs_L = 0x400,    //气流速度      m/s
+	V_mPs_B,            //泵气流速度    m/s
+
+	V_longitude = 0x500,//经度          °
+	V_dimension,        //维度          °
+	V_Unix32,           //UNIX 32位时间
+
+	
 };
 
-char*  gMamosKey[] = { "MAMOS_O2","MAMOS_CO", "MAMOS_NO", "MAMOS_SO2"
-, "MAMOS_NO2", "MAMOS_CO2", nullptr };
+char*  gMamosKey[] = { "V_PER_O2","V_PPM_CO", "V_PPM_NO", "V_PPM_SO2"
+, "V_PPM_NO2", "V_PER_CO2", nullptr };
 
 
 void transform::on_clicked(bool checked)
 {
+
+	QMap<QString, QVariantList> maplstDeviceID;
+	QMap<QString, QVariantList> maplstCompanyName;
+	QMap<QString, QVariantList> maplstAddress;
+	QMap<QString, QVariantList> maplstLongitude;
+	QMap<QString, QVariantList> maplstLatitude;
+	QMap<QString, QVariantList> maplstTimestamp;
+	QMap<QString, QVariantList> maplstBoilerId;
+	QMap<QString, QVariantList> maplstData;
+
 	QVariantList lstDeviceID;
 	QVariantList lstCompanyName;
 	QVariantList lstAddress;
@@ -170,6 +209,7 @@ void transform::on_clicked(bool checked)
 		//创建一个新表 //组装数据 插入新表
 		if (queryDef.exec(strCreate.arg(strNewName)))
 		{
+
 			if (queryDef.prepare(strInsert.arg(strNewName)))
 			{
 				queryDef.addBindValue(lstDeviceID);
@@ -180,7 +220,8 @@ void transform::on_clicked(bool checked)
 				queryDef.addBindValue(lstData);
 				queryDef.addBindValue(lstTimestamp);
 				queryDef.addBindValue(lstBoilerId);
-				queryDef.execBatch();
+				queryDef.execBatch(); 
+					
 			}
 			
 		}
@@ -222,15 +263,29 @@ void transform::on_old_clicked(bool)
 	QDateTime curTime = QDateTime::currentDateTime();
 	QString strOldName = batchTableNameOld.arg(curTime.toString("yyyyMMdd"));
 	QString strNewName = batchTableNameNew.arg(curTime.toString("yyyyMMdd"));
-	QString strSql;
+	QString strSql,strSqlCount;
+	
 	while (strOldName != strOldestName)
 	{
-		strSql = QString("sp_rename '%1','%2'").arg(strOldName).arg(strNewName);
-		db.exec(strSql);
+		//查看表是否已存在
+		strSqlCount = QString("select count(*) from %1").arg(strNewName);
+		if (!queryDef.exec(strSqlCount)) //无效 表不存在
+		{
+			strSql = QString("sp_rename '%1','%2'").arg(strOldName).arg(strNewName);
+			queryDef.exec(strSql);
+		}
+		else
+		{
+			strSql = QString("DROP TABLE %1").arg(strOldName);
+			queryDef.exec(strSql);
+		}
 		curTime = curTime.addDays(-1);
 		strOldName = batchTableNameOld.arg(curTime.toString("yyyyMMdd"));
 		strNewName = batchTableNameNew.arg(curTime.toString("yyyyMMdd"));
 	}
 
 	db.close();
+	QMessageBox box;
+	box.setText(QStringLiteral("完成"));
+	box.exec();
 }

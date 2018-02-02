@@ -119,6 +119,7 @@ bool CMessage::AppendInputByteArray(U8 * u8array, int arrayLen)
     {
         return false;
     }
+	m_InputArray.TruncateBytesBeforeOffset(); //Çå³ý»º´æ
     m_InputArray.AppendBytes(QByteArray((char *)u8array, arrayLen));
     return true;
 }
@@ -157,3 +158,8 @@ QString CMessage::ToString()
     return qstr;
 }
 
+void CMessage::SetCMDToHead(unsigned int length ,unsigned int cmd )
+{
+	m_header.m_struct.cmd = cmd;
+	m_header.m_struct.bodyLength = length;
+}

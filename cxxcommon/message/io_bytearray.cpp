@@ -156,6 +156,29 @@ bool InputByteArray::ReadUtf8String(int len, QString &out)
     return true;
 }
 
+union myfloat
+{
+	float f;
+	uchar buf[4];
+};
+union  myInt
+{
+	int a;
+	uchar buf[4];
+};
+//从16进制表示到float
+F32 InputByteArray::ReadF32New()
+{
+	char ret;
+	QString str;
+	myfloat f;
+	U8 ch;
+	for (int index = 0; index < 4; ++index)
+	{
+		f.buf[index] = ReadU8();
+	}
+	return f.f;
+}
 
 //////////////////////////////////////////////////////////////////////////
 // OutputByteArray 
