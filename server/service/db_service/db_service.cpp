@@ -34,10 +34,8 @@ enum mamos_ch_index
 	MAMOS_ID = MAMOS_CH_NUM // ID
 };
 
-char*  gMamosKey[] = { "MAMOS_O2","MAMOS_CO", "MAMOS_NO", "MAMOS_SO2"
-, "MAMOS_NO2", "MAMOS_CO2", nullptr };
-
-
+static char*  gMamosKey[] = { "V_PER_O2","V_PPM_CO", "V_PPM_NO", "V_PPM_SO2"
+, "V_PPM_NO2", "V_PER_CO2", nullptr };
 
 CDBService * CDBService::m_pInstance = NULL;
 
@@ -1116,6 +1114,7 @@ bool CDBService::CreateDataTable(const QString & tableName, int flag )
     LOG_DEBUG() << QStringLiteral("开始创建数据表1>>>>>>>>>>>>>>>>>>>>>");
 	
 	QString qstrSQLFormat;
+#ifdef OLD_TYPE_DB
 	if (0 == flag)
 	{
 		qstrSQLFormat = QStringLiteral("CREATE TABLE %1 (\
@@ -1134,6 +1133,7 @@ bool CDBService::CreateDataTable(const QString & tableName, int flag )
 										 BoilerId uniqueidentifier NULL)");
 	}
 	else
+#endif
 	{
 		qstrSQLFormat = QStringLiteral("CREATE TABLE  %1 (\
 										 DeviceId uniqueidentifier NOT NULL,\
@@ -1431,12 +1431,15 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 	int flag; //标识 0 旧版 1新版
 	flag = data->m_flag;
 	QString qstrSQLFormat;
+#ifdef OLD_TYPE_DB
 	if (OLD_TYPE== flag) //旧版
 	{
 		//                                                    设备ID        公司名        地址       经度        纬度       二氧化硫      一氧化氮       一氧化碳        二氧化氮   氧气       二氧化碳      时间           锅炉ID
 		qstrSQLFormat = QStringLiteral("INSERT INTO %1 ([DeviceId],[CompanyName],[Address],[Longitude],[Latitude],[SulfurDioxide],[NitricOxide],[CarbonMonoxide],[Hydrogen],[Oxygen],[CarbonDioxide],[CurrentTime],[BoilerId]) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 	}
+
 	else if(NEW_TYPE == flag)// 新版
+#endif
 		qstrSQLFormat = QStringLiteral("INSERT INTO %1  VALUES (?,?,?,?,?,?,?,?)");
 
 
@@ -1466,6 +1469,16 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 	//遍历数据链表
 	if(OLD_TYPE== flag)
 	{
+		QVariantList listDeviceData;
+		QString strData; //保存每组数据生成的json字符串
+						 //遍历每组数据 中的数据表
+
+		QJsonObject json;
+		// 		json.insert("name", QString("Qt"));
+		// 		json.insert("version", 5);
+		// 		json.insert("windows", true);
+
+		QJsonDocument document;
 		for (message_device_realtime_data_ptr realData : data->m_vectorData) {
 			if (realData->m_struct.channelNo != MAMOS_ID)
 			{
@@ -1481,9 +1494,10 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				}
 			}
 
-
+#ifdef OLD_TYPE_DB
 			switch (realData->m_struct.channelNo)
 			{
+
 			case MAMOS_O2:
 			{
 
@@ -1495,7 +1509,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 
 			break;
 			case MAMOS_CO:
-				if (concentration>60000)
+				if (concentration > 60000)
 				{
 					concentration = 60000;
 				}
@@ -1505,7 +1519,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				maskOfData += MAMOS_CO;
 				break;
 			case MAMOS_NO:
-				if (concentration>60000)
+				if (concentration > 60000)
 				{
 					concentration = 60000;
 				}
@@ -1515,7 +1529,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				maskOfData += MAMOS_NO;
 				break;
 			case MAMOS_SO2:
-				if (concentration>60000)
+				if (concentration > 60000)
 				{
 					concentration = 60000;
 				}
@@ -1524,7 +1538,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				maskOfData += MAMOS_SO2;
 				break;
 			case MAMOS_NO2:
-				if (concentration>60000)
+				if (concentration > 60000)
 				{
 					concentration = 60000;
 				}
@@ -1533,7 +1547,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				maskOfData += MAMOS_NO2;
 				break;
 			case MAMOS_CO2:
-				if (concentration>99.99)
+				if (concentration > 99.99)
 				{
 					concentration = 99.99;
 				}
@@ -1566,6 +1580,38 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 			con->Release();
 			return false;
 		}
+#endif
+	
+
+			json.insert(gMamosKey[realData->m_struct.channelNo], concentration);
+		
+		}
+		document.setObject(json);
+		QByteArray byte_array = document.toJson(QJsonDocument::Compact);
+		QString json_str(byte_array);
+		listDeviceData << json_str;
+
+		{
+			LOG_DEBUG() << QStringLiteral("旧协议_解析数据完成,开始入表>>>>>>>>>>>>>>>>>>>>>");
+
+			query.addBindValue(lstDeviceID);
+			query.addBindValue(lstCompanyName);
+			query.addBindValue(lstAddress);
+			query.addBindValue(lstLongitude);
+			query.addBindValue(lstLatitude);
+			query.addBindValue(listDeviceData);
+			query.addBindValue(lstTimestamp);
+			query.addBindValue(lstBoilerId);
+
+			ret = query.execBatch();
+			if (!ret) {
+				LOG_INFO() << "SQLQuery execBatch failed. error:" << con->pDB->lastError().text()
+					<< " sql:" << qstrSQL;
+				con->Release();
+				return false;
+			}
+		}
+		
 	}
 	else if(NEW_TYPE == flag)
 	{
@@ -2245,7 +2291,7 @@ void CDBHandleTask::run()
 			}
 			else if(NEW_TYPE == flag)
 			{
-				batchTableName = (QStringLiteral("test_%1")).
+				batchTableName = (QStringLiteral("DeviceData_%1")).
 					arg(QDateTime::currentDateTime().toString("yyyyMMdd"));
 			}
 
