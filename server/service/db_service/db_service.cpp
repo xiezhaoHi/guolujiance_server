@@ -1492,6 +1492,14 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				{
 					concentration = 0;
 				}
+				//新增:旧协议上传数据 过滤0x8000 数据
+				if (realData->m_struct.channelNo == MAMOS_CO2)
+				{
+					if (fabs(concentration - 327.68) < 0.000001 || fabs(concentration - 0x8000) < 0.000001)
+					{
+						concentration = 0;
+					}
+				}
 			}
 
 #ifdef OLD_TYPE_DB
