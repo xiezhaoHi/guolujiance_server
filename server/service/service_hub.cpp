@@ -80,13 +80,14 @@ bool CServiceHub::StartServices()
     }
 
     // 数据库服务
-	//20180129 新增 数据库连接 失败 等待半小时 继续重试
+	//20180129 新增 数据库连接 失败 等待3分钟 继续重试
+
 	while (1)
 	{
 		ret = CDBService::GetInstance()->StartInternalService();
 		if (0 != ret) {
 			//goto DESTROY_SERVICES;
-			Sleep(30 * 60 * 1000);
+			Sleep(3 * 60 * 1000);
 			continue;
 		}
 		else {
@@ -96,6 +97,7 @@ bool CServiceHub::StartServices()
 			break;
 		}
 	}
+
     // 业务处理服务
     ret = CBusinessHandleService::GetInstance()->StartInternalService();
     if (0 != ret) {

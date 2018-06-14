@@ -170,6 +170,7 @@ void CTcpSession::do_read_header_two()
 					.arg(socket_.remote_endpoint().address().to_string().c_str())
 					.arg(socket_.remote_endpoint().port()).arg(m_pMessageRead->ToString());
 				CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+				//do_read_frame_header();
 			}
 			else if (length > 0) {
 				do_read_body_two();
@@ -394,7 +395,8 @@ void CTcpSession::do_read_frame_header()
                     .arg(socket_.remote_endpoint().port());
 				//do_read_header();
                 CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
-            }
+				//do_read_frame_header();
+			}
         }
         else
         {

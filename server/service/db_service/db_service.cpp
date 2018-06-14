@@ -1479,6 +1479,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 		// 		json.insert("windows", true);
 
 		QJsonDocument document;
+		double doubleO2 = -1;
 		for (message_device_realtime_data_ptr realData : data->m_vectorData) {
 			if (realData->m_struct.channelNo != MAMOS_ID)
 			{
@@ -1499,6 +1500,23 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 					{
 						concentration = 0;
 					}
+				}
+				/*	日期:20180404
+				author:xiezhao
+				修改:全有家居 组装CO2数据
+				*/
+				//1.获取氧气值
+				if ("C595900C-687D-909D-B7BA-64A7A0032074" == data->qstrDeviceID
+					&&realData->m_struct.channelNo == MAMOS_O2)	//
+				{
+					doubleO2 = concentration;
+				}
+				//2.20-氧气值 为co2值 加判断 小于 1 为0
+				if ("C595900C-687D-909D-B7BA-64A7A0032074" == data->qstrDeviceID
+					&&realData->m_struct.channelNo == MAMOS_CO2 && doubleO2 >0)	//
+				{
+					concentration = 20 - doubleO2 ;
+					concentration = concentration < 1 ? 0 : concentration;
 				}
 			}
 
@@ -1589,9 +1607,17 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 			return false;
 		}
 #endif
-	
-
-			json.insert(gMamosKey[realData->m_struct.channelNo], concentration);
+			/*	日期:20180404
+				author:xiezhao
+				修改:全有家居 上传数据中 NO2 改成NOX
+				*/
+			if ("C595900C-687D-909D-B7BA-64A7A0032074" == data->qstrDeviceID 
+				&&realData->m_struct.channelNo == MAMOS_NO2)	//V_PPM_NOx
+			{
+				json.insert("V_PPM_NOx", concentration);
+			}
+			else
+				json.insert(gMamosKey[realData->m_struct.channelNo], concentration);
 		
 		}
 		document.setObject(json);
@@ -2354,7 +2380,7 @@ bool CDBService::GetDeviceDataByDeviceCode(const QString & deviceCode
 	QSqlQuery query(*(con->pDB));
 	//QString qstrSQL = QStringLiteral("SELECT ID FROM Rig_DeviceInfo WHERE Code = ?");
 	QString qstrSQL = QStringLiteral("SELECT ID,CreateDate,Longitude,Latitude FROM Device WHERE CreateDate in \
-(select MAX([CreateDate]) from [Device] where [Number] =?) ");
+(select MAX([CreateDate]) from [Device] where [Number] =?) and  [Number] =?");
 
 	if (!query.prepare(qstrSQL)) {
 		LOG_WARING() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
@@ -2364,7 +2390,7 @@ bool CDBService::GetDeviceDataByDeviceCode(const QString & deviceCode
 	}
 
 	query.bindValue(0, deviceCode);
-
+	query.bindValue(1, deviceCode);
 	if (!query.exec()) {
 		LOG_WARING() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
 			<< " sql:" << qstrSQL;
