@@ -1791,14 +1791,14 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			strLog += QString("[%1::%2]").arg(mapFlag[flagTemp])
 				.arg(dataTemp);
 			vec.push_back(std::make_shared<NEW_DEVICE_DATA>(flagTemp, dataTemp, mapFlag[flagTemp]));
-			if (configJD == flagTemp) //经度标识
-			{
-				floatJD = dataTemp;
-			}
-			if (configWD == flagTemp) //纬度
-			{
-				floatWD = dataTemp;
-			}
+		}
+		if (configJD == flagTemp) //经度标识
+		{
+			floatJD = dataTemp;
+		}
+		if (configWD == flagTemp) //纬度
+		{
+			floatWD = dataTemp;
 		}
 	}
 	
