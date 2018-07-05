@@ -169,8 +169,8 @@ void CTcpSession::do_read_header_two()
 				LOG_WARING() << QStringLiteral("消息头部数据无效,主动关闭连接. SESSION[%1:%2] HEADER[%3]")
 					.arg(socket_.remote_endpoint().address().to_string().c_str())
 					.arg(socket_.remote_endpoint().port()).arg(m_pMessageRead->ToString());
-				CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
-				//do_read_frame_header();
+				//CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+				do_read_frame_header();
 			}
 			else if (length > 0) {
 				do_read_body_two();
@@ -279,7 +279,7 @@ void CTcpSession::do_read_body_two()
 					.arg(socket_.remote_endpoint().address().to_string().c_str())
 					.arg(socket_.remote_endpoint().port())
 					.arg(m_pMessageRead->ToString());
-				CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+				//CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
 			}
 		}
 		else {
@@ -389,13 +389,13 @@ void CTcpSession::do_read_frame_header()
 			}
 			else {
                 // 帧头字符无效，关闭连接
-                LOG_WARING() << QStringLiteral("帧开始符[%1]无效,主动关闭连接. SESSION[%2:%3]")
+                LOG_WARING() << QStringLiteral("tcp_session[392]-帧开始符[%1]无效,主动关闭连接. SESSION[%2:%3]")
                     .arg(m_frameHeaderBuf)
                     .arg(socket_.remote_endpoint().address().to_string().c_str())
                     .arg(socket_.remote_endpoint().port());
 				//do_read_header();
-                CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
-				//do_read_frame_header();
+               // CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+				do_read_frame_header();
 			}
         }
         else
@@ -449,7 +449,8 @@ void CTcpSession::do_read_frame_tail()
 
 				LOG_DEBUG() << QStringLiteral("结尾数据为:%1,%2").arg(m_frameTailBuf[0]).arg(m_frameTailBuf[1]);
 
-                CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
+				do_read_frame_header();
+               // CBusinessHandleService::GetInstance()->HandleTcpSessionClosed(shared_from_this());
             }
         }
         else

@@ -127,8 +127,15 @@ db_con_ptr CDBService::GetDBConnection(E_DB_OPEN_FLAG flag)
     } else {
         return NULL;
     }
-
-    if (pCon && pCon->pDB->isOpen()) {
+	BOOL t1, t2;
+	
+	if (pCon && pCon->pDB)
+	{
+		t1 = pCon->pDB->isOpen();
+		t2 = pCon->pDB->isValid();
+	}
+	
+    if (pCon && pCon->pDB&& pCon->pDB->isOpen()) {
         // 数据库连接正常，直接返回原有数据库数据
     } else {
         if (pCon && pCon->pDB && !pCon->pDB->isOpen()) {// 数据库连接断开，需要重新连接
@@ -1061,6 +1068,7 @@ bool CDBService::IsExistTable(const QString & tableName)
         LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
             << " sql:"  << qstrSQL;
         con->Release();
+		con->CloseCon();
         return false;
     }
 
@@ -1069,6 +1077,7 @@ bool CDBService::IsExistTable(const QString & tableName)
         LOG_INFO() << "SQLQuery exec failed. error:" << con->pDB->lastError().text()
             << " sql:"  << qstrSQL;
         con->Release();
+		con->CloseCon();
         return false;
     }
 
@@ -1153,6 +1162,7 @@ bool CDBService::CreateDataTable(const QString & tableName, int flag )
         LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
             << " sql:"  << qstrSQL;
         con->Release();
+		con->CloseCon();
         return false;
     }
     if (!query.exec()) {
@@ -1462,6 +1472,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 		LOG_INFO() << "SQLQuery prepare failed. error:" << con->pDB->lastError().text()
 			<< " sql:" << qstrSQL;
 		con->Release();
+		con->CloseCon();
 		return false;
 	}
 
@@ -1642,6 +1653,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				LOG_INFO() << "SQLQuery execBatch failed. error:" << con->pDB->lastError().text()
 					<< " sql:" << qstrSQL;
 				con->Release();
+				con->CloseCon();
 				return false;
 			}
 		}
@@ -1734,6 +1746,7 @@ bool CDBService::InsertDataTable(const QString & tableName, T_DEVICE_DATA&  lst)
 				LOG_INFO() << "SQLQuery execBatch failed. error:" << con->pDB->lastError().text()
 					<< " sql:" << qstrSQL;
 				con->Release();
+				con->CloseCon();
 				return false;
 			}
 		}

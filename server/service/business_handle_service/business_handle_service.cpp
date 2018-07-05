@@ -1766,7 +1766,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	//配置有误
 	if (mapFlag.isEmpty() || configJD == -1 || configWD == -1)
 	{
-		LOG_DEBUG() << QString("上传数据失败,配置有误!");
+		LOG_DEBUG() << QStringLiteral("上传数据失败,配置有误!");
 		return -1;
 	}
 
@@ -1788,7 +1788,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 
 		if (mapFlag.contains(flagTemp)) //数据有效
 		{
-			strLog += QString("[%1::%2]").arg(mapFlag[flagTemp])
+			strLog += QStringLiteral("[%1::%2]").arg(mapFlag[flagTemp])
 				.arg(dataTemp);
 			vec.push_back(std::make_shared<NEW_DEVICE_DATA>(flagTemp, dataTemp, mapFlag[flagTemp]));
 		}
@@ -1820,7 +1820,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			, info);
 		if (!ret)
 		{
-			LOG_DEBUG() << QString("未找到[%1]设备的信息,不写入数据库!").arg(strID);
+			LOG_DEBUG() << QStringLiteral("未找到[%1]设备的信息,不写入数据库!").arg(strID) + strLog;
 			return -1;
 		}
 		m_strDeviceIDMap[strID] = info;
@@ -1876,7 +1876,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 		ret = CDBService::GetInstance()->UpdateDeviceInfo(m_strDeviceIDMap[strID]);
 		if (!ret)
 		{
-			LOG_DEBUG() << QString("数据插入Device失败!_%1").arg(strID);
+			LOG_DEBUG() << QStringLiteral("数据插入Device失败!_%1").arg(strID);
 			return -1;
 		}
 	}
@@ -1895,7 +1895,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 			ret = CDBService::GetInstance()->UpdateDeviceInfo(m_strDeviceIDMap[strID]);
 			if (!ret)
 			{
-				LOG_DEBUG() << QString("数据插入Device失败!_%1").arg(strID);
+				LOG_DEBUG() << QStringLiteral("数据插入Device失败!_%1").arg(strID);
 				return -1;
 			}
 		}	
@@ -1905,7 +1905,7 @@ int CBusinessHandleService::HandleDeviceUploadData(tcp_session_ptr session
 	 ret = CDBService::GetInstance()->DataQueuePushBack(qstrDeviceID, vec);
 	if (!ret)
 	{
-		LOG_DEBUG() << QString("数据插入失败!_%1").arg(strID);
+		LOG_DEBUG() << QStringLiteral("数据插入失败!_%1").arg(strID);
 		return -1;
 	}
 	LOG_DEBUG() << QStringLiteral("[[%1]-[%2]]设备批量上传数据{%3}!").arg(strID).arg(qstrDeviceID).arg(strLog);

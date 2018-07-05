@@ -19,7 +19,7 @@
 #include "structs/structs.h"
 #include "util/sync_cond_queue.h"
 #include<QVector>
-
+#include "service/log_service/log_service.h"
 // 数据库连接读写标识
 typedef enum _E_DB_OPEN_FLAG
 {
@@ -74,6 +74,14 @@ typedef struct _T_DB_CON
         QMutexLocker lock(&refLock);
         refCount--;
     }
+
+	//20180705 新增 关闭连接
+	void CloseCon()
+	{
+		pDB->close();
+		pDB = nullptr;
+		LOG_INFO() << QStringLiteral("发送错误,断开数据库连接,等待重连!");
+	}
 }T_DB_CON;
 
 typedef std::shared_ptr<T_DB_CON> db_con_ptr;
