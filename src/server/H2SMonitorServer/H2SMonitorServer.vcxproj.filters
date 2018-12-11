@@ -156,6 +156,9 @@
     <Filter Include="Source Files\registration">
       <UniqueIdentifier>{ebc33ea4-c45d-4408-8c40-54208e2852e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\service\db_service\mysql_db_service">
+      <UniqueIdentifier>{6409c917-77cd-4273-9f11-49454517beed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -440,6 +443,18 @@
     <ClCompile Include="windows_service_entry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mydatabase.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mydatabase.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\server\service\db_service\mydatabase.cpp">
+      <Filter>Source Files\service\db_service\mysql_db_service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\server\service\db_service\connectionpool.cpp">
+      <Filter>Source Files\service\db_service\mysql_db_service</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="h2smonitorserver.h">
@@ -682,6 +697,9 @@
     <CustomBuild Include="GeneratedFiles\ui_h2smonitorserver.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\..\server\service\db_service\mydatabase.h">
+      <Filter>Source Files\service\db_service\mysql_db_service</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Version.rc">
@@ -718,6 +736,9 @@
     </ClInclude>
     <ClInclude Include="windows_service_entry.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\server\service\db_service\connectionpool.h">
+      <Filter>Source Files\service\db_service\mysql_db_service</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -202,7 +202,9 @@
     <ClCompile Include="..\..\..\server\service\business_handle_service\business_model\rig.cpp" />
     <ClCompile Include="..\..\..\server\service\business_handle_service\business_model\user.cpp" />
     <ClCompile Include="..\..\..\server\service\configuration_service\configuration_service.cpp" />
+    <ClCompile Include="..\..\..\server\service\db_service\connectionpool.cpp" />
     <ClCompile Include="..\..\..\server\service\db_service\db_service.cpp" />
+    <ClCompile Include="..\..\..\server\service\db_service\mydatabase.cpp" />
     <ClCompile Include="..\..\..\server\service\log_service\log_service.cpp" />
     <ClCompile Include="..\..\..\server\service\service_hub.cpp" />
     <ClCompile Include="..\..\..\server\service\session_message_handler\message_handler_hub.cpp" />
@@ -263,6 +265,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_h2smonitorserver.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_mydatabase.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -329,6 +335,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_h2smonitorserver.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_mydatabase.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -2589,6 +2599,25 @@
     <ClInclude Include="..\..\..\cxxcommon\message\message_get_device_data_req.h" />
     <ClInclude Include="..\..\..\cxxcommon\message\message_heartbeat.h" />
     <ClInclude Include="..\..\..\cxxcommon\message\message_server_time_beijing.h" />
+    <CustomBuild Include="..\..\..\server\service\db_service\mydatabase.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -D_UNICODE "-I$(BOOSTDIR_1_58_0)\." "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)\..\..\..\server" "-I$(ProjectDir)\..\..\..\server\ui\tree_model" "-I$(ProjectDir)\..\..\..\cxxcommon" "-I.\..\..\..\cxxcommon\message" "-I$(QTDIR)\include\QtSql" "-I.\..\..\..\server\ui" "-I.\..\..\..\server\ui\form_log_viewer" "-I.\..\..\..\cxxcommon\util" "-I.\..\..\..\server\ui\table_model" "-I.\..\..\..\server\ui\tree_model"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -D_UNICODE "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)\..\..\..\server" "-I$(ProjectDir)\..\..\..\server\ui\tree_model" "-I$(BOOSTDIR_1_58_0)\." "-I$(ProjectDir)\..\..\..\cxxcommon" "-I.\..\..\..\cxxcommon\message" "-I$(QTDIR)\include\QtSql" "-I.\..\..\..\server\ui" "-I.\..\..\..\server\ui\form_log_viewer" "-I.\..\..\..\cxxcommon\util" "-I.\..\..\..\server\ui\table_model" "-I.\..\..\..\server\ui\tree_model" "-IF:\opencv\opencv\build\include" "-IF:\opencv\opencv\build\include\opencv" "-IF:\opencv\opencv\build\include\opencv2" "-I$(NOINHERIT)\."</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -D_UNICODE "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\server" "-I$(ProjectDir)\..\..\..\server\ui\tree_model" "-I$(BOOSTDIR_1_58_0)\." "-I.\..\..\..\cxxcommon\message" "-I$(QTDIR)\include\QtSql" "-I$(ProjectDir)\..\..\..\server\ui" "-I$(ProjectDir)\..\..\..\cxxcommon" "-I.\..\..\..\server\ui\form_log_viewer" "-I.\..\..\..\cxxcommon\util" "-I.\..\..\..\server\ui" "-I.\..\..\..\server\ui\table_model" "-I.\..\..\..\server\ui\tree_model"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -D_WIN32_WINNT=0x0501 -D_UNICODE "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-I$(ProjectDir)..\..\..\server" "-I$(ProjectDir)\..\..\..\server\ui\tree_model" "-I$(BOOSTDIR_1_58_0)\." "-I.\..\..\..\cxxcommon\message" "-I$(QTDIR)\include\QtSql" "-I$(ProjectDir)\..\..\..\server\ui" "-I$(ProjectDir)\..\..\..\cxxcommon" "-I.\..\..\..\server\ui\form_log_viewer" "-I.\..\..\..\cxxcommon\util" "-I.\..\..\..\server\ui" "-I.\..\..\..\server\ui\table_model" "-I.\..\..\..\server\ui\tree_model" "-IF:\opencv\opencv\build\include" "-IF:\opencv\opencv\build\include\opencv" "-IF:\opencv\opencv\build\include\opencv2" "-I$(NOINHERIT)\."</Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\server\service\db_service\connectionpool.h" />
     <ClInclude Include="windows_service_entry.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
