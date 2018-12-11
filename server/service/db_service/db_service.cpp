@@ -12,6 +12,7 @@
 #include <QThread>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include  "mydatabase.h"
 
 // 用户 SYS_User(F_LoginName, F_Pwd, F_PersonID)
 // 井队人员 Rig_RigPersonInfo(ID, RigID, )
@@ -87,12 +88,15 @@ void CDBService::DestroyInstance()
 
 int CDBService::StartInternalService()
 {
+#ifdef USEMYSQL
+
+#else
     db_con_ptr con = GetDBConnection(DB_CON_READONLY);
     if (!con) {
         return 1;
     }
     m_pDBConnectionForReadOnly = con;
-
+#endif
     // 启动专门插入采集数据的线程
     CTaskService::GetInstance()->CommitTask(new CDBHandleTask());
     return 0;
@@ -2308,6 +2312,7 @@ bool CDBService::GetDeviceHistoryData(const quint64 & begin, const quint64 & end
 // 	LOG_DEBUG() << "CDBHandleTask " << taskID << "exit";
 // }
 
+
 //新版处理
 void CDBHandleTask::run()
 {
@@ -2329,7 +2334,9 @@ void CDBHandleTask::run()
 // 			listData.clear();
 // 			listData.push_back(fontData);
 
-
+#ifdef USEMYSQL
+			MyDatabase::GetInstance()->InsertDataTable(QString(""), fontData);
+#else
 			QString batchTableName;
 			if (OLD_TYPE == flag) //老式表结构
 			{
@@ -2341,22 +2348,20 @@ void CDBHandleTask::run()
 				batchTableName = (QStringLiteral("DeviceData_%1")).
 					arg(QDateTime::currentDateTime().toString("yyyyMMdd"));
 			}
-
-		
-
-				bool ret = CDBService::GetInstance()->IsExistTable(batchTableName);
+			bool ret = CDBService::GetInstance()->IsExistTable(batchTableName);
+			if (!ret) {
+				ret = CDBService::GetInstance()->CreateDataTable(batchTableName,flag);
 				if (!ret) {
-					ret = CDBService::GetInstance()->CreateDataTable(batchTableName,flag);
-					if (!ret) {
-						break;// 建表失败
-					}
+					break;// 建表失败
 				}
+			}
 
-				// 批量插入数据
-				ret = CDBService::GetInstance()->InsertDataTable(batchTableName,
-					fontData);
-			
-				CDBService::GetInstance()->DataQueuePopFront();//弹出 首数据
+			// 批量插入数据
+			ret = CDBService::GetInstance()->InsertDataTable(batchTableName,
+				fontData);
+#endif
+
+			CDBService::GetInstance()->DataQueuePopFront();//弹出 首数据
 		}
 
 		CDBService::GetInstance()->m_dataQueue.Wait(1000);
@@ -2384,6 +2389,9 @@ bool CDBService::GetDeviceDataByDeviceCode(const QString & deviceCode
 
 	Q_ASSERT(deviceCode.length() > 0);
 
+#ifdef USEMYSQL
+	return MyDatabase::GetInstance()->GetDeviceDataByDeviceCode(deviceCode, deviceInfo);
+#else
 	db_con_ptr con = GetDBConnection(DB_CON_READONLY);
 	if (!con) {
 		return false;
@@ -2419,9 +2427,10 @@ bool CDBService::GetDeviceDataByDeviceCode(const QString & deviceCode
 		deviceInfo.m_strJD = query.value(2).toFloat();
 		deviceInfo.m_strWD = query.value(3).toFloat();
 	}
-
 	con->Release();
 	return ret;
+#endif
+	
 }
 
 

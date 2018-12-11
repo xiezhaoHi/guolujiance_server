@@ -20,6 +20,10 @@
 #include "util/sync_cond_queue.h"
 #include<QVector>
 #include "service/log_service/log_service.h"
+
+
+#define   USEMYSQL   //20181211 新增mysql 处理
+
 // 数据库连接读写标识
 typedef enum _E_DB_OPEN_FLAG
 {
